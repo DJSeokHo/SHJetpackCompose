@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.basic.model
+package com.swein.shjetpackcompose.googletutorial.i_basic.model
 
 object SampleData {
     // Sample conversation data

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
-            android:name=".googletutorial.basic.GTBasicActivity"
+            android:name=".googletutorial.i_basic.GTBasicActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasic"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar"
