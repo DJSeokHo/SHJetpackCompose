@@ -1,13 +1,13 @@
-package com.swein.shjetpackcompose.googletutorial.i_basic
+package com.swein.shjetpackcompose.googletutorial.i_basic_tutorial
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.googletutorial.i_basic.model.SampleData
-import com.swein.shjetpackcompose.googletutorial.i_basic.view.GTBasicView
+import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.SampleData
+import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view.GTBasicTutorialView
 
-class GTBasicActivity : ComponentActivity() {
+class GTBasicTutorialActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,7 @@ class GTBasicActivity : ComponentActivity() {
 //                    message = Message("Coding with cat", "Hey, subscribe to my channel\nAndroid tutorial step by step!")
 //                )
 
-                GTBasicView.Conversation(SampleData.conversationSample)
+                GTBasicTutorialView.Conversation(SampleData.conversationSample)
             }
         }
     }

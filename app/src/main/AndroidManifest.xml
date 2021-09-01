@@ -11,18 +11,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
-            android:name=".googletutorial.i_basic.GTBasicActivity"
+            android:name=".googletutorial.iv_basic.GTBasicActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasic"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar"
             android:launchMode="singleTask"
-            />
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
+            android:name=".googletutorial.i_basic_tutorial.GTBasicTutorialActivity"
+            android:exported="true"
+            android:label="@string/title_activity_gtbasictutorial"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

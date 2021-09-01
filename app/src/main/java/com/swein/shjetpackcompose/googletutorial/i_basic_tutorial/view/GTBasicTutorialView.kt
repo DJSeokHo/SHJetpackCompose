@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.i_basic.view
+package com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
@@ -22,11 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.googletutorial.i_basic.model.Message
-import com.swein.shjetpackcompose.googletutorial.i_basic.model.SampleData
-import com.swein.shjetpackcompose.googletutorial.i_basic.view.GTBasicView.Conversation
+import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.Message
+import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.SampleData
+import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view.GTBasicTutorialView.Conversation
 
-object GTBasicView {
+object GTBasicTutorialView {
 
     @Composable
     fun MessageCard(name: String) {
@@ -127,7 +127,7 @@ fun PreviewConversation() {
 @Preview
 @Composable
 private fun MessageCardPreview() {
-    GTBasicView.MessageCard("Seok Ho")
+    GTBasicTutorialView.MessageCard("Seok Ho")
 }
 
 @Preview(
@@ -138,7 +138,7 @@ private fun MessageCardPreview() {
 @Composable
 private fun MessageObjectCardPreview() {
     SHJetpackComposeTheme {
-        GTBasicView.MessageCard(
+        GTBasicTutorialView.MessageCard(
             message = Message("Coding with cat", "Hey, subscribe to my channel\nAndroid tutorial step by step!")
         )
     }
