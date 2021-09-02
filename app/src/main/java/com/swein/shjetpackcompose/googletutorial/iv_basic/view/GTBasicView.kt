@@ -27,10 +27,16 @@ object GTBasicView {
 
     @Composable
     fun Content() {
-//        Greeting(name = "Coding with cat")
+        
+        SHJetpackComposeTheme {
+
+            //        Greeting(name = "Coding with cat")
 //        Greetings()
 //        Greetings(listOf("Coding", "with", "cat"))
-        FilledContent(listOf("Coding", "with", "cat"))
+            FilledContent(listOf("Coding", "with", "cat"))
+
+        }
+
     }
 
     @Composable
