@@ -1,6 +1,7 @@
 package com.swein.shjetpackcompose.googletutorial.iv_basic.view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
@@ -28,7 +29,38 @@ object GTBasicView {
     fun Content() {
 //        Greeting(name = "Coding with cat")
 //        Greetings()
-        Greetings(listOf("Coding", "with", "cat"))
+//        Greetings(listOf("Coding", "with", "cat"))
+        FilledContent(listOf("Coding", "with", "cat"))
+    }
+
+    @Composable
+    fun FilledContent(list: List<String> = emptyList()) {
+
+        Surface(color = Color.Yellow) {
+
+            Column(modifier = Modifier.fillMaxHeight()) {
+
+                Column(modifier = Modifier.weight(1f)) {
+
+                    if (list.isEmpty()) {
+                        Greeting("Android")
+                        Divider(color = Color.Black)
+                        Greeting("there")
+                    }
+                    else {
+                        for (item in list) {
+                            Greeting(item)
+                            Divider(color = Color.Black)
+                        }
+                    }
+
+                }
+
+                CounterWithStateHoisting()
+            }
+
+        }
+
     }
 
     @Composable
