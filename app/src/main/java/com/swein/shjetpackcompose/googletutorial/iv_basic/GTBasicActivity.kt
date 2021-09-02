@@ -9,17 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.googletutorial.CommonView
+import com.swein.shjetpackcompose.googletutorial.iv_basic.view.GTBasicView
 
 class GTBasicActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            SHJetpackComposeTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(color = MaterialTheme.colors.background) {
-//
-//                }
-//            }
+            GTBasicView.Content()
         }
     }
+
 }
