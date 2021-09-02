@@ -2,11 +2,11 @@ package com.swein.shjetpackcompose.googletutorial.iv_basic.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Divider
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,13 +30,157 @@ object GTBasicView {
         
         SHJetpackComposeTheme {
 
-            //        Greeting(name = "Coding with cat")
-//        Greetings()
-//        Greetings(listOf("Coding", "with", "cat"))
-            FilledContent(listOf("Coding", "with", "cat"))
+//            SingleTextExample()
+//            TextColumnExample()
+//            TextColumnWithListExample(listOf("Coding", "with", "cat"))
+//            FullScreenColumnWithCounterExample(listOf("Coding", "with", "cat"))
+
+//            val count = remember {
+//                mutableStateOf(0)
+//            }
+//            ButtonWithStateHoistingExample(count.value) {
+//                count.value++
+//            }
+
+            FullScreenLazyColumnWithCounterExample()
+        }
+    }
+
+    @Composable
+    fun FullScreenLazyColumnWithCounterExample(list: List<String> = List(1000) { "item index $it" }, modifier: Modifier = Modifier) {
+
+        Surface(color = Color.Cyan) {
+
+            Column(modifier = modifier.fillMaxHeight()) {
+
+                LazyColumn(modifier = modifier.weight(1f)) {
+
+                    items(items = list) { item ->
+
+                        Text(text = "item index $item", modifier = modifier.padding(16.dp))
+                        Divider(color = Color.LightGray)
+                    }
+
+                }
+
+                val count = remember {
+                    mutableStateOf(0)
+                }
+                Button(onClick = {
+                    count.value++
+                }) {
+                    Text(text = "Button ${count.value}")
+                }
+
+            }
 
         }
+    }
 
+    @Composable
+    fun ButtonWithStateHoistingExample(value: Int, onButtonClick: () -> Unit) {
+
+        Surface(color = Color.Yellow) {
+            Button(onClick = onButtonClick, modifier = Modifier.padding(16.dp)) {
+                Text(text = "Button $value")
+            }
+        }
+
+    }
+
+    @Composable
+    fun FullScreenColumnWithCounterExample(list: List<String>, modifier: Modifier = Modifier) {
+
+        val count = remember {
+            mutableStateOf(0)
+        }
+
+        Surface(color = Color.Cyan) {
+            
+            Column(modifier = modifier.fillMaxHeight()) {
+
+                Column(modifier = modifier.weight(1f)) {
+
+                    for (item in list) {
+                        Text(text = item, modifier = modifier.padding(16.dp))
+                        Divider(color = Color.DarkGray)
+                    }
+
+                }
+
+                Button(
+                    onClick = {
+                        count.value++
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (count.value > 5) Color.Green else Color.White
+                    )
+                ) {
+                    Text(text = "click ${count.value} times")
+                }
+            }
+            
+        }
+    }
+
+    @Composable
+    fun TextColumnWithListExample(list: List<String>, modifier: Modifier = Modifier) {
+
+        Surface(color = Color.Yellow) {
+            Column {
+                for (item in list) {
+                    Text(text = item, modifier = modifier.padding(16.dp))
+                    Divider(color = Color.DarkGray)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun TextColumnExample() {
+
+        Surface(color = Color.Yellow) {
+            Column {
+                Text(text = "Coding", modifier = Modifier.padding(16.dp))
+                Divider(color = Color.LightGray)
+                Text(text = "with", modifier = Modifier.padding(16.dp))
+                Divider(color = Color.LightGray)
+                Text(text = "cat", modifier = Modifier.padding(16.dp))
+                Divider(color = Color.LightGray)
+                SingleTextExample()
+            }
+        }
+
+    }
+
+    @Composable
+    fun SingleTextExample() {
+
+        Surface(color = Color.Yellow) {
+            Text (text = "Hello, Coding with cat", modifier = Modifier.padding(24.dp))
+        }
+
+    }
+
+
+
+    @Composable
+    fun GoogleExample() {
+//        Greeting(name = "Coding with cat")
+//        Greetings()
+//        Greetings(listOf("Coding", "with", "cat"))
+//        FilledContent(listOf("Coding", "with", "cat"))
+//        FilledContent(List(1000) { "Hello Android #$it" })
+    }
+
+    @Composable
+    fun NameList(list: List<String>, modifier: Modifier = Modifier) {
+        LazyColumn(modifier = modifier) {
+            items(items = list) { item ->
+                Greeting(name = item)
+                Divider(color = Color.Black)
+            }
+        }
     }
 
     @Composable
@@ -46,21 +190,27 @@ object GTBasicView {
 
             Column(modifier = Modifier.fillMaxHeight()) {
 
-                Column(modifier = Modifier.weight(1f)) {
-
-                    if (list.isEmpty()) {
-                        Greeting("Android")
-                        Divider(color = Color.Black)
-                        Greeting("there")
-                    }
-                    else {
-                        for (item in list) {
-                            Greeting(item)
-                            Divider(color = Color.Black)
-                        }
-                    }
-
+                if (list.size > 3) {
+                    NameList(list = list, Modifier.weight(1f))
                 }
+                else {
+                    Column(modifier = Modifier.weight(1f)) {
+
+                        if (list.isEmpty()) {
+                            Greeting("Android")
+                            Divider(color = Color.Black)
+                            Greeting("there")
+                        }
+                        else {
+                            for (item in list) {
+                                Greeting(item)
+                                Divider(color = Color.Black)
+                            }
+                        }
+
+                    } 
+                }
+                
 
                 CounterWithStateHoisting()
             }
@@ -111,21 +261,30 @@ object GTBasicView {
         }
     }
     @Composable
-    fun CounterOne(value: Int, onButtonClick: () -> Unit) {
-        Button(onClick = onButtonClick) {
+    fun CounterOne(value: Int, onButtonClick: () -> Unit) =
+        Button(
+            onClick = onButtonClick,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (value > 5) Color.Green else Color.White
+            )
+        ) {
             ILog.debug(TAG, "recompose $value")
             Text("I've been clicked $value times")
         }
-    }
+
     @Composable
-    fun CounterTwo(value: Int, onUpdateValue: (Int) -> Unit) {
-        Button(onClick = {
-            onUpdateValue(value + 1)
-        }) {
+    fun CounterTwo(value: Int, onUpdateValue: (Int) -> Unit) =
+        Button(
+            onClick = {
+                onUpdateValue(value + 1)
+            },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (value > 5) Color.Green else Color.White
+            )
+        ) {
             ILog.debug(TAG, "recompose $value")
             Text("I've been clicked $value times")
         }
-    }
 
     @Composable
     fun CounterWithInnerState() {
@@ -153,15 +312,15 @@ object GTBasicView {
     }
 
     @Composable
-    fun Greeting(name: String) {
+    fun Greeting(name: String) =
         Surface(color = Color.Yellow) {
             Text (text = "Hello $name", modifier = Modifier.padding(24.dp))
         }
-    }
+
 }
 
 @Preview(showBackground = true, name = "Text preview")
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     GTBasicView.Content()
 }
