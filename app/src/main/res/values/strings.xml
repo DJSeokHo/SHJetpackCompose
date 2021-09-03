@@ -3,4 +3,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_gtbasic">GTBasicActivity</string>
     <string name="title_activity_gtbasictutorial">GTBasicTutorialActivity</string>
+    <string name="title_activity_gtlayout">GTLayoutActivity</string>
 </resources>

@@ -31,7 +31,7 @@ object GTBasicView {
     private const val TAG = "GTBasicView"
 
     @Composable
-    fun Content() {
+    fun ContentView() {
         
         SHJetpackComposeTheme {
 
@@ -142,8 +142,8 @@ object GTBasicView {
 
 }
 
-@Preview(showBackground = true, name = "Text preview")
+@Preview(showBackground = true, name = "basic")
 @Composable
-private fun DefaultPreview() {
-    GTBasicView.Content()
+private fun DefaultGTBasic() {
+    GTBasicView.ContentView()
 }

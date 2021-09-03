@@ -17,7 +17,7 @@ class GTBasicActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            GTBasicView.Content()
+            GTBasicView.ContentView()
         }
     }
 

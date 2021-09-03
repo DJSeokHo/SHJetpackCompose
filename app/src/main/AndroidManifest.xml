@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swein.shjetpackcompose">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.AppDelegate"
         android:allowBackup="true"
@@ -10,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
+        <activity
+            android:name=".googletutorial.vi_layout.GTLayoutActivity"
+            android:exported="true"
+            android:label="@string/title_activity_gtlayout"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
             android:name=".googletutorial.iv_basic.GTBasicActivity"
             android:exported="true"

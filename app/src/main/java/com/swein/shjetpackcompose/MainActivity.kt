@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.GTBasicTutorialActivity
 import com.swein.shjetpackcompose.googletutorial.iv_basic.GTBasicActivity
+import com.swein.shjetpackcompose.googletutorial.vi_layout.GTLayoutActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, GTBasicActivity::class.java).apply {
+//        Intent(this, GTBasicActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, GTLayoutActivity::class.java).apply {
             startActivity(this)
         }
     }
