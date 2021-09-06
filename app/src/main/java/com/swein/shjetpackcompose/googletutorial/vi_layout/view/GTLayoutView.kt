@@ -21,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.googletutorial.vi_layout.view.constraint_layout.GTLayoutConstraintLayoutView
+import com.swein.shjetpackcompose.googletutorial.vi_layout.view.custom.GTLayoutCustomView
 
 object GTLayoutView {
 
@@ -30,6 +32,21 @@ object GTLayoutView {
     fun ContentView() {
 
         ActivityContainer {
+
+//            GTLayoutConstraintLayoutView.ConstraintLayoutView()
+//            GTLayoutConstraintLayoutView.ConstraintLayoutViewTwo()
+//            GTLayoutConstraintLayoutView.LargeConstraintLayout()
+//            GTLayoutConstraintLayoutView.DecoupledConstraintLayout()
+            GTLayoutConstraintLayoutView.TwoTexts(text1 = "Hello", text2 = "Coding with cat")
+
+//            GTLayoutCustomView.BodyContent()
+
+//            GTLayoutCustomView.MyOwnColumn(Modifier.padding(8.dp)) {
+//                Text("MyOwnColumn")
+//                Text("places items")
+//                Text("vertically.")
+//                Text("We've done it by hand!")
+//            }
 
 //            PhotographerCard(it)
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 
@@ -120,8 +121,8 @@ object GTLayoutScrollingListView {
     }
 }
 
-@Preview(showBackground = true, name = "layout scrolling list")
+@Preview(showBackground = true, name = "layout scrolling list view")
 @Composable
-fun DefaultGTLayoutScrollingList() {
+fun DefaultGTLayoutScrollingListView() {
     GTLayoutScrollingListView.ScrollingList()
 }
