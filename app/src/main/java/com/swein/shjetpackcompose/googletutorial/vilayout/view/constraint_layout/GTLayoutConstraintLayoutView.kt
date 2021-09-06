@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.vi_layout.view.constraint_layout
+package com.swein.shjetpackcompose.googletutorial.vilayout.view.constraint_layout
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button

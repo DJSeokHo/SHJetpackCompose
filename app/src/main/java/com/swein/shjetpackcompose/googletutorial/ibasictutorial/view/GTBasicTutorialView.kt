@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view
+package com.swein.shjetpackcompose.googletutorial.ibasictutorial.view
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
@@ -22,9 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.Message
-import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.SampleData
-import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view.GTBasicTutorialView.Conversation
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.model.Message
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.model.SampleData
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.view.GTBasicTutorialView.Conversation
 
 object GTBasicTutorialView {
 

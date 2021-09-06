@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.vi_layout.view
+package com.swein.shjetpackcompose.googletutorial.vilayout.view
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -21,8 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.googletutorial.vi_layout.view.constraint_layout.GTLayoutConstraintLayoutView
-import com.swein.shjetpackcompose.googletutorial.vi_layout.view.custom.GTLayoutCustomView
+import com.swein.shjetpackcompose.googletutorial.vilayout.view.constraint_layout.GTLayoutConstraintLayoutView
 
 object GTLayoutView {
 

@@ -1,11 +1,11 @@
-package com.swein.shjetpackcompose.googletutorial.i_basic_tutorial
+package com.swein.shjetpackcompose.googletutorial.ibasictutorial
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.model.SampleData
-import com.swein.shjetpackcompose.googletutorial.i_basic_tutorial.view.GTBasicTutorialView
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.model.SampleData
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.view.GTBasicTutorialView
 
 class GTBasicTutorialActivity : ComponentActivity() {
 

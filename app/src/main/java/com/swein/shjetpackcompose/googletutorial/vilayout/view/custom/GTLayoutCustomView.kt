@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.googletutorial.vi_layout.view.custom
+package com.swein.shjetpackcompose.googletutorial.vilayout.view.custom
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

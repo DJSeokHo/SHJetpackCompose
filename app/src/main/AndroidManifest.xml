@@ -13,18 +13,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
-            android:name=".googletutorial.vi_layout.GTLayoutActivity"
+            android:name=".examples.todonote.edit.EditToDoItemActivity"
+            android:exported="true"
+            android:label="@string/title_activity_edit_to_do_item"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
+            android:name=".examples.todonote.ToDoNoteActivity"
+            android:exported="true"
+            android:label="@string/title_activity_to_do_note"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
+            android:name=".examples.loginscreen.LoginScreenOneActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login_screen_one"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
+            android:name=".googletutorial.vilayout.GTLayoutActivity"
             android:exported="true"
             android:label="@string/title_activity_gtlayout"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
-            android:name=".googletutorial.iv_basic.GTBasicActivity"
+            android:name=".googletutorial.ivbasic.GTBasicActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasic"
             android:launchMode="singleTask"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
-            android:name=".googletutorial.i_basic_tutorial.GTBasicTutorialActivity"
+            android:name=".googletutorial.ibasictutorial.GTBasicTutorialActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasictutorial"
             android:launchMode="singleTask"
