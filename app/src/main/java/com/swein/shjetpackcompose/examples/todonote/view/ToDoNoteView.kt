@@ -9,12 +9,18 @@ import androidx.compose.ui.tooling.preview.Preview
 object ToDoNoteView {
 
     @Composable
-    fun ActivityContentView(contentView: @Composable (modifier: Modifier) -> Unit) {
+    fun ActivityContentView() {
 
         Scaffold { innerPadding ->
-            contentView(Modifier.padding(innerPadding))
+            ContentView(Modifier.padding(innerPadding))
         }
     }
+
+    @Composable
+    private fun ContentView(modifier: Modifier) {
+
+    }
+
 }
 
 @Preview(showBackground = true, name = "todo note view")
@@ -23,7 +29,5 @@ fun ToDoNoteViewPreview() {
 //    SHJetpackComposeTheme {
 //    }
 
-    ToDoNoteView.ActivityContentView { _ ->
-
-    }
+    ToDoNoteView.ActivityContentView()
 }

@@ -8,6 +8,7 @@ import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.todonote.view.ToDoNoteView
 
 class ToDoNoteActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -15,11 +16,7 @@ class ToDoNoteActivity : ComponentActivity() {
         ThemeUtility.setSystemBarTheme(this, true)
 
         setContent {
-
-            ToDoNoteView.ActivityContentView { _ ->
-
-            }
-
+            ToDoNoteView.ActivityContentView()
         }
     }
 }

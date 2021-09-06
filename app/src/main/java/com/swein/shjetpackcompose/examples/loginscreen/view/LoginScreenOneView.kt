@@ -9,14 +9,17 @@ import androidx.compose.ui.tooling.preview.Preview
 object LoginScreenOneView {
 
     @Composable
-    fun ActivityContentView(contentView: @Composable (modifier: Modifier) -> Unit) {
+    fun ActivityContentView() {
 
         Scaffold { innerPadding ->
-            contentView(Modifier.padding(innerPadding))
+            ContentView(Modifier.padding(innerPadding))
         }
     }
 
+    @Composable
+    private fun ContentView(modifier: Modifier) {
 
+    }
 
 }
 
@@ -27,7 +30,5 @@ fun LoginScreenOneViewPreview() {
 //    SHJetpackComposeTheme {
 //    }
 
-    LoginScreenOneView.ActivityContentView { _ ->
-
-    }
+    LoginScreenOneView.ActivityContentView()
 }
