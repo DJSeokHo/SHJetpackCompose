@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.examples.todonote.ToDoNoteActivity
+import com.swein.shjetpackcompose.examples.todonote.main.ToDoNoteActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

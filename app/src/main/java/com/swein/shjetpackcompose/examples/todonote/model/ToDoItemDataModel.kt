@@ -9,6 +9,6 @@ data class ToDoItemDataModel(
     val createDate: String = "",
     val modifyDate: String = "",
     val isImportant: Boolean = false,
-    val isEmergent: Boolean = false,
+    val isUrgent: Boolean = false,
     val finished: Boolean = false
 )

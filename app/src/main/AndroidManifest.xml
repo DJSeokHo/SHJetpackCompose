@@ -18,7 +18,7 @@
             android:label="@string/title_activity_edit_to_do_item"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
-            android:name=".examples.todonote.ToDoNoteActivity"
+            android:name=".examples.todonote.main.ToDoNoteActivity"
             android:exported="true"
             android:label="@string/title_activity_to_do_note"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
