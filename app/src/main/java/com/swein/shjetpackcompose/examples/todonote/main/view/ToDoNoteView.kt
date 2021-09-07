@@ -4,13 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
@@ -24,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil.compose.rememberImagePainter
-import com.swein.framework.utility.debug.ILog
+import coil.request.CachePolicy
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.todonote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.todonote.model.ToDoItemDataModel
@@ -52,28 +50,29 @@ object ToDoNoteView {
             Column(modifier = modifier.fillMaxSize()) {
 
                 // custom tool bar
-//                CommonView.CustomToolBar(endImageResource = R.mipmap.ti_plus) {
-//
+                CommonView.CustomToolBar(endImageResource = R.mipmap.ti_plus) {
 
-//                }
-
-                ListItemView()
-
+                }
             }
+
+            CommonView.Progress()
 
         }
 
     }
+
 
     @Composable
     private fun ListView() {
 
     }
 
+
     @Composable
     private fun ListItemView(
-        modifier: Modifier = Modifier//,
-//        toDoItemDataModel: ToDoItemDataModel
+        modifier: Modifier = Modifier,
+        toDoItemDataModel: ToDoItemDataModel,
+        onItemClick: (toDoItemDataModel: ToDoItemDataModel) -> Unit
     ) {
 
         Surface(
@@ -91,7 +90,7 @@ object ToDoNoteView {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .clickable {
-
+                        onItemClick(toDoItemDataModel)
                     }
                     .padding(8.dp),
             ) {
@@ -105,7 +104,12 @@ object ToDoNoteView {
                     // Image area
                     Image(
                         painter = rememberImagePainter(
-                            data = "https://developer.android.com/images/brand/Android_Robot.png"
+                            data = toDoItemDataModel.contentImage,
+                            builder = {
+                                crossfade(true)
+                                placeholder(R.drawable.coding_with_cat_icon)
+                                memoryCachePolicy(CachePolicy.DISABLED)
+                            }
                         ),
                         contentDescription = "Android Logo",
                         modifier = Modifier.size(60.dp),
@@ -122,7 +126,7 @@ object ToDoNoteView {
                 ) {
 
                     Text(
-                        text = "title",
+                        text = toDoItemDataModel.title,
                         color = colorResource(id = R.color.c111111),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -132,7 +136,7 @@ object ToDoNoteView {
                     )
 
                     Text(
-                        text = "contenttitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitle",
+                        text = toDoItemDataModel.content,
                         color = colorResource(id = R.color.c666666),
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -141,7 +145,7 @@ object ToDoNoteView {
                     )
 
                     Text(
-                        text = "0000-00-00 00:00:00",
+                        text = toDoItemDataModel.createDate,
                         color = colorResource(id = R.color.c999999),
                         fontSize = 10.sp,
                         maxLines = 1,
@@ -152,35 +156,42 @@ object ToDoNoteView {
                         modifier = modifier.layoutId("state")
                     ) {
 
-                        Image(
-                            painter = painterResource(id = R.mipmap.ti_finished),
-                            contentDescription = "",
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier.padding(end = 4.dp).size(16.dp)
-                        )
+                        if (toDoItemDataModel.isFinished) {
+                            Image(
+                                painter = painterResource(id = R.mipmap.ti_finished),
+                                contentDescription = "",
+                                contentScale = ContentScale.Fit,
+                                modifier = modifier
+                                    .padding(end = 4.dp)
+                                    .size(16.dp)
+                            )
+                        }
 
-                        Image(
-                            painter = painterResource(id = R.mipmap.ti_important),
-                            contentDescription = "",
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier.padding(end = 4.dp).size(16.dp)
-                        )
+                        if (toDoItemDataModel.isImportant) {
+                            Image(
+                                painter = painterResource(id = R.mipmap.ti_important),
+                                contentDescription = "",
+                                contentScale = ContentScale.Fit,
+                                modifier = modifier
+                                    .padding(end = 4.dp)
+                                    .size(16.dp)
+                            )
+                        }
 
-                        Image(
-                            painter = painterResource(id = R.mipmap.ti_urgent),
-                            contentDescription = "",
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier.padding(end = 4.dp).size(16.dp)
-                        )
-
+                        if (toDoItemDataModel.isUrgent) {
+                            Image(
+                                painter = painterResource(id = R.mipmap.ti_urgent),
+                                contentDescription = "",
+                                contentScale = ContentScale.Fit,
+                                modifier = modifier
+                                    .padding(end = 4.dp)
+                                    .size(16.dp)
+                            )
+                        }
                     }
-
                 }
-
             }
-
         }
-
     }
 
     private fun listItemConstraintSet(): ConstraintSet {
@@ -213,6 +224,8 @@ object ToDoNoteView {
 
         }
     }
+
+
 }
 
 @Preview(showBackground = true, name = "todo note view")

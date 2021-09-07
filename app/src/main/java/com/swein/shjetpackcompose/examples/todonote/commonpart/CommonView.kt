@@ -4,9 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -122,6 +124,26 @@ object CommonView {
                 end.linkTo(parent.end, margin = 10.dp)
             }
 
+        }
+    }
+
+
+    @Composable
+    fun Progress(active: Boolean = true) {
+
+        if (active) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = colorResource(id = R.color.black_30_transparent)
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = colorResource(id = R.color.basic_color_2022)
+                    )
+                }
+            }
         }
     }
 
