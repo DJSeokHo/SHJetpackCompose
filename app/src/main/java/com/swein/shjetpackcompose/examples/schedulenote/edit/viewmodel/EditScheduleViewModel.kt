@@ -34,14 +34,14 @@ class EditScheduleViewModel: ViewModel() {
 
         jsonObject?.let {
 
-            uuid.value = scheduleViewModel!!.uuid
-            title.value = scheduleViewModel!!.title
-            content.value = scheduleViewModel!!.content
-            contentImage.value = scheduleViewModel!!,
-            createDate.value = scheduleViewModel!!
-            isImportant.value = scheduleViewModel!!
-            isUrgent.value = scheduleViewModel!!
-            isFinished.value = scheduleViewModel!!
+//            uuid.value = scheduleViewModel!!.uuid
+//            title.value = scheduleViewModel!!.title
+//            content.value = scheduleViewModel!!.content
+//            contentImage.value = scheduleViewModel!!,
+//            createDate.value = scheduleViewModel!!
+//            isImportant.value = scheduleViewModel!!
+//            isUrgent.value = scheduleViewModel!!
+//            isFinished.value = scheduleViewModel!!
 
         }
 
