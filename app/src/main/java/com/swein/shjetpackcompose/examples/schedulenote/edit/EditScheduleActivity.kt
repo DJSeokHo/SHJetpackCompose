@@ -14,9 +14,7 @@ import kotlinx.coroutines.launch
 
 class EditScheduleActivity : ComponentActivity() {
 
-    private val viewModel: EditScheduleViewModel by viewModels()
-
-
+    private val viewModel by viewModels<EditScheduleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,49 +22,10 @@ class EditScheduleActivity : ComponentActivity() {
         ThemeUtility.setWindowStatusBarColor(this, getColor(R.color.basic_color_2022))
         ThemeUtility.setSystemBarTheme(this, true)
 
+        viewModel.initWithJSONObject()
+
         setContent {
             EditToDoItemView.ActivityContentView(viewModel)
         }
-
-        initFlow()
-    }
-
-    private fun initFlow() {
-
-        lifecycleScope.launch {
-
-//            viewModel.homeViewModelState.collect {
-//
-//                when (it) {
-//                    is HomeViewModelState.Loading -> {
-//                        showProgress()
-//                    }
-//
-//                    is HomeViewModelState.Reload -> {
-//
-//                        recyclerView.post {
-//                            adapter.reload(it.list, it.topList)
-//                        }
-//                        hideProgress()
-//                    }
-//
-//                    is HomeViewModelState.LoadMore -> {
-//                        recyclerView.post {
-//                            adapter.loadMore(it.list)
-//                        }
-//                        hideProgress()
-//                    }
-//
-//                    is HomeViewModelState.Error -> {
-//                        ILog.debug(TAG, Thread.currentThread().name)
-//                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-//                        hideProgress()
-//                    }
-//
-//                    else -> Unit
-//                }
-//            }
-        }
-
     }
 }

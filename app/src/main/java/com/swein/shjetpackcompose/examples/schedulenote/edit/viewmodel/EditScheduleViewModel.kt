@@ -1,90 +1,53 @@
 package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-
-sealed class EditScheduleViewModelState {
-
-    data class Reload(val list: List<ScheduleDataModel>): EditScheduleViewModelState()
-    data class LoadMore(val list: List<ScheduleDataModel>): EditScheduleViewModelState()
-    data class Error(val message: String?): EditScheduleViewModelState()
-    object None: EditScheduleViewModelState()
-    object Loading: EditScheduleViewModelState()
-}
+import org.json.JSONObject
 
 class EditScheduleViewModel: ViewModel() {
 
     companion object {
-        private const val LIMIT = 20
+        private const val TAG = "EditScheduleViewModel"
     }
 
-    private val _editScheduleViewModelState = MutableStateFlow<EditScheduleViewModelState>(EditScheduleViewModelState.None)
-    val editScheduleViewModelState: StateFlow<EditScheduleViewModelState> = _editScheduleViewModelState
+    var uuid = mutableStateOf("")
+        private set
 
-    val scheduleTitle = MutableStateFlow("")
+    var title = mutableStateOf("")
 
-    fun reload(
-        offset: Int = 0,
-        size: Int = LIMIT
-    ) = viewModelScope.launch {
+    var content = mutableStateOf("")
 
-//        _scheduleListViewModelState.value = ScheduleListViewModelState.Loading
+    var contentImage = mutableStateOf("")
 
-        try {
-            coroutineScope {
+    var createDate = mutableStateOf("")
+        private set
 
-                val liveListResult = async {
-//                    LiveListService.mainList(fieldName, keyWord, levKey, catKey, orderBy, offset, size)
-                }
+    var isImportant = mutableStateOf(false)
 
-                val resultLiveList = liveListResult.await()
+    var isUrgent = mutableStateOf(false)
 
-//                _liveListViewModelState.value = ToDoViewModelState.Reload(resultLiveList)
+    var isFinished = mutableStateOf(false)
 
-            }
-        }
-        catch (e: Exception) {
-//            _scheduleListViewModelState.value = ScheduleListViewModelState.Error(e.message)
-        }
+    fun initWithJSONObject(jsonObject: JSONObject? = null) {
 
-    }
+        jsonObject?.let {
 
-    fun loadMore(
-        offset: Int = 0,
-        size: Int = LIMIT
-    ) = viewModelScope.launch {
+            uuid.value = scheduleViewModel!!.uuid
+            title.value = scheduleViewModel!!.title
+            content.value = scheduleViewModel!!.content
+            contentImage.value = scheduleViewModel!!,
+            createDate.value = scheduleViewModel!!
+            isImportant.value = scheduleViewModel!!
+            isUrgent.value = scheduleViewModel!!
+            isFinished.value = scheduleViewModel!!
 
-//        _scheduleListViewModelState.value = ScheduleListViewModelState.Loading
-
-        try {
-            coroutineScope {
-                val liveListResult = async {
-//                    LiveListService.mainList(fieldName, keyWord, levKey, catKey, orderBy, offset, size)
-                }
-
-                val resultLiveList = liveListResult.await()
-
-//                _liveListViewModelState.value = ToDoViewModelState.LoadMore(resultLiveList)
-            }
-        }
-        catch (e: Exception) {
-//            _scheduleListViewModelState.value = ScheduleListViewModelState.Error(e.message)
         }
 
     }
 
-    fun update() = viewModelScope.launch {
+    fun onSave() {
 
     }
-
-    fun delete() = viewModelScope.launch {
-
-    }
-
 }

@@ -16,23 +16,31 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
 
 object EditToDoItemView {
 
+    private const val TAG = "EditToDoItemView"
+
     @Composable
     fun ActivityContentView(viewModel: EditScheduleViewModel) {
 
         Scaffold { // innerPadding ->
 //            ContentView(Modifier.padding(innerPadding))
-            ContentView(viewModel = viewModel)
+            ContentView(title = viewModel.title.value, onTitleChange = { title ->
+                ILog.debug(TAG, "onTitleChange $title")
+                viewModel.title.value = title
+            })
         }
     }
 
     @Composable
-    private fun ContentView(modifier: Modifier = Modifier, viewModel: EditScheduleViewModel) {
+    private fun ContentView(modifier: Modifier = Modifier,
+                            title: String, onTitleChange: (String) -> Unit) {
+
 
         Box(
             modifier = modifier.fillMaxSize()
@@ -43,7 +51,7 @@ object EditToDoItemView {
                 // custom tool bar
                 ToolBar()
 
-                InputPart(title = viewModel.scheduleTitle.value)
+                InputPart(title = title, onTitleChange = onTitleChange)
                 
             }
 
@@ -69,19 +77,22 @@ object EditToDoItemView {
     }
     
     @Composable
-    fun InputPart(modifier: Modifier = Modifier, viewModel: EditScheduleViewModel) {
+    fun InputPart(
+        modifier: Modifier = Modifier,
+        title: String, onTitleChange: (String) -> Unit
+    ) {
         Column(
             modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())) {
 
             // input area
-//            InputTitle(title = )
+            InputTitle(title = title, onTitleChange = onTitleChange)
         }
     }
 
     @Composable
-    fun InputTitle(modifier: Modifier = Modifier, title: String, onValueChange: (String) -> Unit) {
+    fun InputTitle(modifier: Modifier = Modifier, title: String, onTitleChange: (String) -> Unit) {
 
         Column(modifier.fillMaxWidth()) {
 
@@ -94,7 +105,7 @@ object EditToDoItemView {
 
             TextField(
                 value = title,
-                onValueChange = onValueChange
+                onValueChange = onTitleChange
             )
 
         }
