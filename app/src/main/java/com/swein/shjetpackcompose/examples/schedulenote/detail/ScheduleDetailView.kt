@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.examples.todonote.detail
+package com.swein.shjetpackcompose.examples.schedulenote.detail
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold

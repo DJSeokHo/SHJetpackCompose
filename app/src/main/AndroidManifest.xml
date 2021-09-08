@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
-            android:name=".examples.todonote.edit.EditToDoItemActivity"
+            android:name=".examples.schedulenote.edit.EditScheduleActivity"
             android:exported="true"
-            android:label="@string/title_activity_edit_to_do_item"
+            android:label="@string/title_activity_edit_schedule_item"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
-            android:name=".examples.todonote.main.ToDoNoteActivity"
+            android:name=".examples.schedulenote.main.ScheduleListActivity"
             android:exported="true"
-            android:label="@string/title_activity_to_do_note"
+            android:label="@string/title_activity_schedule_note"
             android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
         <activity
             android:name=".examples.loginscreen.LoginScreenOneActivity"

@@ -5,6 +5,13 @@
     <string name="title_activity_gtbasictutorial">GTBasicTutorialActivity</string>
     <string name="title_activity_gtlayout">GTLayoutActivity</string>
     <string name="title_activity_login_screen_one">LoginScreenOneActivity</string>
-    <string name="title_activity_to_do_note">ToDoNoteActivity</string>
-    <string name="title_activity_edit_to_do_item">EditToDoItemActivity</string>
+    <string name="title_activity_schedule_note">ScheduleNoteActivity</string>
+    <string name="title_activity_edit_schedule_item">EditScheduleActivity</string>
+
+    <string name="schedule_header">Schedule</string>
+    <string name="schedule_title_label">Schedule Title</string>
+    <string name="schedule_title_hint">Input Schedule Title Please (length ~ 40))</string>
+    <string name="schedule_content_label">Schedule Content</string>
+    <string name="schedule_content_hint">Input Schedule Content Please (length ~ 1000))</string>
+    <string name="schedule_image_label">Take or pick a photo (optional)</string>
 </resources>

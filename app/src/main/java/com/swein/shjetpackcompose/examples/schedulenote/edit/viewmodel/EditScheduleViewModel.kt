@@ -1,39 +1,40 @@
-package com.swein.shjetpackcompose.examples.todonote.viewmodel
+package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.swein.shjetpackcompose.examples.todonote.model.ToDoItemDataModel
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-sealed class ToDoViewModelState {
+sealed class EditScheduleViewModelState {
 
-    data class Reload(val list: List<ToDoItemDataModel>): ToDoViewModelState()
-    data class LoadMore(val list: List<ToDoItemDataModel>): ToDoViewModelState()
-    data class Error(val message: String?): ToDoViewModelState()
-    object None: ToDoViewModelState()
-    object Loading: ToDoViewModelState()
+    data class Reload(val list: List<ScheduleDataModel>): EditScheduleViewModelState()
+    data class LoadMore(val list: List<ScheduleDataModel>): EditScheduleViewModelState()
+    data class Error(val message: String?): EditScheduleViewModelState()
+    object None: EditScheduleViewModelState()
+    object Loading: EditScheduleViewModelState()
 }
 
-class ToDoViewModel: ViewModel() {
+class EditScheduleViewModel: ViewModel() {
 
     companion object {
         private const val LIMIT = 20
     }
 
-    private val _liveListViewModelState = MutableStateFlow<ToDoViewModelState>(ToDoViewModelState.None)
-    val liveListViewModelState: StateFlow<ToDoViewModelState> = _liveListViewModelState
+    private val _editScheduleViewModelState = MutableStateFlow<EditScheduleViewModelState>(EditScheduleViewModelState.None)
+    val editScheduleViewModelState: StateFlow<EditScheduleViewModelState> = _editScheduleViewModelState
 
+    val scheduleTitle = MutableStateFlow("")
 
     fun reload(
         offset: Int = 0,
         size: Int = LIMIT
     ) = viewModelScope.launch {
 
-        _liveListViewModelState.value = ToDoViewModelState.Loading
+//        _scheduleListViewModelState.value = ScheduleListViewModelState.Loading
 
         try {
             coroutineScope {
@@ -49,7 +50,7 @@ class ToDoViewModel: ViewModel() {
             }
         }
         catch (e: Exception) {
-            _liveListViewModelState.value = ToDoViewModelState.Error(e.message)
+//            _scheduleListViewModelState.value = ScheduleListViewModelState.Error(e.message)
         }
 
     }
@@ -59,7 +60,7 @@ class ToDoViewModel: ViewModel() {
         size: Int = LIMIT
     ) = viewModelScope.launch {
 
-        _liveListViewModelState.value = ToDoViewModelState.Loading
+//        _scheduleListViewModelState.value = ScheduleListViewModelState.Loading
 
         try {
             coroutineScope {
@@ -73,7 +74,7 @@ class ToDoViewModel: ViewModel() {
             }
         }
         catch (e: Exception) {
-            _liveListViewModelState.value = ToDoViewModelState.Error(e.message)
+//            _scheduleListViewModelState.value = ScheduleListViewModelState.Error(e.message)
         }
 
     }

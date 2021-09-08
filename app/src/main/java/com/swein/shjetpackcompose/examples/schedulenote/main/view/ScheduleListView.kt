@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.examples.todonote.main.view
+package com.swein.shjetpackcompose.examples.schedulenote.main.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -24,10 +23,10 @@ import androidx.constraintlayout.compose.ConstraintSet
 import coil.compose.rememberImagePainter
 import coil.request.CachePolicy
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.examples.todonote.commonpart.CommonView
-import com.swein.shjetpackcompose.examples.todonote.model.ToDoItemDataModel
+import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
 
-object ToDoNoteView {
+object ScheduleListView {
 
     @Composable
     fun ActivityContentView() {
@@ -50,9 +49,12 @@ object ToDoNoteView {
             Column(modifier = modifier.fillMaxSize()) {
 
                 // custom tool bar
-                CommonView.CustomToolBar(endImageResource = R.mipmap.ti_plus) {
+                CommonView.CustomToolBar(
+                    endImageResource = R.mipmap.ti_plus,
+                    onEndClick = {
 
-                }
+                    }
+                )
             }
 
             CommonView.Progress()
@@ -71,8 +73,8 @@ object ToDoNoteView {
     @Composable
     private fun ListItemView(
         modifier: Modifier = Modifier,
-        toDoItemDataModel: ToDoItemDataModel,
-        onItemClick: (toDoItemDataModel: ToDoItemDataModel) -> Unit
+        scheduleDataModel: ScheduleDataModel,
+        onItemClick: (scheduleDataModel: ScheduleDataModel) -> Unit
     ) {
 
         Surface(
@@ -90,7 +92,7 @@ object ToDoNoteView {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .clickable {
-                        onItemClick(toDoItemDataModel)
+                        onItemClick(scheduleDataModel)
                     }
                     .padding(8.dp),
             ) {
@@ -104,7 +106,7 @@ object ToDoNoteView {
                     // Image area
                     Image(
                         painter = rememberImagePainter(
-                            data = toDoItemDataModel.contentImage,
+                            data = scheduleDataModel.contentImage,
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.coding_with_cat_icon)
@@ -126,7 +128,7 @@ object ToDoNoteView {
                 ) {
 
                     Text(
-                        text = toDoItemDataModel.title,
+                        text = scheduleDataModel.title,
                         color = colorResource(id = R.color.c111111),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -136,7 +138,7 @@ object ToDoNoteView {
                     )
 
                     Text(
-                        text = toDoItemDataModel.content,
+                        text = scheduleDataModel.content,
                         color = colorResource(id = R.color.c666666),
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -145,7 +147,7 @@ object ToDoNoteView {
                     )
 
                     Text(
-                        text = toDoItemDataModel.createDate,
+                        text = scheduleDataModel.createDate,
                         color = colorResource(id = R.color.c999999),
                         fontSize = 10.sp,
                         maxLines = 1,
@@ -156,7 +158,7 @@ object ToDoNoteView {
                         modifier = modifier.layoutId("state")
                     ) {
 
-                        if (toDoItemDataModel.isFinished) {
+                        if (scheduleDataModel.isFinished) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_finished),
                                 contentDescription = "",
@@ -167,7 +169,7 @@ object ToDoNoteView {
                             )
                         }
 
-                        if (toDoItemDataModel.isImportant) {
+                        if (scheduleDataModel.isImportant) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_important),
                                 contentDescription = "",
@@ -178,7 +180,7 @@ object ToDoNoteView {
                             )
                         }
 
-                        if (toDoItemDataModel.isUrgent) {
+                        if (scheduleDataModel.isUrgent) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_urgent),
                                 contentDescription = "",
@@ -225,15 +227,14 @@ object ToDoNoteView {
         }
     }
 
-
 }
 
-@Preview(showBackground = true, name = "todo note view")
+@Preview(showBackground = true, name = "schedule list view")
 @Composable
-fun ToDoNoteViewPreview() {
+fun ScheduleListViewPreview() {
 //    SHJetpackComposeTheme {
 //    }
 
-    ToDoNoteView.ActivityContentView()
+    ScheduleListView.ActivityContentView()
 
 }

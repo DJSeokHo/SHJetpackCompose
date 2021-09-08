@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.examples.todonote.commonpart
+package com.swein.shjetpackcompose.examples.schedulenote.commonpart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +35,8 @@ object CommonView {
         startImageResource: Int = -1,
         title: String = "",
         endImageResource: Int = -1,
-        onPlusClick: () -> Unit
+        onStartClick: (() -> Unit)? = null,
+        onEndClick: (() -> Unit)? = null
     ) {
 
         Surface(
@@ -64,7 +64,9 @@ object CommonView {
                             .clip(CircleShape)
                             .clickable {
                                 ILog.debug(TAG, "onStartImageClick")
-                                onPlusClick()
+                                onStartClick?.let {
+                                    it()
+                                }
                             }
                             .padding(6.dp)
                     )
@@ -91,7 +93,9 @@ object CommonView {
                             .clip(CircleShape)
                             .clickable {
                                 ILog.debug(TAG, "onEndImageClick")
-                                onPlusClick()
+                                onEndClick?.let {
+                                    it()
+                                }
                             }
                             .padding(6.dp)
                     )

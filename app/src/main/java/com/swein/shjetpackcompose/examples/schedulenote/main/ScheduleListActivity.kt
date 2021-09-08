@@ -1,13 +1,15 @@
-package com.swein.shjetpackcompose.examples.todonote.main
+package com.swein.shjetpackcompose.examples.schedulenote.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.swein.framework.utility.theme.ThemeUtility
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.examples.todonote.main.view.ToDoNoteView
+import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
+import com.swein.shjetpackcompose.examples.schedulenote.main.view.ScheduleListView
 
-class ToDoNoteActivity : ComponentActivity() {
+class ScheduleListActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +18,11 @@ class ToDoNoteActivity : ComponentActivity() {
         ThemeUtility.setSystemBarTheme(this, true)
 
         setContent {
-            ToDoNoteView.ActivityContentView()
+            ScheduleListView.ActivityContentView()
+        }
+
+        Intent(this, EditScheduleActivity::class.java).apply {
+            startActivity(this)
         }
     }
 }

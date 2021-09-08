@@ -1,7 +1,7 @@
-package com.swein.shjetpackcompose.examples.todonote.model
+package com.swein.shjetpackcompose.examples.schedulenote.model
 
 
-data class ToDoItemDataModel(
+data class ScheduleDataModel(
     val uuid: String = "",
     val title: String = "",
     val content: String = "",

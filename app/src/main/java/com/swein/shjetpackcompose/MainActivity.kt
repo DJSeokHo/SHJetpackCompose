@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.examples.todonote.main.ToDoNoteActivity
+import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ToDoNoteActivity::class.java).apply {
+        Intent(this, ScheduleListActivity::class.java).apply {
             startActivity(this)
         }
     }
