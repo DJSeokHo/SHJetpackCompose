@@ -92,6 +92,7 @@ object EditToDoItemView {
                             .fillMaxSize(),
                         onClick = {
                             ILog.debug(TAG, "save")
+                            viewModel.onSave()
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.basic_color_2022)
@@ -108,8 +109,7 @@ object EditToDoItemView {
 
                 BottomActionSheet(state = state, scope = scope)
 
-                CommonView.Progress(false)
-
+                CommonView.Progress(viewModel.isIO.value)
             }
 
         }

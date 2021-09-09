@@ -2,8 +2,14 @@ package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
+import com.swein.shjetpackcompose.examples.schedulenote.viewmodel.ScheduleListViewModelState
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
 import org.json.JSONObject
 
@@ -31,6 +37,9 @@ class EditScheduleViewModel: ViewModel() {
 
     var isFinished = mutableStateOf(false)
 
+
+    var isIO = mutableStateOf(false)
+
     fun initWithJSONObject(jsonObject: JSONObject? = null) {
 
         jsonObject?.let {
@@ -49,6 +58,31 @@ class EditScheduleViewModel: ViewModel() {
     }
 
     fun onSave() {
+
+        viewModelScope.launch {
+
+            isIO.value = true
+
+            try {
+                coroutineScope {
+
+                    val insert = async {
+                        delay(2000)
+                    }
+
+                    val result = insert.await()
+
+                    if (result) {
+                        isIO.value = false
+                    }
+
+                }
+            }
+            catch (e: Exception) {
+                isIO.value = false
+            }
+
+        }
 
     }
 }
