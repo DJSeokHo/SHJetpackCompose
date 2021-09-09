@@ -301,7 +301,7 @@ object EditToDoItemView {
                 ContentScale.Inside
             }
             else {
-                ContentScale.Crop
+                ContentScale.FillWidth
             }
         )
     }
