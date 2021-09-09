@@ -43,7 +43,8 @@ object CommonView {
             color = colorResource(id = R.color.basic_color_2022),
             modifier = modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(60.dp),
+            elevation = 10.dp
         ) {
 
             val constraints = constraints()

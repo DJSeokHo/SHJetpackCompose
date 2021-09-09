@@ -69,6 +69,8 @@ dependencies {
 
     implementation 'com.github.DJSeokHo:EasyEventObserver:1.0.6'
 
+    implementation 'com.github.DJSeokHo:EasyPermissionManager:1.0.9'
+
     // app start up
     implementation 'androidx.startup:startup-runtime:1.1.0'
 
