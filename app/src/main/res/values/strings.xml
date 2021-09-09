@@ -8,6 +8,8 @@
     <string name="title_activity_schedule_note">ScheduleNoteActivity</string>
     <string name="title_activity_edit_schedule_item">EditScheduleActivity</string>
 
+    <string name="save">save</string>
+
     <string name="schedule_header">Schedule</string>
     <string name="schedule_title_label">Schedule Title</string>
     <string name="schedule_title_hint">Input Schedule Title Please (length ~ 40))</string>

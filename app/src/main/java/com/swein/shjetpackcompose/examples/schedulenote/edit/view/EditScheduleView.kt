@@ -1,24 +1,39 @@
 package com.swein.shjetpackcompose.examples.schedulenote.edit.view
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
+import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
 
 object EditToDoItemView {
@@ -30,17 +45,30 @@ object EditToDoItemView {
 
         Scaffold { // innerPadding ->
 //            ContentView(Modifier.padding(innerPadding))
-            ContentView(title = viewModel.title.value, onTitleChange = { title ->
-                ILog.debug(TAG, "onTitleChange $title")
-                viewModel.title.value = title
-            })
+            ContentView(
+                title = viewModel.title.value, onTitleChange = { title ->
+                    ILog.debug(TAG, "onTitleChange $title")
+                    viewModel.title.value = title
+                },
+                content = viewModel.content.value, onContentChange = { content ->
+
+                    if (content.length <= 1000) {
+                        ILog.debug(TAG, "onContentChange $content")
+                        viewModel.content.value = content
+                    }
+                },
+                contentImage = viewModel.contentImage.value
+            )
         }
     }
 
     @Composable
-    private fun ContentView(modifier: Modifier = Modifier,
-                            title: String, onTitleChange: (String) -> Unit) {
-
+    private fun ContentView(
+        modifier: Modifier = Modifier,
+        title: String, onTitleChange: (String) -> Unit,
+        content: String, onContentChange: (String) -> Unit,
+        contentImage: String
+    ) {
 
         Box(
             modifier = modifier.fillMaxSize()
@@ -51,9 +79,35 @@ object EditToDoItemView {
                 // custom tool bar
                 ToolBar()
 
-                InputPart(title = title, onTitleChange = onTitleChange)
-                
+                Spacer(
+                    modifier
+                        .fillMaxWidth()
+                        .height(20.dp))
+                InputPart(
+                    title = title, onTitleChange = onTitleChange,
+                    content = content, onContentChange = onContentChange,
+                    contentImage = contentImage
+                )
             }
+
+            // bottom button
+            Button(
+                modifier = modifier.fillMaxWidth().height(47.dp).align(Alignment.BottomCenter),
+                onClick = {
+                    ILog.debug(TAG, "save")
+                },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.basic_color_2022)
+                ),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.save),
+                    color = colorResource(id = R.color.white),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
 
             CommonView.Progress(false)
 
@@ -63,15 +117,14 @@ object EditToDoItemView {
     
     @Composable
     fun ToolBar() {
+
+        val activity = LocalContext.current as EditScheduleActivity
+
         CommonView.CustomToolBar(
-            startImageResource = R.mipmap.ti_back,
             title = stringResource(id = R.string.schedule_header),
-            endImageResource = R.mipmap.ti_save,
-            onStartClick = {
-
-            },
+            endImageResource = R.mipmap.ti_close,
             onEndClick = {
-
+                activity.onBackPressed()
             }
         )
     }
@@ -79,22 +132,34 @@ object EditToDoItemView {
     @Composable
     fun InputPart(
         modifier: Modifier = Modifier,
-        title: String, onTitleChange: (String) -> Unit
+        title: String, onTitleChange: (String) -> Unit,
+        content: String, onContentChange: (String) -> Unit,
+        contentImage: String
     ) {
+
+        val focusRequester = remember { FocusRequester() }
+
         Column(
             modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())) {
 
             // input area
-            InputTitle(title = title, onTitleChange = onTitleChange)
+            InputTitle(focusRequester = focusRequester, title = title, onTitleChange = onTitleChange)
+            Spacer(modifier.fillMaxWidth().height(50.dp))
+            InputContent(focusRequester = focusRequester, content = content, onContentChange = onContentChange)
+            Spacer(modifier.fillMaxWidth().height(30.dp))
+            InputContentImage(contentImage = contentImage)
         }
     }
 
     @Composable
-    fun InputTitle(modifier: Modifier = Modifier, title: String, onTitleChange: (String) -> Unit) {
+    fun InputTitle(modifier: Modifier = Modifier, focusRequester: FocusRequester, title: String, onTitleChange: (String) -> Unit) {
 
-        Column(modifier.fillMaxWidth()) {
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)) {
 
             Text(
                 text = stringResource(id = R.string.schedule_title_label),
@@ -104,11 +169,115 @@ object EditToDoItemView {
             )
 
             TextField(
+                modifier = modifier.fillMaxWidth(),
                 value = title,
-                onValueChange = onTitleChange
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Text
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusRequester.requestFocus()
+                    }
+                ),
+                onValueChange = onTitleChange,
+                singleLine = true,
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = colorResource(id = R.color.c111111),
+                    backgroundColor = Color.Transparent,
+                    cursorColor = colorResource(id = R.color.basic_color_2022),
+                    focusedIndicatorColor = colorResource(id = R.color.basic_color_2022)
+                )
+                ,
+                label = {
+                    Text(
+                        text = stringResource(R.string.schedule_title_hint),
+                        color = colorResource(id = R.color.c999999),
+                        fontSize = 12.sp
+                    )
+                }
             )
 
         }
+
+    }
+
+    @OptIn(ExperimentalComposeUiApi::class)
+    @Composable
+    fun InputContent(modifier: Modifier = Modifier, focusRequester: FocusRequester, content: String, onContentChange: (String) -> Unit) {
+
+        val keyboardController = LocalSoftwareKeyboardController.current
+
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)) {
+
+            Text(
+                text = stringResource(id = R.string.schedule_content_label),
+                color = colorResource(id = R.color.basic_color_2022),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            TextField(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
+                value = content,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    }
+                ),
+                onValueChange = onContentChange,
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = colorResource(id = R.color.c111111),
+                    backgroundColor = Color.Transparent,
+                    cursorColor = colorResource(id = R.color.basic_color_2022),
+                    focusedIndicatorColor = colorResource(id = R.color.basic_color_2022)
+                )
+                ,
+                label = {
+                    Text(
+                        text = stringResource(R.string.schedule_content_hint),
+                        color = colorResource(id = R.color.c999999),
+                        fontSize = 12.sp
+                    )
+                }
+            )
+
+        }
+    }
+
+    @OptIn(ExperimentalCoilApi::class)
+    @Composable
+    fun InputContentImage(modifier: Modifier = Modifier, contentImage: String) {
+
+        val activity = LocalContext.current as EditScheduleActivity
+
+        Image(
+            painter = if (contentImage == "") {
+                painterResource(id = R.mipmap.ti_image)
+            }
+            else {
+                rememberImagePainter(
+                    data = contentImage,
+                    builder = {
+                        size(OriginalSize)
+                    },
+                )
+            },
+            contentDescription = "",
+            modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp).clickable {
+                activity.pickImage()
+            },
+            contentScale = ContentScale.Crop
+        )
 
     }
 

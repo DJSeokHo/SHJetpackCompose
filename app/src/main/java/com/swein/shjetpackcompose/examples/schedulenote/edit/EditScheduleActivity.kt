@@ -28,4 +28,13 @@ class EditScheduleActivity : ComponentActivity() {
             EditToDoItemView.ActivityContentView(viewModel)
         }
     }
+
+    fun pickImage() {
+
+    }
+
+    override fun onBackPressed() {
+
+        finish()
+    }
 }
