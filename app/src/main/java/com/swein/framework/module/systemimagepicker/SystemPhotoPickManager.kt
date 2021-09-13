@@ -43,7 +43,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
         selectPicture = registerSelectPicture()
     }
 
-    private var selectedDelegate: ((uri: Uri) -> Unit)? = null
+    private var selectedUriDelegate: ((uri: Uri) -> Unit)? = null
     private var selectedPathDelegate: ((imagePath: String) -> Unit)? = null
 
     private var takePathDelegate: ((imagePath: String) -> Unit)? = null
@@ -52,6 +52,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
 
     private var tempImageFilePath = ""
     private var tempImageUri: Uri? = null
+    private var tempImageName = ""
 
     private var shouldCompress = false
 
@@ -101,7 +102,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
             }
 
             selectedPathDelegate?.let {
-                uriToFile(componentActivity, uri, "select_image")?.let { file ->
+                uriToFile(componentActivity, uri)?.let { file ->
 
                     if (shouldCompress) {
                         compressImage(file.absolutePath)
@@ -111,7 +112,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
                 }
             }
 
-            selectedDelegate?.let {
+            selectedUriDelegate?.let {
                 it(uri)
             }
         }
@@ -135,64 +136,45 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
         }
     }
 
-    fun selectPicture(selectedDelegate: (uri: Uri) -> Unit) {
+    fun selectPicture(
+        shouldCompress: Boolean = false,
+        selectedUriDelegate: (uri: Uri) -> Unit,
+        selectedPathDelegate: (imagePath: String) -> Unit,
+        imageName: String = "temp_image") {
 
-        this.selectedDelegate = selectedDelegate
-        selectPicture.launch("image/*")
-
-    }
-
-    fun selectPathPicture(shouldCompress: Boolean = false, selectedPathDelegate: (imagePath: String) -> Unit) {
         this.shouldCompress = shouldCompress
+        this.selectedUriDelegate = selectedUriDelegate
         this.selectedPathDelegate = selectedPathDelegate
+
+        this.tempImageName = imageName
+
         selectPicture.launch("image/*")
 
     }
 
-    fun takePictureWithFilePath(shouldCompress: Boolean = false, takePathDelegate: (imagePath: String) -> Unit) {
+    fun takePicture(
+        shouldCompress: Boolean = false,
+        takeUriDelegate: (uri: Uri) -> Unit,
+        takePathDelegate: (imagePath: String) -> Unit,
+        takeBitmapDelegate: (bitmap: Bitmap) -> Unit,
+        imageName: String = "temp_image"
+    ) {
 
         this.shouldCompress = shouldCompress
-        this.takePathDelegate = takePathDelegate
-
-        tempImageUri = FileProvider.getUriForFile(
-            componentActivity, "com.swein.shjetpackcompose.provider",
-            createImageFile().also {
-                tempImageFilePath = it.absolutePath
-            }
-        )
-
-        takePicture.launch(tempImageUri)
-
-    }
-
-    fun takePictureWithUri(takeUriDelegate: (uri: Uri) -> Unit) {
-
         this.takeUriDelegate = takeUriDelegate
-
-        tempImageUri = FileProvider.getUriForFile(
-            componentActivity, "com.swein.shjetpackcompose.provider",
-            createImageFile().also {
-                tempImageFilePath = it.absolutePath
-            }
-        )
-
-        takePicture.launch(tempImageUri)
-
-    }
-
-    fun takePictureWithBitmap(takeBitmapDelegate: ((bitmap: Bitmap) -> Unit)) {
-
+        this.takePathDelegate = takePathDelegate
         this.takeBitmapDelegate = takeBitmapDelegate
 
+        this.tempImageName = imageName
+
         tempImageUri = FileProvider.getUriForFile(
             componentActivity, "com.swein.shjetpackcompose.provider",
-            createImageFile().also {
-                tempImageFilePath = it.absolutePath
+            createImageFile().also { file ->
+                tempImageFilePath = file.absolutePath
             }
         )
 
         takePicture.launch(tempImageUri)
-
     }
 
     private fun compressImage(filePath: String, targetMB: Double = 1.0) {
@@ -252,21 +234,21 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
         }
     }
 
-    private fun createImageFile(imageName: String = "temp_image"): File {
+    private fun createImageFile(): File {
         // Create an image file name
         val storageDir = componentActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            imageName,
+            tempImageName,
             ".jpg",
             storageDir
         )
     }
 
-    private fun uriToFile(context: Context, uri: Uri, fileName: String): File? {
+    private fun uriToFile(context: Context, uri: Uri): File? {
 
         context.contentResolver.openInputStream(uri)?.let { inputStream ->
 
-            val tempFile = createImageFile(fileName)
+            val tempFile = createImageFile()
             val fileOutputStream = FileOutputStream(tempFile)
 
             inputStream.copyTo(fileOutputStream)

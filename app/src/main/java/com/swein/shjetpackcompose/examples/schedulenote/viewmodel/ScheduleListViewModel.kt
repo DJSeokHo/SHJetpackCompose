@@ -2,7 +2,7 @@ package com.swein.shjetpackcompose.examples.schedulenote.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 sealed class ScheduleListViewModelState {
 
-    data class Reload(val list: List<ScheduleDataModel>): ScheduleListViewModelState()
-    data class LoadMore(val list: List<ScheduleDataModel>): ScheduleListViewModelState()
+    data class Reload(val list: List<ScheduleModel>): ScheduleListViewModelState()
+    data class LoadMore(val list: List<ScheduleModel>): ScheduleListViewModelState()
     data class Error(val message: String?): ScheduleListViewModelState()
     object None: ScheduleListViewModelState()
     object Loading: ScheduleListViewModelState()

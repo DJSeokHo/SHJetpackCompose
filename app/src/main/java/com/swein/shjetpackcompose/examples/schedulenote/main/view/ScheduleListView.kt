@@ -24,7 +24,7 @@ import coil.compose.rememberImagePainter
 import coil.request.CachePolicy
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
-import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 
 object ScheduleListView {
 
@@ -73,8 +73,8 @@ object ScheduleListView {
     @Composable
     private fun ListItemView(
         modifier: Modifier = Modifier,
-        scheduleDataModel: ScheduleDataModel,
-        onItemClick: (scheduleDataModel: ScheduleDataModel) -> Unit
+        scheduleModelModel: ScheduleModel,
+        onItemClick: (scheduleModelModel: ScheduleModel) -> Unit
     ) {
 
         Surface(
@@ -92,7 +92,7 @@ object ScheduleListView {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .clickable {
-                        onItemClick(scheduleDataModel)
+                        onItemClick(scheduleModelModel)
                     }
                     .padding(8.dp),
             ) {
@@ -106,7 +106,7 @@ object ScheduleListView {
                     // Image area
                     Image(
                         painter = rememberImagePainter(
-                            data = scheduleDataModel.contentImage,
+                            data = scheduleModelModel.contentImage,
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.coding_with_cat_icon)
@@ -128,7 +128,7 @@ object ScheduleListView {
                 ) {
 
                     Text(
-                        text = scheduleDataModel.title,
+                        text = scheduleModelModel.title,
                         color = colorResource(id = R.color.c111111),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -138,7 +138,7 @@ object ScheduleListView {
                     )
 
                     Text(
-                        text = scheduleDataModel.content,
+                        text = scheduleModelModel.content,
                         color = colorResource(id = R.color.c666666),
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -147,7 +147,7 @@ object ScheduleListView {
                     )
 
                     Text(
-                        text = scheduleDataModel.createDate,
+                        text = scheduleModelModel.createDate,
                         color = colorResource(id = R.color.c999999),
                         fontSize = 10.sp,
                         maxLines = 1,
@@ -158,7 +158,7 @@ object ScheduleListView {
                         modifier = modifier.layoutId("state")
                     ) {
 
-                        if (scheduleDataModel.isFinished) {
+                        if (scheduleModelModel.isFinished) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_finished),
                                 contentDescription = "",
@@ -169,7 +169,7 @@ object ScheduleListView {
                             )
                         }
 
-                        if (scheduleDataModel.isImportant) {
+                        if (scheduleModelModel.isImportant) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_important),
                                 contentDescription = "",
@@ -180,7 +180,7 @@ object ScheduleListView {
                             )
                         }
 
-                        if (scheduleDataModel.isUrgent) {
+                        if (scheduleModelModel.isUrgent) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_urgent),
                                 contentDescription = "",

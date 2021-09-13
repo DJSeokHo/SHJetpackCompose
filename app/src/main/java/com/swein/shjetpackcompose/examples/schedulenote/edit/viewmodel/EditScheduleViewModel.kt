@@ -3,12 +3,13 @@ package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
-import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleDataModel
-import com.swein.shjetpackcompose.examples.schedulenote.viewmodel.ScheduleListViewModelState
+import com.swein.framework.utility.uuid.UUIDUtil
+import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
 import org.json.JSONObject
@@ -40,21 +41,16 @@ class EditScheduleViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
-    fun initWithJSONObject(jsonObject: JSONObject? = null) {
+    fun initWithJSONObject(jsonObject: JSONObject) {
 
-        jsonObject?.let {
-
-            uuid.value = ParsingUtility.parsingString(jsonObject, "uuid")
-            title.value = ParsingUtility.parsingString(jsonObject, "title")
-            content.value = ParsingUtility.parsingString(jsonObject, "content")
-            contentImage.value = ParsingUtility.parsingString(jsonObject, "contentImage")
-            createDate.value = ParsingUtility.parsingString(jsonObject, "createDate")
-            isImportant.value = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
-            isUrgent.value = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
-            isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
-
-        }
-
+        uuid.value = ParsingUtility.parsingString(jsonObject, "uuid")
+        title.value = ParsingUtility.parsingString(jsonObject, "title")
+        content.value = ParsingUtility.parsingString(jsonObject, "content")
+        contentImage.value = ParsingUtility.parsingString(jsonObject, "contentImage")
+        createDate.value = ParsingUtility.parsingString(jsonObject, "createDate")
+        isImportant.value = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
+        isUrgent.value = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
+        isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
     }
 
     fun onSave() {
@@ -67,14 +63,34 @@ class EditScheduleViewModel: ViewModel() {
                 coroutineScope {
 
                     val insert = async {
-                        delay(2000)
+
+                        val scheduleViewModel = ScheduleModel()
+                        scheduleViewModel.uuid = if (uuid.value == "") {
+                            uuid.value
+                        }
+                        else {
+                            UUIDUtil.getUUIDString()
+                        }
+                        scheduleViewModel.title = title.value
+                        scheduleViewModel.content = content.value
+                        scheduleViewModel.contentImage = contentImage.value
+                        scheduleViewModel.createDate = if (createDate.value == "") {
+                            createDate.value
+                        }
+                        else {
+                            DateUtility.getCurrentDateTimeString()
+                        }
+                        scheduleViewModel.isImportant = isImportant.value
+                        scheduleViewModel.isUrgent = isUrgent.value
+                        scheduleViewModel.isFinished = isFinished.value
+
+                        EditScheduleService.insert(scheduleViewModel)
                     }
 
                     val result = insert.await()
+                    ILog.debug(TAG, "result $result")
 
-                    if (result) {
-                        isIO.value = false
-                    }
+                    isIO.value = false
 
                 }
             }
