@@ -7,16 +7,19 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
@@ -28,6 +31,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
@@ -75,7 +80,20 @@ object EditToDoItemView {
                                 viewModel.content.value = content
                             }
                         },
-                        contentImage = viewModel.contentImage.value, scope = scope, state = state
+                        contentImage = viewModel.contentImage.value, scope = scope, state = state,
+                        shouldShowFinish = viewModel.uuid.value != "",
+                        isImportant = viewModel.isImportant.value,
+                        isUrgent = viewModel.isUrgent.value,
+                        isFinished = viewModel.isFinished.value,
+                        onImportantClick = {
+                            viewModel.isImportant.value = !it
+                        },
+                        onUrgentClick = {
+                            viewModel.isUrgent.value = !it
+                        },
+                        onFinishedClick = {
+                            viewModel.isFinished.value = !it
+                        }
                     )
                 }
 
@@ -92,7 +110,9 @@ object EditToDoItemView {
                             .fillMaxSize(),
                         onClick = {
                             ILog.debug(TAG, "save")
-                            viewModel.onSave()
+                            viewModel.onSave {
+                                viewModel.toggleSnackBar("Input title and content please")
+                            }
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.basic_color_2022)
@@ -108,6 +128,14 @@ object EditToDoItemView {
                 }
 
                 BottomActionSheet(state = state, scope = scope)
+
+                if (viewModel.snackBarMessage.value != "") {
+                    Snackbar(
+                        modifier = modifier.padding(16.dp).align(Alignment.BottomCenter)
+                    ) {
+                        Text(text = viewModel.snackBarMessage.value)
+                    }
+                }
 
                 CommonView.Progress(viewModel.isIO.value)
             }
@@ -135,10 +163,13 @@ object EditToDoItemView {
         modifier: Modifier = Modifier,
         title: String, onTitleChange: (String) -> Unit,
         content: String, onContentChange: (String) -> Unit,
-        contentImage: String, scope: CoroutineScope, state: ModalBottomSheetState
+        contentImage: String, scope: CoroutineScope, state: ModalBottomSheetState,
+        shouldShowFinish: Boolean = true,
+        isImportant: Boolean = false, isUrgent: Boolean = false, isFinished: Boolean = false,
+        onImportantClick: (Boolean) -> Unit, onUrgentClick: (Boolean) -> Unit, onFinishedClick: ((Boolean) -> Unit)? = null
     ) {
 
-        val focusRequester = remember {
+        val contentEditFocusRequester = remember {
             FocusRequester()
         }
 
@@ -149,15 +180,33 @@ object EditToDoItemView {
                 .padding(top = 20.dp, bottom = 50.dp)
         ) {
 
+            Spacer(
+                modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
+
+            InputFlag(
+                shouldShowFinish = shouldShowFinish,
+                isImportant = isImportant,
+                isUrgent = isUrgent,
+                isFinished = isFinished,
+                onImportantClick = onImportantClick, onUrgentClick = onUrgentClick, onFinishedClick = onFinishedClick
+            )
+
+            Spacer(
+                modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
+
             // input area
-            InputTitle(focusRequester = focusRequester, title = title, onTitleChange = onTitleChange)
+            InputTitle(contentEditFocusRequester = contentEditFocusRequester, title = title, onTitleChange = onTitleChange)
 
             Spacer(
                 modifier
                     .fillMaxWidth()
                     .height(50.dp))
 
-            InputContent(focusRequester = focusRequester, content = content, onContentChange = onContentChange)
+            InputContent(contentEditFocusRequester = contentEditFocusRequester, content = content, onContentChange = onContentChange)
 
             Spacer(
                 modifier
@@ -170,7 +219,121 @@ object EditToDoItemView {
     }
 
     @Composable
-    fun InputTitle(modifier: Modifier = Modifier, focusRequester: FocusRequester, title: String, onTitleChange: (String) -> Unit) {
+    fun InputFlag(modifier: Modifier = Modifier, shouldShowFinish: Boolean,
+                  isImportant: Boolean, isUrgent: Boolean, isFinished: Boolean,
+                  onImportantClick: (Boolean) -> Unit, onUrgentClick: (Boolean) -> Unit, onFinishedClick: ((Boolean) -> Unit)?
+    ) {
+
+        val constraintSet = ConstraintSet {
+
+            val imageImportant = createRefFor("imageImportant")
+            val imageUrgent = createRefFor("imageUrgent")
+            val imageFinished = createRefFor("imageFinished")
+
+            constrain(imageImportant) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+            }
+
+            constrain(imageUrgent) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(imageImportant.end)
+            }
+
+            constrain(imageFinished) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                end.linkTo(parent.end)
+            }
+        }
+
+        ConstraintLayout(
+            constraintSet,
+            modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp).height(50.dp)
+        ) {
+
+            Image(
+                painter = painterResource(id = if (isImportant) {
+                    R.mipmap.ti_important
+                }
+                else {
+                    R.mipmap.ti_not_important
+                }),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = modifier
+                    .size(40.dp)
+                    .layoutId("imageImportant")
+                    .clip(CircleShape)
+                    .clickable {
+                        ILog.debug(TAG, "imageImportant click")
+                        onImportantClick(isImportant)
+                    }
+                    .padding(6.dp)
+            )
+
+            Image(
+                painter = painterResource(id = if (isUrgent) {
+                    R.mipmap.ti_urgent
+                }
+                else {
+                    R.mipmap.ti_not_urgent
+                }),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = modifier
+                    .size(40.dp)
+                    .layoutId("imageUrgent")
+                    .clip(CircleShape)
+                    .clickable {
+                        ILog.debug(TAG, "imageUrgent click")
+                        onUrgentClick(isUrgent)
+                    }
+                    .padding(6.dp)
+            )
+
+            if (shouldShowFinish) {
+
+                Image(
+                    painter = painterResource(id = if (isFinished) {
+                        R.mipmap.ti_finished
+                    }
+                    else {
+                        R.mipmap.ti_not_finished
+                    }),
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit,
+                    modifier = modifier
+                        .size(40.dp)
+                        .layoutId("imageFinished")
+                        .clip(CircleShape)
+                        .clickable {
+
+                            if (shouldShowFinish) {
+                                ILog.debug(TAG, "imageFinished click")
+                                onFinishedClick?.let {
+                                    it(isFinished)
+                                }
+                            }
+
+                        }
+                        .padding(6.dp).alpha(if (shouldShowFinish) {
+                            1f
+                        }
+                        else {
+                            0f
+                        })
+                )
+
+            }
+
+        }
+    }
+
+    @Composable
+    fun InputTitle(modifier: Modifier = Modifier, contentEditFocusRequester: FocusRequester, title: String, onTitleChange: (String) -> Unit) {
 
         Column(
             modifier
@@ -193,7 +356,7 @@ object EditToDoItemView {
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
-                        focusRequester.requestFocus()
+                        contentEditFocusRequester.requestFocus()
                     }
                 ),
                 onValueChange = onTitleChange,
@@ -220,7 +383,7 @@ object EditToDoItemView {
 
     @OptIn(ExperimentalComposeUiApi::class)
     @Composable
-    fun InputContent(modifier: Modifier = Modifier, focusRequester: FocusRequester, content: String, onContentChange: (String) -> Unit) {
+    fun InputContent(modifier: Modifier = Modifier, contentEditFocusRequester: FocusRequester, content: String, onContentChange: (String) -> Unit) {
 
         val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -239,7 +402,7 @@ object EditToDoItemView {
             TextField(
                 modifier = modifier
                     .fillMaxWidth()
-                    .focusRequester(focusRequester),
+                    .focusRequester(contentEditFocusRequester),
                 value = content,
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
@@ -324,7 +487,7 @@ object EditToDoItemView {
                             .height(50.dp)
                             .clickable {
 
-                                scope.launch{
+                                scope.launch {
                                     state.hide()
                                 }
 
@@ -353,7 +516,7 @@ object EditToDoItemView {
                             .height(50.dp)
                             .clickable {
 
-                                scope.launch{
+                                scope.launch {
                                     state.hide()
                                 }
 

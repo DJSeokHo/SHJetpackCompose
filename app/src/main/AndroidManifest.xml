@@ -26,6 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".examples.paddingandspacerexample.PaddingAndSpacerExampleActivity"
+            android:exported="true"
+            android:label="@string/title_activity_padding_and_spacer_example"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
             android:name=".examples.schedulenote.edit.EditScheduleActivity"
             android:exported="true"
             android:label="@string/title_activity_edit_schedule_item"
@@ -79,13 +84,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-
             <meta-data
                 android:name="com.swein.shjetpackcompose.application.AppStartUp"
                 android:value="androidx.startup" />
@@ -96,7 +99,6 @@
             <!-- tools:node="remove" -->
             <!-- /> -->
         </provider>
-
     </application>
 
 </manifest>

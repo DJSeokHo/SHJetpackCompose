@@ -4,15 +4,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.framework.utility.date.DateUtility
+import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.theme.ThemeUtility
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class EditScheduleActivity : ComponentActivity() {
+
+    companion object {
+        private const val TAG = "EditScheduleActivity"
+    }
 
     private val viewModel by viewModels<EditScheduleViewModel>()
     private val systemPhotoPickManager = SystemPhotoPickManager(this)
@@ -34,6 +43,18 @@ class EditScheduleActivity : ComponentActivity() {
 
         setContent {
             EditToDoItemView.ActivityContentView(viewModel = viewModel)
+        }
+
+        lifecycleScope.launch {
+
+            val test = async {
+                EditScheduleService.loadAll()
+//                EditScheduleService.deleteAll()
+            }
+
+            val testResult = test.await()
+
+            ILog.debug(TAG, "$testResult")
         }
     }
 

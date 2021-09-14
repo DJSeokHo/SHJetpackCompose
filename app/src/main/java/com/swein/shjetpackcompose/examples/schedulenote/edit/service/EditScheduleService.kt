@@ -1,6 +1,7 @@
 package com.swein.shjetpackcompose.examples.schedulenote.edit.service
 
 import com.swein.shjetpackcompose.examples.schedulenote.database.DatabaseManager
+import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,8 +22,24 @@ object EditScheduleService {
         return@withContext
     }
 
-    suspend fun deleteAll() = withContext(Dispatchers.IO) {
-        return@withContext DatabaseManager.deleteAll()
+    suspend fun loadAll() = withContext(Dispatchers.IO) {
+
+        val resultList = mutableListOf<ScheduleModel>()
+
+        DatabaseManager.loadAll()?.let { list ->
+            var scheduleModel: ScheduleModel
+            for (scheduleEntity in list) {
+                scheduleModel = ScheduleModel()
+                scheduleModel.parsingEntity(scheduleEntity)
+                resultList.add(scheduleModel)
+            }
+        }
+
+        return@withContext resultList
+    }
+
+    suspend fun clean() = withContext(Dispatchers.IO) {
+        return@withContext DatabaseManager.clean()
     }
 
 }

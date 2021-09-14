@@ -13,9 +13,12 @@ interface ScheduleDao {
     suspend fun insert(scheduleEntity: ScheduleEntity): Long
 
     @Query("DELETE FROM SCHEDULE_TABLE")
-    suspend fun deleteAll(): Long
+    suspend fun clean(): Int // DELETE query methods must either return void or int (the number of deleted rows)
 
     @Query("SELECT * FROM SCHEDULE_TABLE WHERE UUID = :uuid")
     suspend fun load(uuid: String): ScheduleEntity?
+
+    @Query("SELECT * FROM SCHEDULE_TABLE")
+    suspend fun loadAll(): List<ScheduleEntity>?
 
 }

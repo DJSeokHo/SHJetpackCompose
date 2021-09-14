@@ -23,12 +23,16 @@ object DatabaseManager {
         return database.scheduleDao().insert(scheduleEntity)
     }
 
-    suspend fun deleteAll(): Long {
-        return database.scheduleDao().deleteAll()
+    suspend fun clean(): Int {
+        return database.scheduleDao().clean()
     }
 
     suspend fun load(uuid: String): ScheduleEntity? {
         return database.scheduleDao().load(uuid)
+    }
+
+    suspend fun loadAll(): List<ScheduleEntity>? {
+        return database.scheduleDao().loadAll()
     }
 
 }

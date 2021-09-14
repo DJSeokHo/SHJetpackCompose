@@ -8,9 +8,7 @@ import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.uuid.UUIDUtil
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
 import org.json.JSONObject
 
@@ -41,6 +39,8 @@ class EditScheduleViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
+    var snackBarMessage = mutableStateOf("")
+
     fun initWithJSONObject(jsonObject: JSONObject) {
 
         uuid.value = ParsingUtility.parsingString(jsonObject, "uuid")
@@ -53,7 +53,39 @@ class EditScheduleViewModel: ViewModel() {
         isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
     }
 
-    fun onSave() {
+    fun toggleSnackBar(message: String) {
+
+        if (snackBarMessage.value != "") {
+            return
+        }
+
+        snackBarMessage.value = message
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            delay(2000)
+
+            viewModelScope.launch(Dispatchers.Main) {
+                snackBarMessage.value = ""
+            }
+        }
+    }
+
+    fun onSave(checkEmpty: () -> Unit) {
+
+        ILog.debug(TAG, "${uuid.value}, ${title.value}, ${content.value}, " +
+                "${contentImage.value}, ${createDate.value}, " +
+                "${isImportant.value}, ${isUrgent.value}, ${isFinished.value}")
+
+        if (title.value.isEmpty()) {
+            checkEmpty()
+            return
+        }
+
+        if (content.value.isEmpty()) {
+            checkEmpty()
+            return
+        }
 
         viewModelScope.launch {
 
@@ -83,6 +115,8 @@ class EditScheduleViewModel: ViewModel() {
                         scheduleViewModel.isImportant = isImportant.value
                         scheduleViewModel.isUrgent = isUrgent.value
                         scheduleViewModel.isFinished = isFinished.value
+
+                        ILog.debug(TAG, "$scheduleViewModel")
 
                         EditScheduleService.insert(scheduleViewModel)
                     }
