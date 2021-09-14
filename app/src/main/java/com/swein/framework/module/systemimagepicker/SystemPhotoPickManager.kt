@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.swein.easypermissionmanager.EasyPermissionManager
+import com.swein.framework.utility.debug.ILog
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -33,6 +34,10 @@ GetMultipleContents()
 GetContent()
  */
 class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
+
+    companion object {
+        private const val TAG = "SystemPhotoPickManager"
+    }
 
     private val takePicture: ActivityResultLauncher<Uri>
     private val selectPicture: ActivityResultLauncher<String>
@@ -64,7 +69,6 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
 
                 takeUriDelegate?.let { takeUriDelegate ->
                     takeUriDelegate(tempImageUri!!)
-                    return@registerForActivityResult
                 }
 
                 takePathDelegate?.let { takePathDelegate ->
@@ -74,7 +78,6 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
                     }
 
                     takePathDelegate(tempImageFilePath)
-                    return@registerForActivityResult
                 }
 
                 takeBitmapDelegate?.let { takeBitmapDelegate ->

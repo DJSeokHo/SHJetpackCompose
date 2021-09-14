@@ -49,7 +49,7 @@ class EditScheduleActivity : ComponentActivity() {
 
             val test = async {
                 EditScheduleService.loadAll()
-//                EditScheduleService.deleteAll()
+//                EditScheduleService.clean()
             }
 
             val testResult = test.await()
@@ -66,6 +66,7 @@ class EditScheduleActivity : ComponentActivity() {
 
                 },
                 takePathDelegate = { string ->
+                    ILog.debug(TAG, "takePathDelegate $string")
                     viewModel.contentImage.value = string
                 },
                 takeBitmapDelegate = {
@@ -85,6 +86,7 @@ class EditScheduleActivity : ComponentActivity() {
 
                 },
                 selectedPathDelegate = { string ->
+                    ILog.debug(TAG, "selectedPathDelegate $string")
                     viewModel.contentImage.value = string
                 },
                 DateUtility.getCurrentDateTimeMillisecondStringWithNoSpace("_")
@@ -93,7 +95,6 @@ class EditScheduleActivity : ComponentActivity() {
     }
 
     override fun onBackPressed() {
-
         super.onBackPressed()
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -42,6 +43,8 @@ import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -52,6 +55,12 @@ object EditToDoItemView {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun ActivityContentView(modifier: Modifier = Modifier, viewModel: EditScheduleViewModel) {
+
+        val coroutineScope = rememberCoroutineScope()
+
+        val snackBarMessage = remember {
+            mutableStateOf("")
+        }
 
         val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
@@ -111,7 +120,21 @@ object EditToDoItemView {
                         onClick = {
                             ILog.debug(TAG, "save")
                             viewModel.onSave {
-                                viewModel.toggleSnackBar("Input title and content please")
+
+                                if (snackBarMessage.value != "") {
+                                    return@onSave
+                                }
+
+                                snackBarMessage.value = "Input title and content please"
+
+                                coroutineScope.launch(Dispatchers.IO) {
+
+                                    delay(2000)
+
+                                    coroutineScope.launch(Dispatchers.Main) {
+                                        snackBarMessage.value = ""
+                                    }
+                                }
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -129,11 +152,11 @@ object EditToDoItemView {
 
                 BottomActionSheet(state = state, scope = scope)
 
-                if (viewModel.snackBarMessage.value != "") {
+                if (snackBarMessage.value != "") {
                     Snackbar(
                         modifier = modifier.padding(16.dp).align(Alignment.BottomCenter)
                     ) {
-                        Text(text = viewModel.snackBarMessage.value)
+                        Text(text = snackBarMessage.value)
                     }
                 }
 

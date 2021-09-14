@@ -39,8 +39,6 @@ class EditScheduleViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
-    var snackBarMessage = mutableStateOf("")
-
     fun initWithJSONObject(jsonObject: JSONObject) {
 
         uuid.value = ParsingUtility.parsingString(jsonObject, "uuid")
@@ -51,24 +49,6 @@ class EditScheduleViewModel: ViewModel() {
         isImportant.value = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
         isUrgent.value = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
         isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
-    }
-
-    fun toggleSnackBar(message: String) {
-
-        if (snackBarMessage.value != "") {
-            return
-        }
-
-        snackBarMessage.value = message
-
-        viewModelScope.launch(Dispatchers.IO) {
-
-            delay(2000)
-
-            viewModelScope.launch(Dispatchers.Main) {
-                snackBarMessage.value = ""
-            }
-        }
     }
 
     fun onSave(checkEmpty: () -> Unit) {
@@ -97,7 +77,7 @@ class EditScheduleViewModel: ViewModel() {
                     val insert = async {
 
                         val scheduleViewModel = ScheduleModel()
-                        scheduleViewModel.uuid = if (uuid.value == "") {
+                        scheduleViewModel.uuid = if (uuid.value != "") {
                             uuid.value
                         }
                         else {
@@ -106,7 +86,7 @@ class EditScheduleViewModel: ViewModel() {
                         scheduleViewModel.title = title.value
                         scheduleViewModel.content = content.value
                         scheduleViewModel.contentImage = contentImage.value
-                        scheduleViewModel.createDate = if (createDate.value == "") {
+                        scheduleViewModel.createDate = if (createDate.value != "") {
                             createDate.value
                         }
                         else {
@@ -133,6 +113,5 @@ class EditScheduleViewModel: ViewModel() {
             }
 
         }
-
     }
 }
