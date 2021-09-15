@@ -1,4 +1,4 @@
-package com.swein.framework.utility.theme
+package com.swein.framework.utility.window
 
 import android.app.Activity
 import android.content.Context
@@ -6,7 +6,8 @@ import android.content.res.Configuration
 import android.view.View
 import android.view.WindowManager
 
-object ThemeUtility {
+object WindowUtility {
+
     /**
      * hide system top status bar and bottom navigation button bar
      */

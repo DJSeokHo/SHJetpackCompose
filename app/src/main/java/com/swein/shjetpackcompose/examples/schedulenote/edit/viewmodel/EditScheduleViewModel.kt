@@ -53,9 +53,7 @@ class EditScheduleViewModel: ViewModel() {
 
     fun onSave(checkEmpty: () -> Unit) {
 
-        ILog.debug(TAG, "${uuid.value}, ${title.value}, ${content.value}, " +
-                "${contentImage.value}, ${createDate.value}, " +
-                "${isImportant.value}, ${isUrgent.value}, ${isFinished.value}")
+        ILog.debug(TAG, "${title.value}, ${content.value}")
 
         if (title.value.isEmpty()) {
             checkEmpty()
@@ -104,14 +102,27 @@ class EditScheduleViewModel: ViewModel() {
                     val result = insert.await()
                     ILog.debug(TAG, "result $result")
 
+                    clean()
+
                     isIO.value = false
 
                 }
             }
             catch (e: Exception) {
+                e.printStackTrace()
                 isIO.value = false
             }
-
         }
+    }
+
+    private fun clean() {
+        uuid.value = ""
+        title.value = ""
+        content.value = ""
+        contentImage.value = ""
+        createDate.value = ""
+        isImportant.value = false
+        isUrgent.value = false
+        isFinished.value = false
     }
 }

@@ -583,5 +583,5 @@ object EditToDoItemView {
 @Preview(showBackground = true, name = "edit schedule view")
 @Composable
 fun EditScheduleViewPreview() {
-    EditToDoItemView.ToolBar()
+
 }

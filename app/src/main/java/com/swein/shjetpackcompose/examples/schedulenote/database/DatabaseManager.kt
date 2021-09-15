@@ -31,6 +31,10 @@ object DatabaseManager {
         return database.scheduleDao().load(uuid)
     }
 
+    suspend fun load(offset: Int, limit: Int): List<ScheduleEntity>? {
+        return database.scheduleDao().load(offset, limit)
+    }
+
     suspend fun loadAll(): List<ScheduleEntity>? {
         return database.scheduleDao().loadAll()
     }

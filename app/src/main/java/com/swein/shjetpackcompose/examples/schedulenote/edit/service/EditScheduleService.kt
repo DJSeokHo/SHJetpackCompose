@@ -22,6 +22,22 @@ object EditScheduleService {
         return@withContext
     }
 
+    suspend fun load(offset: Int, limit: Int) = withContext(Dispatchers.IO) {
+
+        val resultList = mutableListOf<ScheduleModel>()
+
+        DatabaseManager.load(offset, limit)?.let { list ->
+            var scheduleModel: ScheduleModel
+            for (scheduleEntity in list) {
+                scheduleModel = ScheduleModel()
+                scheduleModel.parsingEntity(scheduleEntity)
+                resultList.add(scheduleModel)
+            }
+        }
+
+        return@withContext resultList
+    }
+
     suspend fun loadAll() = withContext(Dispatchers.IO) {
 
         val resultList = mutableListOf<ScheduleModel>()

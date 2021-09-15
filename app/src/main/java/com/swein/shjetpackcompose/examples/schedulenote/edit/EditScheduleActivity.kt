@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
-import com.swein.framework.utility.theme.ThemeUtility
+import com.swein.framework.utility.window.WindowUtility
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
@@ -38,8 +38,8 @@ class EditScheduleActivity : ComponentActivity() {
             }
         }
 
-        ThemeUtility.setWindowStatusBarColor(this, getColor(R.color.basic_color_2022))
-        ThemeUtility.setSystemBarTheme(this, true)
+        WindowUtility.setWindowStatusBarColor(this, getColor(R.color.basic_color_2022))
+        WindowUtility.setSystemBarTheme(this, true)
 
         setContent {
             EditToDoItemView.ActivityContentView(viewModel = viewModel)
@@ -56,6 +56,8 @@ class EditScheduleActivity : ComponentActivity() {
 
             ILog.debug(TAG, "$testResult")
         }
+
+//        viewModel.contentImage.value = "/storage/emulated/0/Android/data/com.swein.shjetpackcompose/files/Pictures/2021_9_15_12_44_34_3608101991505544178208.jpg"
     }
 
     fun takePhoto() {

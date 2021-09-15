@@ -102,4 +102,6 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.3.0"
     // <----------------------------------- room
+
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.18.0"
 }

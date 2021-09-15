@@ -4,9 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -20,60 +23,103 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.request.CachePolicy
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
+import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
+import java.io.File
 
 object ScheduleListView {
 
+    private const val TAG = "ScheduleListView"
+
     @Composable
-    fun ActivityContentView() {
+    fun ActivityContentView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onToolBarEndClick: () -> Unit) {
+
+        val coroutineScope = rememberCoroutineScope()
 
         Scaffold(
             backgroundColor = Color.White
         ) { // innerPadding ->
-//            ContentView(Modifier.padding(innerPadding))
-            ContentView()
+
+            Box(
+                modifier = modifier.fillMaxSize()
+            ) {
+
+                Column(modifier = modifier.fillMaxSize()) {
+
+                    // custom tool bar
+                    CommonView.CustomToolBar(
+                        endImageResource = R.mipmap.ti_plus,
+                        onEndClick = {
+                            onToolBarEndClick()
+                        }
+                    )
+
+                    SwipeRefreshView(
+                        contentView = {
+                            ListView(list = viewModel.list)
+                        }, onRefresh = {
+                            viewModel.reload()
+                        }
+                    )
+
+                }
+
+                if (viewModel.isIO.value) {
+                    CommonView.Progress()
+                }
+
+            }
         }
     }
 
     @Composable
-    private fun ContentView(modifier: Modifier = Modifier) {
-
-        Box(
+    private fun SwipeRefreshView(modifier: Modifier = Modifier, contentView: @Composable () -> Unit, onRefresh: () -> Unit) {
+        val swipeRefreshState = rememberSwipeRefreshState(false)
+        SwipeRefresh(
+            state = swipeRefreshState,
+            onRefresh = {
+                ILog.debug(TAG, "refresh")
+                onRefresh()
+            },
             modifier = modifier.fillMaxSize()
         ) {
-
-            Column(modifier = modifier.fillMaxSize()) {
-
-                // custom tool bar
-                CommonView.CustomToolBar(
-                    endImageResource = R.mipmap.ti_plus,
-                    onEndClick = {
-
-                    }
-                )
-            }
-
-            CommonView.Progress()
-
+            contentView()
         }
-
     }
-
 
     @Composable
-    private fun ListView() {
+    private fun ListView(modifier: Modifier = Modifier, list: MutableList<ScheduleModel>) {
 
+        LazyColumn(modifier = modifier.fillMaxSize()) {
+
+            items(
+                items = list,
+                key = {
+                    // Return a stable + unique key for the item
+                    it.uuid
+                }
+            ) { item ->
+                ListItemView(scheduleModel = item) {
+
+                }
+            }
+        }
     }
 
 
+    @OptIn(ExperimentalCoilApi::class)
     @Composable
     private fun ListItemView(
         modifier: Modifier = Modifier,
-        scheduleModelModel: ScheduleModel,
+        scheduleModel: ScheduleModel,
         onItemClick: (scheduleModelModel: ScheduleModel) -> Unit
     ) {
 
@@ -92,7 +138,7 @@ object ScheduleListView {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .clickable {
-                        onItemClick(scheduleModelModel)
+                        onItemClick(scheduleModel)
                     }
                     .padding(8.dp),
             ) {
@@ -106,7 +152,7 @@ object ScheduleListView {
                     // Image area
                     Image(
                         painter = rememberImagePainter(
-                            data = scheduleModelModel.contentImage,
+                            data = File(scheduleModel.contentImage),
                             builder = {
                                 crossfade(true)
                                 placeholder(R.drawable.coding_with_cat_icon)
@@ -128,7 +174,7 @@ object ScheduleListView {
                 ) {
 
                     Text(
-                        text = scheduleModelModel.title,
+                        text = scheduleModel.title,
                         color = colorResource(id = R.color.c111111),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -138,7 +184,7 @@ object ScheduleListView {
                     )
 
                     Text(
-                        text = scheduleModelModel.content,
+                        text = scheduleModel.content,
                         color = colorResource(id = R.color.c666666),
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -147,7 +193,7 @@ object ScheduleListView {
                     )
 
                     Text(
-                        text = scheduleModelModel.createDate,
+                        text = scheduleModel.createDate,
                         color = colorResource(id = R.color.c999999),
                         fontSize = 10.sp,
                         maxLines = 1,
@@ -158,7 +204,7 @@ object ScheduleListView {
                         modifier = modifier.layoutId("state")
                     ) {
 
-                        if (scheduleModelModel.isFinished) {
+                        if (scheduleModel.isFinished) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_finished),
                                 contentDescription = "",
@@ -169,7 +215,7 @@ object ScheduleListView {
                             )
                         }
 
-                        if (scheduleModelModel.isImportant) {
+                        if (scheduleModel.isImportant) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_important),
                                 contentDescription = "",
@@ -180,7 +226,7 @@ object ScheduleListView {
                             )
                         }
 
-                        if (scheduleModelModel.isUrgent) {
+                        if (scheduleModel.isUrgent) {
                             Image(
                                 painter = painterResource(id = R.mipmap.ti_urgent),
                                 contentDescription = "",
@@ -232,9 +278,5 @@ object ScheduleListView {
 @Preview(showBackground = true, name = "schedule list view")
 @Composable
 fun ScheduleListViewPreview() {
-//    SHJetpackComposeTheme {
-//    }
-
-    ScheduleListView.ActivityContentView()
 
 }

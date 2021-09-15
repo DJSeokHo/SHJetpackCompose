@@ -18,7 +18,10 @@ interface ScheduleDao {
     @Query("SELECT * FROM SCHEDULE_TABLE WHERE UUID = :uuid")
     suspend fun load(uuid: String): ScheduleEntity?
 
-    @Query("SELECT * FROM SCHEDULE_TABLE")
+    @Query("SELECT * FROM SCHEDULE_TABLE ORDER BY CREATE_DATE DESC")
     suspend fun loadAll(): List<ScheduleEntity>?
+
+    @Query("SELECT * FROM SCHEDULE_TABLE ORDER BY CREATE_DATE DESC LIMIT :limit OFFSET :offset")
+    suspend fun load(offset: Int, limit: Int): List<ScheduleEntity>?
 
 }
