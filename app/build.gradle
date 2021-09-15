@@ -104,4 +104,6 @@ dependencies {
     // <----------------------------------- room
 
     implementation "com.google.accompanist:accompanist-swiperefresh:0.18.0"
+
+    implementation "androidx.paging:paging-compose:1.0.0-alpha12"
 }

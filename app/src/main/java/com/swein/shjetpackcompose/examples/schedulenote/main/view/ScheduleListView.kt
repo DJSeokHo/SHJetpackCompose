@@ -5,11 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -31,8 +34,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
-import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import java.io.File
 
 object ScheduleListView {
@@ -42,7 +45,7 @@ object ScheduleListView {
     @Composable
     fun ActivityContentView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onToolBarEndClick: () -> Unit) {
 
-        val coroutineScope = rememberCoroutineScope()
+//        val coroutineScope = rememberCoroutineScope()
 
         Scaffold(
             backgroundColor = Color.White
@@ -64,19 +67,21 @@ object ScheduleListView {
 
                     SwipeRefreshView(
                         contentView = {
-                            ListView(list = viewModel.list)
-                        }, onRefresh = {
+                            ListView(list = viewModel.list, onLoadMore = {
+                                viewModel.loadMore()
+                            })
+                        },
+                        onRefresh = {
                             viewModel.reload()
                         }
                     )
-
                 }
 
                 if (viewModel.isIO.value) {
                     CommonView.Progress()
                 }
-
             }
+
         }
     }
 
@@ -96,19 +101,28 @@ object ScheduleListView {
     }
 
     @Composable
-    private fun ListView(modifier: Modifier = Modifier, list: MutableList<ScheduleModel>) {
+    private fun ListView(modifier: Modifier = Modifier, list: MutableList<ScheduleModel>, onLoadMore: (() -> Unit)? = null) {
 
-        LazyColumn(modifier = modifier.fillMaxSize()) {
+        val lazyListState = rememberLazyListState()
 
-            items(
-                items = list,
-                key = {
-                    // Return a stable + unique key for the item
-                    it.uuid
-                }
-            ) { item ->
+        LazyColumn(
+            state = lazyListState,
+            modifier = modifier.fillMaxSize()
+        ) {
+
+            itemsIndexed(
+                items = list
+            ) { index, item ->
+
                 ListItemView(scheduleModel = item) {
 
+                }
+
+                ILog.debug(TAG, "index $index")
+                if (index == list.size - 1) {
+                    onLoadMore?.let {
+                        it()
+                    }
                 }
             }
         }

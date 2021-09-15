@@ -138,8 +138,9 @@ object CommonView {
 
         if (active) {
             Surface(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().clickable {  },
                 color = colorResource(id = R.color.black_30_transparent)
+//                color = colorResource(id = R.color.transparent)
             ) {
                 Box(
                     contentAlignment = Alignment.Center
