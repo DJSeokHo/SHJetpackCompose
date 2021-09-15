@@ -18,4 +18,5 @@
     <string name="schedule_image_label">Take or pick a photo (optional)</string>
     <string name="title_activity_padding_and_spacer_example">PaddingAndSpacerExampleActivity
     </string>
+    <string name="title_activity_lazy_column_example">LazyColumnExampleActivity</string>
 </resources>

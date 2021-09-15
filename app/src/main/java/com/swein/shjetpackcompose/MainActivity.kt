@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
 
 class MainActivity : ComponentActivity() {
@@ -36,9 +37,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ScheduleListActivity::class.java).apply {
+//        Intent(this, ScheduleListActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LazyColumnExampleActivity::class.java).apply {
             startActivity(this)
         }
+
+
     }
 }
 
