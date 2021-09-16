@@ -129,11 +129,9 @@ object LazyColumnExampleView {
                 }
 
                 ILog.debug(TAG, "currentIndex $currentIndex lastIndex ???? $lastIndex")
-                SideEffect {
-                    if (currentIndex == lastIndex) {
-                        onLoadMore?.let {
-                            it()
-                        }
+                if (currentIndex == lastIndex) {
+                    onLoadMore?.let {
+                        it()
                     }
                 }
 

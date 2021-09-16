@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +35,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.examples.lazycolumexample.view.LazyColumnExampleView
+import com.swein.shjetpackcompose.examples.lazycolumexample.viewmodel.LazyColumnExampleViewModel
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
@@ -67,7 +71,7 @@ object ScheduleListView {
 
                     SwipeRefreshView(
                         contentView = {
-                            ListView(list = viewModel.list, onLoadMore = {
+                            ListView(viewModel = viewModel, onLoadMore = {
                                 viewModel.loadMore()
                             })
                         },
@@ -77,9 +81,7 @@ object ScheduleListView {
                     )
                 }
 
-                if (viewModel.isIO.value) {
-                    CommonView.Progress()
-                }
+                Progress(viewModel = viewModel)
             }
 
         }
@@ -101,7 +103,7 @@ object ScheduleListView {
     }
 
     @Composable
-    private fun ListView(modifier: Modifier = Modifier, list: MutableList<ScheduleModel>, onLoadMore: (() -> Unit)? = null) {
+    private fun ListView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onLoadMore: (() -> Unit)? = null) {
 
         val lazyListState = rememberLazyListState()
 
@@ -110,20 +112,27 @@ object ScheduleListView {
             modifier = modifier.fillMaxSize()
         ) {
 
-            itemsIndexed(
-                items = list
-            ) { index, item ->
+            items(
+                items = viewModel.list,
+                key = {
+                    it.uuid
+                }
+            ) { item ->
+
+                val lastIndex = viewModel.list.lastIndex
+                val currentIndex = viewModel.list.indexOf(item)
 
                 ListItemView(scheduleModel = item) {
 
                 }
 
-                ILog.debug(TAG, "index $index")
-                if (index == list.size - 1) {
+                ILog.debug(TAG, "currentIndex $currentIndex lastIndex ???? $lastIndex")
+                if (currentIndex == lastIndex) {
                     onLoadMore?.let {
                         it()
                     }
                 }
+
             }
         }
     }
@@ -285,6 +294,11 @@ object ScheduleListView {
             }
 
         }
+    }
+
+    @Composable
+    private fun Progress(viewModel: ScheduleListViewModel) {
+        CommonView.Progress(viewModel.isIO.value)
     }
 
 }

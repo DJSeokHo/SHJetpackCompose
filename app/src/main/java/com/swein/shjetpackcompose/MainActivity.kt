@@ -37,14 +37,13 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, ScheduleListActivity::class.java).apply {
-//            startActivity(this)
-//        }
-
-        Intent(this, LazyColumnExampleActivity::class.java).apply {
+        Intent(this, ScheduleListActivity::class.java).apply {
             startActivity(this)
         }
 
+//        Intent(this, LazyColumnExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
     }
 }
