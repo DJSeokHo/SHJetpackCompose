@@ -51,17 +51,17 @@ class EditScheduleViewModel: ViewModel() {
         isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
     }
 
-    fun onSave(checkEmpty: () -> Unit) {
+    fun onSave(onEmpty: () -> Unit, onFinished: () -> Unit) {
 
         ILog.debug(TAG, "${title.value}, ${content.value}")
 
         if (title.value.isEmpty()) {
-            checkEmpty()
+            onEmpty()
             return
         }
 
         if (content.value.isEmpty()) {
-            checkEmpty()
+            onEmpty()
             return
         }
 
@@ -106,6 +106,7 @@ class EditScheduleViewModel: ViewModel() {
 
                     isIO.value = false
 
+                    onFinished()
                 }
             }
             catch (e: Exception) {

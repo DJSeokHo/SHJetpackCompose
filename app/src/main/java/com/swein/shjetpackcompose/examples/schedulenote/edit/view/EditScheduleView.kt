@@ -56,6 +56,7 @@ object EditToDoItemView {
     @Composable
     fun ActivityContentView(modifier: Modifier = Modifier, viewModel: EditScheduleViewModel) {
 
+        val activity = LocalContext.current as EditScheduleActivity
         val coroutineScope = rememberCoroutineScope()
 
         val snackBarMessage = remember {
@@ -119,23 +120,27 @@ object EditToDoItemView {
                             .fillMaxSize(),
                         onClick = {
                             ILog.debug(TAG, "save")
-                            viewModel.onSave {
-
-                                if (snackBarMessage.value != "") {
-                                    return@onSave
-                                }
-
-                                snackBarMessage.value = "Input title and content please"
-
-                                coroutineScope.launch(Dispatchers.IO) {
-
-                                    delay(2000)
-
-                                    coroutineScope.launch(Dispatchers.Main) {
-                                        snackBarMessage.value = ""
+                            viewModel.onSave(
+                                onEmpty = {
+                                    if (snackBarMessage.value != "") {
+                                        return@onSave
                                     }
+
+                                    snackBarMessage.value = "Input title and content please"
+
+                                    coroutineScope.launch(Dispatchers.IO) {
+
+                                        delay(2000)
+
+                                        coroutineScope.launch(Dispatchers.Main) {
+                                            snackBarMessage.value = ""
+                                        }
+                                    }
+                                },
+                                onFinished = {
+                                    activity.finish()
                                 }
-                            }
+                            )
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.basic_color_2022)
