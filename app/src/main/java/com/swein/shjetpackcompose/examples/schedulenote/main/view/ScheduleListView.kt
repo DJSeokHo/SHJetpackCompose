@@ -13,10 +13,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,8 +36,10 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
+import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
+import kotlinx.coroutines.launch
 import java.io.File
 
 object ScheduleListView {
@@ -45,7 +49,8 @@ object ScheduleListView {
     @Composable
     fun ActivityContentView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onToolBarEndClick: () -> Unit) {
 
-//        val coroutineScope = rememberCoroutineScope()
+        val activity = LocalContext.current as ScheduleListActivity
+
 
         Scaffold(
             backgroundColor = Color.White
@@ -69,6 +74,8 @@ object ScheduleListView {
                         viewModel.reload()
                     }, onLoadMore = {
                         viewModel.loadMore()
+                    }, onItemClick = {
+                        activity.openDetail(it)
                     })
                 }
 
@@ -79,10 +86,10 @@ object ScheduleListView {
     }
 
     @Composable
-    private fun ListView(viewModel: ScheduleListViewModel, onRefresh: () -> Unit, onLoadMore: (() -> Unit)? = null) {
+    private fun ListView(viewModel: ScheduleListViewModel, onRefresh: () -> Unit, onLoadMore: (() -> Unit)? = null, onItemClick: ((ScheduleModel) -> Unit)? = null) {
         SwipeRefreshView(
             contentView = {
-                RecyclerView(viewModel = viewModel, onLoadMore = onLoadMore)
+                RecyclerView(viewModel = viewModel, onLoadMore = onLoadMore, onItemClick = onItemClick)
             },
             onRefresh = onRefresh
         )
@@ -104,14 +111,24 @@ object ScheduleListView {
     }
 
     @Composable
-    private fun RecyclerView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onLoadMore: (() -> Unit)? = null) {
+    private fun RecyclerView(modifier: Modifier = Modifier, viewModel: ScheduleListViewModel, onItemClick: ((ScheduleModel) -> Unit)? = null, onLoadMore: (() -> Unit)? = null) {
 
+        val coroutineScope = rememberCoroutineScope()
         val lazyListState = rememberLazyListState()
 
         LazyColumn(
             state = lazyListState,
             modifier = modifier.fillMaxSize()
         ) {
+
+            if (viewModel.shouldScrollToTop) {
+                viewModel.shouldScrollToTop = false
+                coroutineScope.launch {
+                    lazyListState.animateScrollToItem(index = 0)
+                }
+            }
+
+            ILog.debug(TAG, "recomposition lazy column")
 
             items(
                 items = viewModel.list,
@@ -123,9 +140,7 @@ object ScheduleListView {
                 val lastIndex = viewModel.list.lastIndex
                 val currentIndex = viewModel.list.indexOf(item)
 
-                ListItemView(scheduleModel = item) {
-
-                }
+                ListItemView(scheduleModel = item, onItemClick = onItemClick)
 
                 ILog.debug(TAG, "currentIndex $currentIndex lastIndex ???? $lastIndex")
                 if (currentIndex == lastIndex) {
@@ -136,6 +151,7 @@ object ScheduleListView {
 
             }
         }
+
     }
 
 
@@ -144,7 +160,7 @@ object ScheduleListView {
     private fun ListItemView(
         modifier: Modifier = Modifier,
         scheduleModel: ScheduleModel,
-        onItemClick: (scheduleModelModel: ScheduleModel) -> Unit
+        onItemClick: ((ScheduleModel) -> Unit)? = null
     ) {
 
         Surface(
@@ -162,7 +178,9 @@ object ScheduleListView {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .clickable {
-                        onItemClick(scheduleModel)
+                        onItemClick?.let {
+                            it(scheduleModel)
+                        }
                     }
                     .padding(8.dp),
             ) {

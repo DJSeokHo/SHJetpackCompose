@@ -23,6 +23,8 @@ class ScheduleListViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
+    var shouldScrollToTop = false
+
     fun reload() {
 
         ILog.debug(TAG, "reload")

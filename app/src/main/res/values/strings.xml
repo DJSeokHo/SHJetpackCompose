@@ -9,6 +9,7 @@
     <string name="title_activity_edit_schedule_item">EditScheduleActivity</string>
 
     <string name="save">save</string>
+    <string name="update">update</string>
 
     <string name="schedule_header">Schedule</string>
     <string name="schedule_title_label">Schedule Title</string>

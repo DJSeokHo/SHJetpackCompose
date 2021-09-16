@@ -78,23 +78,17 @@ object EditToDoItemView {
                     ToolBar()
 
                     InputPart(
-                        title = viewModel.title.value,
+                        viewModel = viewModel,
                         onTitleChange = { title ->
                             ILog.debug(TAG, "onTitleChange $title")
                             viewModel.title.value = title
                         },
-                        content = viewModel.content.value,
                         onContentChange = { content ->
                             if (content.length <= 1000) {
                                 ILog.debug(TAG, "onContentChange $content")
                                 viewModel.content.value = content
                             }
                         },
-                        contentImage = viewModel.contentImage.value, scope = scope, state = state,
-                        shouldShowFinish = viewModel.uuid.value != "",
-                        isImportant = viewModel.isImportant.value,
-                        isUrgent = viewModel.isUrgent.value,
-                        isFinished = viewModel.isFinished.value,
                         onImportantClick = {
                             viewModel.isImportant.value = !it
                         },
@@ -103,7 +97,8 @@ object EditToDoItemView {
                         },
                         onFinishedClick = {
                             viewModel.isFinished.value = !it
-                        }
+                        },
+                        scope = scope, state = state
                     )
                 }
 
@@ -119,35 +114,51 @@ object EditToDoItemView {
                         modifier = modifier
                             .fillMaxSize(),
                         onClick = {
-                            ILog.debug(TAG, "save")
-                            viewModel.onSave(
-                                onEmpty = {
-                                    if (snackBarMessage.value != "") {
-                                        return@onSave
-                                    }
 
-                                    snackBarMessage.value = "Input title and content please"
+                            if (viewModel.uuid.value == "") {
 
-                                    coroutineScope.launch(Dispatchers.IO) {
+                                ILog.debug(TAG, "save")
 
-                                        delay(2000)
-
-                                        coroutineScope.launch(Dispatchers.Main) {
-                                            snackBarMessage.value = ""
+                                viewModel.onSave(
+                                    onEmpty = {
+                                        if (snackBarMessage.value != "") {
+                                            return@onSave
                                         }
+
+                                        snackBarMessage.value = "Input title and content please"
+
+                                        coroutineScope.launch(Dispatchers.IO) {
+
+                                            delay(2000)
+
+                                            coroutineScope.launch(Dispatchers.Main) {
+                                                snackBarMessage.value = ""
+                                            }
+                                        }
+                                    },
+                                    onFinished = {
+                                        activity.finish()
                                     }
-                                },
-                                onFinished = {
-                                    activity.finish()
-                                }
-                            )
+                                )
+                            }
+                            else {
+
+                                ILog.debug(TAG, "update")
+
+                            }
+
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.basic_color_2022)
                         )
                     ) {
                         Text(
-                            text = stringResource(id = R.string.save),
+                            text = stringResource(id = if (viewModel.uuid.value == "") {
+                                R.string.save
+                            }
+                            else {
+                                R.string.update
+                            }),
                             color = colorResource(id = R.color.white),
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
@@ -165,7 +176,7 @@ object EditToDoItemView {
                     }
                 }
 
-                CommonView.Progress(viewModel.isIO.value)
+                Progress(viewModel)
             }
 
         }
@@ -189,12 +200,13 @@ object EditToDoItemView {
     @Composable
     fun InputPart(
         modifier: Modifier = Modifier,
-        title: String, onTitleChange: (String) -> Unit,
-        content: String, onContentChange: (String) -> Unit,
-        contentImage: String, scope: CoroutineScope, state: ModalBottomSheetState,
-        shouldShowFinish: Boolean = true,
-        isImportant: Boolean = false, isUrgent: Boolean = false, isFinished: Boolean = false,
-        onImportantClick: (Boolean) -> Unit, onUrgentClick: (Boolean) -> Unit, onFinishedClick: ((Boolean) -> Unit)? = null
+        viewModel: EditScheduleViewModel,
+        onTitleChange: (String) -> Unit,
+        onContentChange: (String) -> Unit,
+        onImportantClick: (Boolean) -> Unit,
+        onUrgentClick: (Boolean) -> Unit,
+        onFinishedClick: ((Boolean) -> Unit)? = null,
+        scope: CoroutineScope, state: ModalBottomSheetState
     ) {
 
         val contentEditFocusRequester = remember {
@@ -214,10 +226,10 @@ object EditToDoItemView {
                     .height(20.dp))
 
             InputFlag(
-                shouldShowFinish = shouldShowFinish,
-                isImportant = isImportant,
-                isUrgent = isUrgent,
-                isFinished = isFinished,
+                shouldShowFinish = viewModel.uuid.value != "",
+                isImportant = viewModel.isImportant.value,
+                isUrgent = viewModel.isUrgent.value,
+                isFinished = viewModel.isFinished.value,
                 onImportantClick = onImportantClick, onUrgentClick = onUrgentClick, onFinishedClick = onFinishedClick
             )
 
@@ -227,21 +239,21 @@ object EditToDoItemView {
                     .height(20.dp))
 
             // input area
-            InputTitle(contentEditFocusRequester = contentEditFocusRequester, title = title, onTitleChange = onTitleChange)
+            InputTitle(contentEditFocusRequester = contentEditFocusRequester, title = viewModel.title.value, onTitleChange = onTitleChange)
 
             Spacer(
                 modifier
                     .fillMaxWidth()
                     .height(50.dp))
 
-            InputContent(contentEditFocusRequester = contentEditFocusRequester, content = content, onContentChange = onContentChange)
+            InputContent(contentEditFocusRequester = contentEditFocusRequester, content = viewModel.content.value, onContentChange = onContentChange)
 
             Spacer(
                 modifier
                     .fillMaxWidth()
                     .height(30.dp))
 
-            InputContentImage(contentImage = contentImage, scope = scope, state = state)
+            InputContentImage(contentImage = viewModel.contentImage.value, scope = scope, state = state)
 
         }
     }
@@ -581,6 +593,11 @@ object EditToDoItemView {
                 }
             }
         )
+    }
+
+    @Composable
+    private fun Progress(viewModel: EditScheduleViewModel) {
+        CommonView.Progress(viewModel.isIO.value)
     }
 
 }

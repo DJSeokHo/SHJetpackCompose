@@ -3,14 +3,14 @@ package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.swein.easyeventobserver.EventCenter
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.uuid.UUIDUtil
+import com.swein.shjetpackcompose.examples.schedulenote.constants.ScheduleNoteConstants
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.*
-import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
-import org.json.JSONObject
 
 class EditScheduleViewModel: ViewModel() {
 
@@ -39,16 +39,16 @@ class EditScheduleViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
-    fun initWithJSONObject(jsonObject: JSONObject) {
+    fun initWithObject(scheduleModel: ScheduleModel) {
 
-        uuid.value = ParsingUtility.parsingString(jsonObject, "uuid")
-        title.value = ParsingUtility.parsingString(jsonObject, "title")
-        content.value = ParsingUtility.parsingString(jsonObject, "content")
-        contentImage.value = ParsingUtility.parsingString(jsonObject, "contentImage")
-        createDate.value = ParsingUtility.parsingString(jsonObject, "createDate")
-        isImportant.value = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
-        isUrgent.value = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
-        isFinished.value = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
+        uuid.value = scheduleModel.uuid
+        title.value = scheduleModel.title
+        content.value = scheduleModel.content
+        contentImage.value = scheduleModel.contentImage
+        createDate.value = scheduleModel.createDate
+        isImportant.value = scheduleModel.isImportant
+        isUrgent.value = scheduleModel.isUrgent
+        isFinished.value = scheduleModel.isFinished
     }
 
     fun onSave(onEmpty: () -> Unit, onFinished: () -> Unit) {
@@ -105,6 +105,8 @@ class EditScheduleViewModel: ViewModel() {
                     clean()
 
                     isIO.value = false
+
+                    EventCenter.sendEvent(ScheduleNoteConstants.ESS_REFRESH_SCHEDULE_LIST, this, null)
 
                     onFinished()
                 }

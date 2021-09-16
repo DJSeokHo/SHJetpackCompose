@@ -1,18 +1,22 @@
 package com.swein.shjetpackcompose.examples.schedulenote.edit
 
 import android.os.Bundle
+import android.view.inputmethod.InputMethodSession
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.swein.easyeventobserver.EventCenter
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.examples.schedulenote.constants.ScheduleNoteConstants
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
+import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -26,15 +30,18 @@ class EditScheduleActivity : ComponentActivity() {
     private val viewModel by viewModels<EditScheduleViewModel>()
     private val systemPhotoPickManager = SystemPhotoPickManager(this)
 
-    private var scheduleModelJSONObjectString = ""
+    private var scheduleModel: ScheduleModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         intent.getBundleExtra("bundle")?.let {
-            scheduleModelJSONObjectString = it.getString("scheduleModelJSONObjectString", "")
+            val scheduleModelJSONObjectString = it.getString("scheduleModel", "")
             if (scheduleModelJSONObjectString != "") {
-                viewModel.initWithJSONObject(JSONObject(scheduleModelJSONObjectString))
+
+                scheduleModel = ScheduleModel()
+                scheduleModel!!.initWithJSONObject(JSONObject(scheduleModelJSONObjectString))
+                viewModel.initWithObject(scheduleModel!!)
             }
         }
 

@@ -4,6 +4,8 @@ import com.swein.framework.extension.string.urlDecode
 import com.swein.framework.extension.string.urlEncode
 import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 import com.swein.shjetpackcompose.examples.schedulenote.database.model.IScheduleModel
+import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
+import org.json.JSONObject
 
 class ScheduleModel: IScheduleModel {
 
@@ -30,6 +32,32 @@ class ScheduleModel: IScheduleModel {
 
     override fun toEntity(): ScheduleEntity {
         return ScheduleEntity(uuid, title.urlEncode(), content.urlEncode(), contentImage, createDate, isImportant, isUrgent, isFinished)
+    }
+
+    fun initWithJSONObject(jsonObject: JSONObject) {
+        uuid = ParsingUtility.parsingString(jsonObject, "uuid")
+        title = ParsingUtility.parsingString(jsonObject, "title")
+        content = ParsingUtility.parsingString(jsonObject, "content")
+        contentImage = ParsingUtility.parsingString(jsonObject, "contentImage")
+        createDate = ParsingUtility.parsingString(jsonObject, "createDate")
+        isImportant = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
+        isUrgent = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
+        isFinished = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
+    }
+
+    fun toJSONObject(): JSONObject {
+
+        return JSONObject().apply {
+            put("uuid", uuid)
+            put("title", title)
+            put("content", content)
+            put("contentImage", contentImage)
+            put("createDate", createDate)
+            put("isImportant", isImportant)
+            put("isUrgent", isUrgent)
+            put("isFinished", isFinished)
+        }
+
     }
 
     override fun toString(): String {
