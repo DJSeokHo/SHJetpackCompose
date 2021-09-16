@@ -1,28 +1,32 @@
 package com.swein.shjetpackcompose.examples.schedulenote.edit.service
 
 import com.swein.shjetpackcompose.examples.schedulenote.database.DatabaseManager
-import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object EditScheduleService {
 
-    suspend fun insert(scheduleModel: ScheduleModel) = withContext(Dispatchers.IO) {
+    suspend fun insert(scheduleModel: ScheduleModel): Long = withContext(Dispatchers.IO) {
         return@withContext DatabaseManager.insert(scheduleModel.toEntity())
     }
 
-    suspend fun load(uuid: String) = withContext(Dispatchers.IO) {
-
-        DatabaseManager.load(uuid)?.let {
-            val scheduleModel = ScheduleModel()
-            scheduleModel.parsingEntity(it)
-        }
-
-        return@withContext
+    suspend fun update(scheduleModel: ScheduleModel): Int = withContext(Dispatchers.IO) {
+        return@withContext DatabaseManager.update(scheduleModel.toEntity())
     }
 
-    suspend fun load(offset: Int, limit: Int) = withContext(Dispatchers.IO) {
+    suspend fun load(uuid: String): ScheduleModel? = withContext(Dispatchers.IO) {
+
+        var scheduleModel: ScheduleModel? = null
+        DatabaseManager.load(uuid)?.let {
+            scheduleModel = ScheduleModel()
+            scheduleModel!!.parsingEntity(it)
+        }
+
+        return@withContext scheduleModel
+    }
+
+    suspend fun load(offset: Int, limit: Int): MutableList<ScheduleModel> = withContext(Dispatchers.IO) {
 
         val resultList = mutableListOf<ScheduleModel>()
 
@@ -38,7 +42,7 @@ object EditScheduleService {
         return@withContext resultList
     }
 
-    suspend fun loadAll() = withContext(Dispatchers.IO) {
+    suspend fun loadAll(): MutableList<ScheduleModel> = withContext(Dispatchers.IO) {
 
         val resultList = mutableListOf<ScheduleModel>()
 

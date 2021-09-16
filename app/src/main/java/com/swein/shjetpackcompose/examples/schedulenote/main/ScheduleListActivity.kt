@@ -2,6 +2,7 @@ package com.swein.shjetpackcompose.examples.schedulenote.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -55,6 +56,30 @@ class ScheduleListActivity : ComponentActivity() {
                 viewModel.reload()
             }
         })
+
+        EventCenter.addEventObserver(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_LIST_ITEM, this, object : EventCenter.EventRunnable {
+            override fun run(arrow: String, poster: Any, data: MutableMap<String, Any>?) {
+
+                data?.let {
+                    val anyObject = it["scheduleModel"]
+                    val scheduleModel = anyObject as ScheduleModel
+                    var index = -1
+                    for (i in 0 until viewModel.list.size) {
+                        if (scheduleModel.uuid == viewModel.list[i].uuid) {
+                            index = i
+                            break
+                        }
+                    }
+
+                    if (index != -1) {
+                        viewModel.list[index] = scheduleModel
+                        Toast.makeText(this@ScheduleListActivity, "update success", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        })
+
     }
 
     fun openDetail(scheduleModel: ScheduleModel) {
@@ -64,7 +89,7 @@ class ScheduleListActivity : ComponentActivity() {
         Intent(this@ScheduleListActivity, EditScheduleActivity::class.java).apply {
 
             val bundle = Bundle()
-            bundle.putString("scheduleModel", scheduleModel.toJSONObject().toString())
+            bundle.putString("uuid", scheduleModel.uuid)
             putExtra("bundle", bundle)
             startActivity(this)
         }

@@ -10,7 +10,9 @@ import com.swein.framework.utility.uuid.UUIDUtil
 import com.swein.shjetpackcompose.examples.schedulenote.constants.ScheduleNoteConstants
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class EditScheduleViewModel: ViewModel() {
 
@@ -39,8 +41,41 @@ class EditScheduleViewModel: ViewModel() {
 
     var isIO = mutableStateOf(false)
 
-    fun initWithObject(scheduleModel: ScheduleModel) {
+    fun loadSchedule(uuid: String) {
+        ILog.debug(TAG, "loadSchedule $uuid")
 
+        viewModelScope.launch {
+
+            isIO.value = true
+
+            try {
+                coroutineScope {
+
+                    val schedule = async {
+                        EditScheduleService.load(uuid)
+                    }
+
+                    val scheduleResult = schedule.await()
+
+                    isIO.value = false
+
+                    scheduleResult?.let {
+                        ILog.debug(TAG, "$scheduleResult")
+
+                        initValue(it)
+
+                    }
+
+                }
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+                isIO.value = false
+            }
+        }
+    }
+
+    private fun initValue(scheduleModel: ScheduleModel) {
         uuid.value = scheduleModel.uuid
         title.value = scheduleModel.title
         content.value = scheduleModel.content
@@ -74,29 +109,19 @@ class EditScheduleViewModel: ViewModel() {
 
                     val insert = async {
 
-                        val scheduleViewModel = ScheduleModel()
-                        scheduleViewModel.uuid = if (uuid.value != "") {
-                            uuid.value
-                        }
-                        else {
-                            UUIDUtil.getUUIDString()
-                        }
-                        scheduleViewModel.title = title.value
-                        scheduleViewModel.content = content.value
-                        scheduleViewModel.contentImage = contentImage.value
-                        scheduleViewModel.createDate = if (createDate.value != "") {
-                            createDate.value
-                        }
-                        else {
-                            DateUtility.getCurrentDateTimeString()
-                        }
-                        scheduleViewModel.isImportant = isImportant.value
-                        scheduleViewModel.isUrgent = isUrgent.value
-                        scheduleViewModel.isFinished = isFinished.value
+                        val scheduleModel = ScheduleModel()
+                        scheduleModel.uuid = UUIDUtil.getUUIDString()
+                        scheduleModel.title = title.value
+                        scheduleModel.content = content.value
+                        scheduleModel.contentImage = contentImage.value
+                        scheduleModel.createDate = DateUtility.getCurrentDateTimeString()
+                        scheduleModel.isImportant = isImportant.value
+                        scheduleModel.isUrgent = isUrgent.value
+                        scheduleModel.isFinished = false
 
-                        ILog.debug(TAG, "$scheduleViewModel")
+                        ILog.debug(TAG, "$scheduleModel")
 
-                        EditScheduleService.insert(scheduleViewModel)
+                        EditScheduleService.insert(scheduleModel)
                     }
 
                     val result = insert.await()
@@ -109,6 +134,69 @@ class EditScheduleViewModel: ViewModel() {
                     EventCenter.sendEvent(ScheduleNoteConstants.ESS_REFRESH_SCHEDULE_LIST, this, null)
 
                     onFinished()
+                }
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+                isIO.value = false
+            }
+        }
+    }
+
+
+    fun onUpdate(onEmpty: () -> Unit, onFinished: () -> Unit) {
+
+        ILog.debug(TAG, "${title.value}, ${content.value}")
+
+        if (title.value.isEmpty()) {
+            onEmpty()
+            return
+        }
+
+        if (content.value.isEmpty()) {
+            onEmpty()
+            return
+        }
+
+        viewModelScope.launch {
+
+            isIO.value = true
+
+            try {
+                coroutineScope {
+
+                    val scheduleModel = ScheduleModel()
+
+                    val update = async {
+
+                        scheduleModel.uuid = uuid.value
+                        scheduleModel.title = title.value
+                        scheduleModel.content = content.value
+                        scheduleModel.contentImage = contentImage.value
+                        scheduleModel.createDate = createDate.value
+                        scheduleModel.isImportant = isImportant.value
+                        scheduleModel.isUrgent = isUrgent.value
+                        scheduleModel.isFinished = isFinished.value
+
+                        ILog.debug(TAG, "$scheduleModel")
+
+                        EditScheduleService.update(scheduleModel)
+                    }
+
+                    val result = update.await()
+                    ILog.debug(TAG, "result $result")
+
+                    if (result == 1) {
+                        clean()
+
+                        isIO.value = false
+
+                        val data = mutableMapOf<String, Any>()
+                        data["scheduleModel"] = scheduleModel
+                        EventCenter.sendEvent(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_LIST_ITEM, this, data)
+
+                        onFinished()
+                    }
                 }
             }
             catch (e: Exception) {

@@ -1,9 +1,6 @@
 package com.swein.shjetpackcompose.examples.schedulenote.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 
 @Dao
@@ -11,6 +8,9 @@ interface ScheduleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(scheduleEntity: ScheduleEntity): Long
+
+    @Update
+    suspend fun update(scheduleEntity: ScheduleEntity): Int
 
     @Query("DELETE FROM SCHEDULE_TABLE")
     suspend fun clean(): Int // DELETE query methods must either return void or int (the number of deleted rows)

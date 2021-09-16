@@ -7,10 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -121,20 +118,7 @@ object EditToDoItemView {
 
                                 viewModel.onSave(
                                     onEmpty = {
-                                        if (snackBarMessage.value != "") {
-                                            return@onSave
-                                        }
-
-                                        snackBarMessage.value = "Input title and content please"
-
-                                        coroutineScope.launch(Dispatchers.IO) {
-
-                                            delay(2000)
-
-                                            coroutineScope.launch(Dispatchers.Main) {
-                                                snackBarMessage.value = ""
-                                            }
-                                        }
+                                        toggleSnackBar(snackBarMessage, coroutineScope)
                                     },
                                     onFinished = {
                                         activity.finish()
@@ -144,6 +128,15 @@ object EditToDoItemView {
                             else {
 
                                 ILog.debug(TAG, "update")
+
+                                viewModel.onUpdate(
+                                    onEmpty = {
+                                        toggleSnackBar(snackBarMessage, coroutineScope)
+                                    },
+                                    onFinished = {
+                                        activity.finish()
+                                    }
+                                )
 
                             }
 
@@ -598,6 +591,23 @@ object EditToDoItemView {
     @Composable
     private fun Progress(viewModel: EditScheduleViewModel) {
         CommonView.Progress(viewModel.isIO.value)
+    }
+
+    private fun toggleSnackBar(snackBarMessage: MutableState<String>, coroutineScope: CoroutineScope) {
+        if (snackBarMessage.value != "") {
+            return
+        }
+
+        snackBarMessage.value = "Input title and content please"
+
+        coroutineScope.launch(Dispatchers.IO) {
+
+            delay(2000)
+
+            coroutineScope.launch(Dispatchers.Main) {
+                snackBarMessage.value = ""
+            }
+        }
     }
 
 }

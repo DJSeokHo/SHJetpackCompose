@@ -23,6 +23,10 @@ object DatabaseManager {
         return database.scheduleDao().insert(scheduleEntity)
     }
 
+    suspend fun update(scheduleEntity: ScheduleEntity): Int {
+        return database.scheduleDao().update(scheduleEntity)
+    }
+
     suspend fun clean(): Int {
         return database.scheduleDao().clean()
     }
