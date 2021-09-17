@@ -63,6 +63,10 @@ object EditToDoItemView {
         val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
 
+        val dialogState = remember {
+            mutableStateOf(false)
+        }
+
         Scaffold { // innerPadding ->
 
             Box(
@@ -72,7 +76,7 @@ object EditToDoItemView {
                 Column(modifier = modifier.fillMaxSize()) {
 
                     // custom tool bar
-                    ToolBar()
+                    ToolBar(dialogState = dialogState)
 
                     InputPart(
                         viewModel = viewModel,
@@ -159,11 +163,31 @@ object EditToDoItemView {
                     }
                 }
 
+                CommonView.AlertDialogWithTwoButton(
+                    dialogState = dialogState,
+                    title = stringResource(id = R.string.warning), message = stringResource(id = R.string.delete_info),
+                    confirmButtonText = stringResource(id = R.string.confirm), cancelButtonText = stringResource(
+                        id = R.string.cancel
+                    ),
+                    onConfirm = {
+                        dialogState.value = false
+
+                        viewModel.onDelete {
+                            activity.onBackPressed()
+                        }
+
+                    }, onCancel = {
+                        dialogState.value = false
+                    }
+                )
+
                 BottomActionSheet(state = state, scope = scope)
 
                 if (snackBarMessage.value != "") {
                     Snackbar(
-                        modifier = modifier.padding(16.dp).align(Alignment.BottomCenter)
+                        modifier = modifier
+                            .padding(16.dp)
+                            .align(Alignment.BottomCenter)
                     ) {
                         Text(text = snackBarMessage.value)
                     }
@@ -176,11 +200,16 @@ object EditToDoItemView {
     }
 
     @Composable
-    fun ToolBar() {
+    fun ToolBar(dialogState: MutableState<Boolean>) {
 
         val activity = LocalContext.current as EditScheduleActivity
 
         CommonView.CustomToolBar(
+            startImageResource = R.mipmap.ti_delete,
+            onStartClick = {
+                ILog.debug(TAG, "delete")
+                dialogState.value = true
+            },
             title = stringResource(id = R.string.schedule_header),
             endImageResource = R.mipmap.ti_close,
             onEndClick = {
@@ -284,7 +313,10 @@ object EditToDoItemView {
 
         ConstraintLayout(
             constraintSet,
-            modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp).height(50.dp)
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .height(50.dp)
         ) {
 
             Image(
@@ -352,12 +384,14 @@ object EditToDoItemView {
                             }
 
                         }
-                        .padding(6.dp).alpha(if (shouldShowFinish) {
-                            1f
-                        }
-                        else {
-                            0f
-                        })
+                        .padding(6.dp)
+                        .alpha(
+                            if (shouldShowFinish) {
+                                1f
+                            } else {
+                                0f
+                            }
+                        )
                 )
 
             }

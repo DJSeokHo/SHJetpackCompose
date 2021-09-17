@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SHJetpackCompose</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_gtbasic">GTBasicActivity</string>
@@ -10,6 +10,11 @@
 
     <string name="save">save</string>
     <string name="update">update</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel" tools:ignore="ButtonCase">cancel</string>
+
+    <string name="warning">warning</string>
+    <string name="delete_info">Do you want to delete this schedule?</string>
 
     <string name="schedule_header">Schedule</string>
     <string name="schedule_title_label">Schedule Title</string>

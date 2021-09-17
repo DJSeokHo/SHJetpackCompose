@@ -27,6 +27,10 @@ object DatabaseManager {
         return database.scheduleDao().update(scheduleEntity)
     }
 
+    suspend fun delete(uuid: String): Int {
+        return database.scheduleDao().delete(uuid)
+    }
+
     suspend fun clean(): Int {
         return database.scheduleDao().clean()
     }

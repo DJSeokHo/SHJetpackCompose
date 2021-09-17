@@ -12,6 +12,9 @@ interface ScheduleDao {
     @Update
     suspend fun update(scheduleEntity: ScheduleEntity): Int
 
+    @Query("DELETE FROM SCHEDULE_TABLE WHERE UUID = :uuid")
+    suspend fun delete(uuid: String): Int
+
     @Query("DELETE FROM SCHEDULE_TABLE")
     suspend fun clean(): Int // DELETE query methods must either return void or int (the number of deleted rows)
 

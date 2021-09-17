@@ -15,6 +15,10 @@ object EditScheduleService {
         return@withContext DatabaseManager.update(scheduleModel.toEntity())
     }
 
+    suspend fun delete(uuid: String): Int = withContext(Dispatchers.IO) {
+        return@withContext DatabaseManager.delete(uuid)
+    }
+
     suspend fun load(uuid: String): ScheduleModel? = withContext(Dispatchers.IO) {
 
         var scheduleModel: ScheduleModel? = null

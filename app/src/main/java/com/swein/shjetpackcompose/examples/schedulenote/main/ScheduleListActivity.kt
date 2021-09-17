@@ -57,12 +57,11 @@ class ScheduleListActivity : ComponentActivity() {
             }
         })
 
-        EventCenter.addEventObserver(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_LIST_ITEM, this, object : EventCenter.EventRunnable {
+        EventCenter.addEventObserver(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_ITEM, this, object : EventCenter.EventRunnable {
             override fun run(arrow: String, poster: Any, data: MutableMap<String, Any>?) {
 
                 data?.let {
-                    val anyObject = it["scheduleModel"]
-                    val scheduleModel = anyObject as ScheduleModel
+                    val scheduleModel = it["scheduleModel"] as ScheduleModel
                     var index = -1
                     for (i in 0 until viewModel.list.size) {
                         if (scheduleModel.uuid == viewModel.list[i].uuid) {
@@ -74,6 +73,29 @@ class ScheduleListActivity : ComponentActivity() {
                     if (index != -1) {
                         viewModel.list[index] = scheduleModel
                         Toast.makeText(this@ScheduleListActivity, "update success", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        })
+
+
+        EventCenter.addEventObserver(ScheduleNoteConstants.ESS_DELETE_SCHEDULE_ITEM, this, object : EventCenter.EventRunnable {
+            override fun run(arrow: String, poster: Any, data: MutableMap<String, Any>?) {
+
+                data?.let {
+                    val uuid = it["uuid"] as String
+                    var index = -1
+                    for (i in 0 until viewModel.list.size) {
+                        if (uuid == viewModel.list[i].uuid) {
+                            index = i
+                            break
+                        }
+                    }
+
+                    if (index != -1) {
+                        viewModel.list.removeAt(index)
+                        Toast.makeText(this@ScheduleListActivity, "delete success", Toast.LENGTH_SHORT).show()
                     }
                 }
 

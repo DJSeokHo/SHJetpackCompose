@@ -4,10 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -138,7 +140,9 @@ object CommonView {
 
         if (active) {
             Surface(
-                modifier = Modifier.fillMaxSize().clickable {  },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { },
                 color = colorResource(id = R.color.black_30_transparent)
 //                color = colorResource(id = R.color.transparent)
             ) {
@@ -153,15 +157,96 @@ object CommonView {
         }
     }
 
+    @Composable
+    fun AlertDialogWithTwoButton(
+        modifier: Modifier = Modifier,
+        dialogState: MutableState<Boolean>,
+        title: String, message: String,
+        confirmButtonText: String, cancelButtonText: String,
+        onConfirm: () -> Unit, onCancel: () -> Unit
+    ) {
+
+        if (dialogState.value) {
+
+            AlertDialog(
+                onDismissRequest = {
+                    dialogState.value = false
+                },
+                title = {
+                    Text(
+                        text = title,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.W700,
+                        fontStyle = FontStyle.Normal
+                    )
+                },
+                text = {
+                    Text(
+                        text = message,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontStyle = FontStyle.Normal
+                    )
+                },
+                buttons = {
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                         Button(
+                            modifier = Modifier.weight(1f),
+                            onClick = onCancel,
+                            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.c999999))
+                        ) {
+                            Text(
+                                text = cancelButtonText,
+                                color = colorResource(id = R.color.white),
+                                fontSize = 12.sp
+                            )
+                        }
+
+                        Button(
+                            modifier = Modifier.weight(1f).padding(start = 16.dp),
+                            onClick = onConfirm,
+                            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.basic_color_2022))
+                        ) {
+                            Text(
+                                text = confirmButtonText,
+                                color = colorResource(id = R.color.white),
+                                fontSize = 12.sp
+                            )
+                        }
+
+                    }
+                }
+            )
+
+        }
+    }
+
 }
 
 @Preview(showBackground = true, name = "common view preview")
 @Composable
 private fun CommonViewPreview() {
-    CommonView.CustomToolBar(
-        startImageResource = R.mipmap.ti_plus,
-        title = "123",
-        endImageResource = R.mipmap.ti_plus) {
+//    CommonView.CustomToolBar(
+//        startImageResource = R.mipmap.ti_plus,
+//        title = "123",
+//        endImageResource = R.mipmap.ti_plus) {
+//
+//    }
 
-    }
+//    CommonView.AlertDialogWithTwoButton(
+//        title = "123", message = "123123123",
+//        confirmButtonText = "confirm", cancelButtonText = "cancel",
+//        onConfirm = {
+//
+//        }, onCancel = {
+//
+//        }
+//    )
 }

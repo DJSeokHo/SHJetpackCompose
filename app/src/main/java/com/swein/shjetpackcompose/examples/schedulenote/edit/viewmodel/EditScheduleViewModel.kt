@@ -193,7 +193,7 @@ class EditScheduleViewModel: ViewModel() {
 
                         val data = mutableMapOf<String, Any>()
                         data["scheduleModel"] = scheduleModel
-                        EventCenter.sendEvent(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_LIST_ITEM, this, data)
+                        EventCenter.sendEvent(ScheduleNoteConstants.ESS_UPDATE_SCHEDULE_ITEM, this, data)
 
                         onFinished()
                     }
@@ -204,6 +204,44 @@ class EditScheduleViewModel: ViewModel() {
                 isIO.value = false
             }
         }
+    }
+
+    fun onDelete(onFinished: () -> Unit) {
+
+        ILog.debug(TAG, "delete ${uuid.value}")
+
+        viewModelScope.launch {
+
+            isIO.value = true
+
+            try {
+                coroutineScope {
+
+                    val update = async {
+                        EditScheduleService.delete(uuid.value)
+                    }
+
+                    val result = update.await()
+                    ILog.debug(TAG, "result $result")
+
+                    if (result == 1) {
+
+                        isIO.value = false
+
+                        val data = mutableMapOf<String, Any>()
+                        data["uuid"] = uuid.value
+                        EventCenter.sendEvent(ScheduleNoteConstants.ESS_DELETE_SCHEDULE_ITEM, this, data)
+                        clean()
+                        onFinished()
+                    }
+                }
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+                isIO.value = false
+            }
+        }
+
     }
 
     private fun clean() {
