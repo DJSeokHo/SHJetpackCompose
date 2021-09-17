@@ -4,8 +4,6 @@ import com.swein.framework.extension.string.urlDecode
 import com.swein.framework.extension.string.urlEncode
 import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 import com.swein.shjetpackcompose.examples.schedulenote.database.model.IScheduleModel
-import kr.co.dotv365.android.framework.utility.parsing.ParsingUtility
-import org.json.JSONObject
 
 class ScheduleModel: IScheduleModel {
 
@@ -17,6 +15,7 @@ class ScheduleModel: IScheduleModel {
     var isImportant: Boolean = false
     var isUrgent: Boolean = false
     var isFinished: Boolean = false
+    var tag: String = ""
 
     override fun parsingEntity(scheduleEntity: ScheduleEntity) {
 
@@ -28,10 +27,11 @@ class ScheduleModel: IScheduleModel {
         this.isImportant = scheduleEntity.isImportant
         this.isUrgent = scheduleEntity.isUrgent
         this.isFinished = scheduleEntity.isFinished
+        this.tag = scheduleEntity.tag
     }
 
     override fun toEntity(): ScheduleEntity {
-        return ScheduleEntity(uuid, title.urlEncode(), content.urlEncode(), contentImage, createDate, isImportant, isUrgent, isFinished)
+        return ScheduleEntity(uuid, title.urlEncode(), content.urlEncode(), contentImage, createDate, isImportant, isUrgent, isFinished, tag)
     }
 
 //    fun initWithJSONObject(jsonObject: JSONObject) {
@@ -43,6 +43,7 @@ class ScheduleModel: IScheduleModel {
 //        isImportant = ParsingUtility.parsingBoolean(jsonObject, "isImportant")
 //        isUrgent = ParsingUtility.parsingBoolean(jsonObject, "isUrgent")
 //        isFinished = ParsingUtility.parsingBoolean(jsonObject, "isFinished")
+//        tag = ParsingUtility.parsingString(jsonObject, "tag")
 //    }
 //
 //    fun toJSONObject(): JSONObject {
@@ -56,10 +57,11 @@ class ScheduleModel: IScheduleModel {
 //            put("isImportant", isImportant)
 //            put("isUrgent", isUrgent)
 //            put("isFinished", isFinished)
+//            put("tag", tag)
 //        }
 //    }
 
     override fun toString(): String {
-        return "uuid:$uuid title:$title content:$content contentImage:$contentImage createDate:$createDate isImportant:$isImportant isUrgent:$isUrgent isFinished:$isFinished"
+        return "uuid:$uuid title:$title content:$content contentImage:$contentImage createDate:$createDate isImportant:$isImportant isUrgent:$isUrgent isFinished:$isFinished tag:$tag"
     }
 }

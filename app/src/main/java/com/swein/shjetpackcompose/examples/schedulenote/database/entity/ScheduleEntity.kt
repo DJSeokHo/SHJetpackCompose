@@ -30,5 +30,8 @@ data class ScheduleEntity(
     var isUrgent: Boolean,
 
     @ColumnInfo(name = "IS_FINISHED")
-    var isFinished: Boolean
+    var isFinished: Boolean,
+
+    @ColumnInfo(name = "TAG")
+    var tag: String
 )

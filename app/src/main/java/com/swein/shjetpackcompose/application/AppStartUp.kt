@@ -13,7 +13,8 @@ class AppStartUp: Initializer<Unit> {
     override fun create(context: Context) {
         ILog.debug(TAG, "create")
 
-        DatabaseManager.init(context, "SCHEDULE_DB")
+//        DatabaseManager.init(context)
+        DatabaseManager.migration(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {

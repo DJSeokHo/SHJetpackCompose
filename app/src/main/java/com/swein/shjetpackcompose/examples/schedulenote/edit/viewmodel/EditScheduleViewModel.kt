@@ -118,7 +118,7 @@ class EditScheduleViewModel: ViewModel() {
                         scheduleModel.isImportant = isImportant.value
                         scheduleModel.isUrgent = isUrgent.value
                         scheduleModel.isFinished = false
-
+                        scheduleModel.tag = "NONE"
                         ILog.debug(TAG, "$scheduleModel")
 
                         EditScheduleService.insert(scheduleModel)
