@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenCreated
 import com.swein.easyeventobserver.EventCenter
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
@@ -16,6 +17,7 @@ import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivit
 import com.swein.shjetpackcompose.examples.schedulenote.main.view.ScheduleListView
 import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ScheduleListActivity : ComponentActivity() {
@@ -44,8 +46,11 @@ class ScheduleListActivity : ComponentActivity() {
             })
         }
 
-        lifecycleScope.launch {
-            viewModel.reload()
+        lifecycleScope.launch(Dispatchers.Main) {
+
+            whenCreated {
+                viewModel.reload()
+            }
         }
     }
 

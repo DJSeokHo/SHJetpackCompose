@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenCreated
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
@@ -13,6 +14,7 @@ import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -42,16 +44,21 @@ class EditScheduleActivity : ComponentActivity() {
             EditToDoItemView.ActivityContentView(viewModel = viewModel)
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.Main) {
 
-            val test = async {
-                EditScheduleService.loadAll()
+            whenCreated {
+
+                val test = async {
+                    EditScheduleService.loadAll()
 //                EditScheduleService.clean()
+                }
+
+                val testResult = test.await()
+
+                ILog.debug(TAG, "$testResult")
+
             }
 
-            val testResult = test.await()
-
-            ILog.debug(TAG, "$testResult")
         }
 
 //        viewModel.contentImage.value = "/storage/emulated/0/Android/data/com.swein.shjetpackcompose/files/Pictures/2021_9_15_12_44_34_3608101991505544178208.jpg"
