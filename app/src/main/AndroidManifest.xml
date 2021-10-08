@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".examples.marginandpaddingexample.MarginAndPaddingExampleActivity"
+            android:exported="true" />
+        <activity
             android:name=".examples.lazycolumexample.LazyColumnExampleActivity"
             android:exported="true"
             android:label="@string/title_activity_lazy_column_example"

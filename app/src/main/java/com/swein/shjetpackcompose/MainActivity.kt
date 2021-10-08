@@ -11,18 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
+import com.swein.shjetpackcompose.examples.marginandpaddingexample.MarginAndPaddingExampleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
+import com.swein.shjetpackcompose.googletutorial.ibasictutorial.GTBasicTutorialActivity
+import com.swein.shjetpackcompose.googletutorial.ivbasic.GTBasicActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SHJetpackComposeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-            }
+//            SHJetpackComposeTheme {
+//                // A surface container using the 'background' color from the theme
+//                Surface(color = MaterialTheme.colors.background) {
+//                    Greeting("Android")
+//                }
+//            }
         }
 
 //        Intent(this, GTBasicTutorialActivity::class.java).apply {
@@ -37,7 +40,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ScheduleListActivity::class.java).apply {
+//        Intent(this, ScheduleListActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, MarginAndPaddingExampleActivity::class.java).apply {
             startActivity(this)
         }
 
