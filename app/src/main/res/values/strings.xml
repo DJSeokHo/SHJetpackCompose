@@ -24,4 +24,5 @@
     <string name="schedule_image_label">Take or pick a photo (optional)</string>
     <string name="title_activity_lazy_column_example">LazyColumnExampleActivity</string>
     <string name="title_activity_view_holder_example">ViewHolderExampleActivity</string>
+    <string name="title_activity_custom_bottom_navigation_bar_example">CustomBottomNavigationBarExampleActivity</string>
 </resources>

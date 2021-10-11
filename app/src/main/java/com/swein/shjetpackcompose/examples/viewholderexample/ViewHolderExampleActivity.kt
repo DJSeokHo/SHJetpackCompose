@@ -1,5 +1,7 @@
 package com.swein.shjetpackcompose.examples.viewholderexample
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +18,12 @@ class ViewHolderExampleActivity : ComponentActivity() {
 
     companion object {
         const val TAG = "ViewHolderExampleActivity"
+
+        fun startFrom(context: Context) {
+            Intent(context, ViewHolderExampleActivity::class.java).apply {
+                context.startActivity(this)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -26,6 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity"
+            android:exported="true"
+            android:label="@string/title_activity_custom_bottom_navigation_bar_example"
+            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+        <activity
             android:name=".examples.viewholderexample.ViewHolderExampleActivity"
             android:exported="true"
             android:label="@string/title_activity_view_holder_example"
