@@ -13,6 +13,7 @@ import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
 import com.swein.shjetpackcompose.examples.marginandpaddingexample.MarginAndPaddingExampleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
+import com.swein.shjetpackcompose.examples.viewholderexample.ViewHolderExampleActivity
 import com.swein.shjetpackcompose.googletutorial.ibasictutorial.GTBasicTutorialActivity
 import com.swein.shjetpackcompose.googletutorial.ivbasic.GTBasicActivity
 
@@ -44,14 +45,17 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, MarginAndPaddingExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, MarginAndPaddingExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, LazyColumnExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
+        Intent(this, ViewHolderExampleActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 }
 

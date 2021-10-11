@@ -22,7 +22,6 @@
     <string name="schedule_content_label">Schedule Content</string>
     <string name="schedule_content_hint">Input Schedule Content Please (length ~ 1000))</string>
     <string name="schedule_image_label">Take or pick a photo (optional)</string>
-    <string name="title_activity_padding_and_spacer_example">PaddingAndSpacerExampleActivity
-    </string>
     <string name="title_activity_lazy_column_example">LazyColumnExampleActivity</string>
+    <string name="title_activity_view_holder_example">ViewHolderExampleActivity</string>
 </resources>

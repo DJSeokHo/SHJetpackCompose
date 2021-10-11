@@ -24,14 +24,14 @@ class MarginAndPaddingExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            PaddingAndSpacerExampleView.ActivityContentView()
+            MarginAndPaddingExampleView.ActivityContentView()
         }
     }
 
 }
 
 
-object PaddingAndSpacerExampleView {
+object MarginAndPaddingExampleView {
 
     @Composable
     fun ActivityContentView() {
@@ -106,10 +106,10 @@ object PaddingAndSpacerExampleView {
     }
 }
 
-@Preview(showBackground = true, name = "PaddingAndSpacerExampleActivity")
+@Preview(showBackground = true, name = "MarginAndPaddingExampleActivityPreview")
 @Composable
 fun MarginAndPaddingExampleActivityPreview() {
 
-    PaddingAndSpacerExampleView.ActivityContentView()
+    MarginAndPaddingExampleView.ActivityContentView()
 
 }
