@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.basic.textexample.TextExampleActivity
 import com.swein.shjetpackcompose.examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity
 import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
 import com.swein.shjetpackcompose.examples.marginandpaddingexample.MarginAndPaddingExampleActivity
@@ -55,8 +56,11 @@ class MainActivity : ComponentActivity() {
 //        }
 
 //        ViewHolderExampleActivity.startFrom(this)
-        CustomBottomNavigationBarExampleActivity.startFrom(this)
+//        CustomBottomNavigationBarExampleActivity.startFrom(this)
 
+        Intent(this, TextExampleActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 }
 
