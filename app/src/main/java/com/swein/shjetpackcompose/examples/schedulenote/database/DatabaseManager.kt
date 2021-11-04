@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.swein.shjetpackcompose.examples.schedulenote.database.dao.ScheduleDao
 import com.swein.shjetpackcompose.examples.schedulenote.database.entity.ScheduleEntity
 
-@Database(entities = [ScheduleEntity::class], version = 2)
+@Database(entities = [ScheduleEntity::class], version = 2, exportSchema = false)
 abstract class ScheduleBase : RoomDatabase() {
     abstract fun scheduleDao(): ScheduleDao
 }
@@ -38,31 +38,31 @@ object DatabaseManager {
             .build()
     }
 
-    suspend fun insert(scheduleEntity: ScheduleEntity): Long {
+    fun insert(scheduleEntity: ScheduleEntity): Long {
         return database.scheduleDao().insert(scheduleEntity)
     }
 
-    suspend fun update(scheduleEntity: ScheduleEntity): Int {
+    fun update(scheduleEntity: ScheduleEntity): Int {
         return database.scheduleDao().update(scheduleEntity)
     }
 
-    suspend fun delete(uuid: String): Int {
+    fun delete(uuid: String): Int {
         return database.scheduleDao().delete(uuid)
     }
 
-    suspend fun clean(): Int {
+    fun clean(): Int {
         return database.scheduleDao().clean()
     }
 
-    suspend fun load(uuid: String): ScheduleEntity? {
+    fun load(uuid: String): ScheduleEntity? {
         return database.scheduleDao().load(uuid)
     }
 
-    suspend fun load(offset: Int, limit: Int): List<ScheduleEntity>? {
+    fun load(offset: Int, limit: Int): List<ScheduleEntity>? {
         return database.scheduleDao().load(offset, limit)
     }
 
-    suspend fun loadAll(): List<ScheduleEntity>? {
+    fun loadAll(): List<ScheduleEntity>? {
         return database.scheduleDao().loadAll()
     }
 

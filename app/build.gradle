@@ -30,8 +30,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.0.4"
+        kotlinCompilerVersion "1.5.31"
+    }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = JavaVersion.VERSION_11.toString()
         useIR = true
         freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
     }
@@ -88,7 +92,7 @@ dependencies {
 
     // view model
     implementation 'androidx.activity:activity-ktx:1.4.0'
-    implementation 'androidx.fragment:fragment-ktx:1.4.0-beta01'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0-rc01'
 
     // room ----------------------------------->
     implementation "androidx.room:room-runtime:2.3.0"
