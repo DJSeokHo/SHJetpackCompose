@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -15,9 +17,13 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -207,6 +213,7 @@ class TextFieldExampleActivity : ComponentActivity() {
 
     }
 
+    @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     private fun PasswordTextField() {
 
@@ -217,6 +224,8 @@ class TextFieldExampleActivity : ComponentActivity() {
         var passwordHidden by remember{
             mutableStateOf(false)
         }
+
+        val keyboardController = LocalSoftwareKeyboardController.current
 
         TextField(
             value = text,
@@ -240,7 +249,13 @@ class TextFieldExampleActivity : ComponentActivity() {
             }
             else {
                 VisualTransformation.None
-            }
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    keyboardController?.hide()
+                }
+            )
         )
 
     }
