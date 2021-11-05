@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.imageexample.ImageExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.buttonexample.ButtonExampleActivity"
             android:exported="false" />
         <activity
