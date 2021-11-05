@@ -13,6 +13,7 @@ import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.buttonexample.ButtonExampleActivity
 import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
 import com.swein.shjetpackcompose.basic.textexample.TextExampleActivity
+import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity
 import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
 import com.swein.shjetpackcompose.examples.marginandpaddingexample.MarginAndPaddingExampleActivity
@@ -68,7 +69,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ImageExampleActivity::class.java).apply {
+//        Intent(this, ImageExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, TextFieldExampleActivity::class.java).apply {
             startActivity(this)
         }
 

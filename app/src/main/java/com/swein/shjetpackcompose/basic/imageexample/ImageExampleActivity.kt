@@ -13,16 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.application.ui.theme.Shapes
-import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
-import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 
 class ImageExampleActivity : ComponentActivity() {
 
