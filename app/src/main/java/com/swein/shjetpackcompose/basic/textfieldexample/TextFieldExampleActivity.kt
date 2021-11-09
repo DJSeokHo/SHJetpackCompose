@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -45,26 +47,17 @@ class TextFieldExampleActivity : ComponentActivity() {
     private fun TextFieldExample() {
 
         Column(
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
 
-            JustTextField()
+            OutlineTextFieldExample()
 
             SplitLine()
 
-            TextFieldLine()
-
-            SplitLine()
-
-            TextFieldLabel()
-
-            SplitLine()
-
-            TextFieldLeadingAndTrailingPart()
-
-            SplitLine()
-
-            TextFieldColor()
+            CustomTextField()
 
             SplitLine()
 
@@ -72,7 +65,20 @@ class TextFieldExampleActivity : ComponentActivity() {
 
             SplitLine()
 
-            CustomTextField()
+            TextFieldColor()
+
+            SplitLine()
+
+            TextFieldLeadingAndTrailingPart()
+
+            SplitLine()
+
+            TextFieldLabel()
+
+            SplitLine()
+
+            JustTextField()
+
         }
 
     }
@@ -89,23 +95,6 @@ class TextFieldExampleActivity : ComponentActivity() {
             onValueChange = {
                 text = it
             }
-        )
-    }
-
-    @Composable
-    private fun TextFieldLine() {
-
-        var text by remember{
-            mutableStateOf("")
-        }
-
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = text,
-            onValueChange = {
-                text = it
-            },
-            singleLine = true
         )
     }
 
@@ -137,11 +126,7 @@ class TextFieldExampleActivity : ComponentActivity() {
     @Composable
     private fun TextFieldLeadingAndTrailingPart() {
 
-        var textTop by remember{
-            mutableStateOf("")
-        }
-
-        var textBottom by remember{
+        var text by remember{
             mutableStateOf("")
         }
 
@@ -149,25 +134,14 @@ class TextFieldExampleActivity : ComponentActivity() {
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = textTop,
+                value = text,
                 onValueChange = {
-                    textTop = it
+                    text = it
                 },
                 singleLine = true,
                 leadingIcon = {
                     Icon(Icons.Filled.Search, null, tint = Color.Red)
-                }
-            )
-
-            Spacer(modifier = Modifier.padding(vertical = 3.dp))
-
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = textBottom,
-                onValueChange = {
-                    textBottom = it
                 },
-                singleLine = true,
                 trailingIcon = {
                     Text(text = "@xxx.com", color = Color.Red)
                 }
@@ -193,11 +167,11 @@ class TextFieldExampleActivity : ComponentActivity() {
             trailingIcon = {
                 Text("@xxx.com", color = Color.Red)
             },
-            label = {
-                Text(text = "email")
-            },
             placeholder = {
                 Text(text = "input email")
+            },
+            label = {
+                Text(text = "email")
             },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Red,
@@ -330,6 +304,79 @@ class TextFieldExampleActivity : ComponentActivity() {
             )
         }
 
+    }
+
+    @OptIn(ExperimentalComposeUiApi::class)
+    @Composable
+    private fun OutlineTextFieldExample() {
+        /*
+        value: String,
+        onValueChange: (String) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        readOnly: Boolean = false,
+        textStyle: TextStyle = LocalTextStyle.current,
+        label: @Composable (() -> Unit)? = null,
+        placeholder: @Composable (() -> Unit)? = null,
+        leadingIcon: @Composable (() -> Unit)? = null,
+        trailingIcon: @Composable (() -> Unit)? = null,
+        isError: Boolean = false,
+        visualTransformation: VisualTransformation = VisualTransformation.None,
+        keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+        keyboardActions: KeyboardActions = KeyboardActions.Default,
+        singleLine: Boolean = false,
+        maxLines: Int = Int.MAX_VALUE,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+        shape: Shape = MaterialTheme.shapes.small,
+        colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
+         */
+
+
+        var text by remember {
+            mutableStateOf("")
+        }
+
+        val keyboardController = LocalSoftwareKeyboardController.current
+
+        OutlinedTextField(
+            value = text,
+            onValueChange = {
+                text = it
+            },
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            label = {
+                Text(text = "I'm the label", color = Color.Red)
+            },
+            leadingIcon = {
+                Icon(Icons.Filled.Email, null, tint = Color.Red)
+            },
+            trailingIcon = {
+                Text("@xxx.com", color = Color.Red, modifier = Modifier.padding(end = 10.dp))
+            },
+            placeholder = {
+                Text(text = "hint text here")
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    keyboardController?.hide()
+                }
+            ),
+            maxLines = 1,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color.Red,
+                backgroundColor = Color.Transparent,
+                cursorColor = Color.Red,
+                focusedIndicatorColor = Color.Red,
+                unfocusedIndicatorColor = Color.Gray,
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = Color.Blue,
+                placeholderColor = Color.LightGray
+            ),
+            shape = MaterialTheme.shapes.medium
+        )
     }
 
     @Composable

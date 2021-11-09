@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.buttonexample.ButtonExampleActivity
+import com.swein.shjetpackcompose.basic.card.CardExampleActivity
 import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
 import com.swein.shjetpackcompose.basic.textexample.TextExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
@@ -73,7 +74,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, TextFieldExampleActivity::class.java).apply {
+//        Intent(this, TextFieldExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CardExampleActivity::class.java).apply {
             startActivity(this)
         }
 

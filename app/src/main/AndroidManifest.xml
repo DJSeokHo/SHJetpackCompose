@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.card.CardExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.textfieldexample.TextFieldExampleActivity"
             android:exported="false" />
         <activity
