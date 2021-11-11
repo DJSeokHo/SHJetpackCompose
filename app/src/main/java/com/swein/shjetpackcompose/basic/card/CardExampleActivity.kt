@@ -1,20 +1,15 @@
 package com.swein.shjetpackcompose.basic.card
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +24,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.R
 
 class CardExampleActivity : ComponentActivity() {
@@ -78,10 +74,8 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = remember {
-                        MutableInteractionSource()
-                    },
-                    indication = rememberRipple(bounded = true, color = Color.Red),
+                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
+                    indication = RippleWrapper.CreateIndication(color = Color.Red),
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 1", Toast.LENGTH_SHORT)
@@ -113,10 +107,8 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = remember {
-                        MutableInteractionSource()
-                    },
-                    indication = rememberRipple(bounded = true, color = Color.Red),
+                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
+                    indication = RippleWrapper.CreateIndication(color = Color.Red),
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 2", Toast.LENGTH_SHORT)
@@ -160,10 +152,8 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = remember {
-                        MutableInteractionSource()
-                    },
-                    indication = rememberRipple(bounded = true, color = Color.Red),
+                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
+                    indication = RippleWrapper.CreateIndication(color = Color.Red),
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 3", Toast.LENGTH_SHORT)

@@ -1,10 +1,14 @@
 package com.swein.framework.compose.ripple
 
+import android.widget.Toast
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 
 object RippleWrapper: RippleTheme {
@@ -30,4 +34,13 @@ object RippleWrapper: RippleTheme {
             composeView()
         }
     }
+
+    @Composable
+    fun CreateMutableInteractionSource(): MutableInteractionSource = remember {
+        MutableInteractionSource()
+    }
+
+    @Composable
+    fun CreateIndication(bounded: Boolean = true, color: Color = Color.Gray) = rememberRipple(bounded = bounded, color = color)
+
 }

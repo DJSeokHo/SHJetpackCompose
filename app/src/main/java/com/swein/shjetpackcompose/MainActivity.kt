@@ -13,6 +13,7 @@ import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.buttonexample.ButtonExampleActivity
 import com.swein.shjetpackcompose.basic.card.CardExampleActivity
 import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
+import com.swein.shjetpackcompose.basic.surfaceexample.SurfaceExampleActivity
 import com.swein.shjetpackcompose.basic.textexample.TextExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity
@@ -78,10 +79,13 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CardExampleActivity::class.java).apply {
+//        Intent(this, CardExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, SurfaceExampleActivity::class.java).apply {
             startActivity(this)
         }
-
     }
 }
 
