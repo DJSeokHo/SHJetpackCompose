@@ -96,7 +96,8 @@ class SurfaceExampleActivity : ComponentActivity() {
                 Text(
                     buildAnnotatedString {
                         append("Coding with cat ")
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Red)
+                        withStyle(
+                            style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Red)
                         ) {
                             append("is good")
                         }
@@ -108,7 +109,9 @@ class SurfaceExampleActivity : ComponentActivity() {
                 Text(
                     buildAnnotatedString {
                         append("Have you subscribe to my Channel? ")
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        withStyle(
+                            style = SpanStyle(fontWeight = FontWeight.Bold)
+                        ) {
                             append("\nNo? -_- ......")
                         }
                     }
@@ -165,7 +168,8 @@ class SurfaceExampleActivity : ComponentActivity() {
                     Text(
                         buildAnnotatedString {
                             append("Coding with cat ")
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Red)
+                            withStyle(
+                                style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Red)
                             ) {
                                 append("\nis good")
                             }
@@ -177,7 +181,9 @@ class SurfaceExampleActivity : ComponentActivity() {
                     Text(
                         buildAnnotatedString {
                             append("Have you subscribe to my Channel? ")
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                            withStyle(
+                                style = SpanStyle(fontWeight = FontWeight.Bold)
+                            ) {
                                 append("\nNo? -_- ......")
                             }
                         }
