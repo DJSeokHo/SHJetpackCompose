@@ -32,7 +32,7 @@
             android:name=".basic.surfaceexample.SurfaceExampleActivity"
             android:exported="false" />
         <activity
-            android:name=".basic.card.CardExampleActivity"
+            android:name=".basic.cardexample.CardExampleActivity"
             android:exported="false" />
         <activity
             android:name=".basic.textfieldexample.TextFieldExampleActivity"

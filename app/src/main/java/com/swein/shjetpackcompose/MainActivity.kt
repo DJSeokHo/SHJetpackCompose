@@ -4,26 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.basic.buttonexample.ButtonExampleActivity
-import com.swein.shjetpackcompose.basic.card.CardExampleActivity
-import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
-import com.swein.shjetpackcompose.basic.surfaceexample.SurfaceExampleActivity
-import com.swein.shjetpackcompose.basic.textexample.TextExampleActivity
-import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
-import com.swein.shjetpackcompose.examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity
-import com.swein.shjetpackcompose.examples.lazycolumexample.LazyColumnExampleActivity
-import com.swein.shjetpackcompose.examples.marginandpaddingexample.MarginAndPaddingExampleActivity
-import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
-import com.swein.shjetpackcompose.examples.viewholderexample.ViewHolderExampleActivity
-import com.swein.shjetpackcompose.googletutorial.ibasictutorial.GTBasicTutorialActivity
-import com.swein.shjetpackcompose.googletutorial.ivbasic.GTBasicActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.basic.card
+package com.swein.shjetpackcompose.basic.cardexample
 
 import android.os.Bundle
 import android.widget.Toast
