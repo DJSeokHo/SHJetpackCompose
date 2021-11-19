@@ -26,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.boxexample.BoxExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.columnexample.ColumnExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.rowexample.RowExampleActivity"
             android:exported="false" />
         <activity

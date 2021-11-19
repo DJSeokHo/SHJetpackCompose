@@ -8,6 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
+import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 
 class MainActivity : ComponentActivity() {
@@ -73,7 +75,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, RowExampleActivity::class.java).apply {
+//        Intent(this, RowExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ColumnExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, BoxExampleActivity::class.java).apply {
             startActivity(this)
         }
     }
