@@ -254,12 +254,15 @@ class TextFieldExampleActivity : ComponentActivity() {
         decorationBox: (innerTextField: () -> Unit) -> Unit = @Composable { innerTextField -> innerTextField() }
     ): @Composable Unit
      */
+    @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     private fun CustomTextField() {
 
         var text by remember {
             mutableStateOf("")
         }
+
+        val keyboardController = LocalSoftwareKeyboardController.current
 
         Box(
             modifier = Modifier
@@ -300,7 +303,13 @@ class TextFieldExampleActivity : ComponentActivity() {
                             Icon(Icons.Filled.Send, null)
                         }
                     }
-                }
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    }
+                )
             )
         }
 

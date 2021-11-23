@@ -8,9 +8,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
 import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
 import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
+import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
+import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +86,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, BoxExampleActivity::class.java).apply {
+//        Intent(this, BoxExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ModifierExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, AlertDialogExampleActivity::class.java).apply {
             startActivity(this)
         }
     }
