@@ -31,8 +31,8 @@ class ScheduleListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowUtility.setWindowStatusBarColor(this, getColor(R.color.basic_color_2022))
-        WindowUtility.setSystemBarTheme(this, true)
+        WindowUtility.setStatusBarColor(this, getColor(R.color.basic_color_2022))
+        WindowUtility.setStateBarToDarkTheme(this)
 
         initESS()
 

@@ -11,6 +11,7 @@ import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
 import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
 import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
+import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
@@ -94,9 +95,14 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, AlertDialogExampleActivity::class.java).apply {
+//        Intent(this, AlertDialogExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
             startActivity(this)
         }
+
     }
 }
 

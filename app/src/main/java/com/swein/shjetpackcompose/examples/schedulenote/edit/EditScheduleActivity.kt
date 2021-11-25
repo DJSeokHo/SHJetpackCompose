@@ -37,8 +37,8 @@ class EditScheduleActivity : ComponentActivity() {
             }
         }
 
-        WindowUtility.setWindowStatusBarColor(this, getColor(R.color.basic_color_2022))
-        WindowUtility.setSystemBarTheme(this, true)
+        WindowUtility.setStatusBarColor(this, getColor(R.color.basic_color_2022))
+        WindowUtility.setStateBarToDarkTheme(this)
 
         setContent {
             EditToDoItemView.ActivityContentView(viewModel = viewModel)
