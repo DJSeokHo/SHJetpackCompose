@@ -1,5 +1,6 @@
 package com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -35,12 +36,16 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
             val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
             val scope = rememberCoroutineScope()
 
+            val context = LocalContext.current
+
             ModalBottomSheetLayout(
                 sheetState = state,
                 sheetContent = {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp)
                     ) {
 
                         Surface(
@@ -52,72 +57,15 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
 
                         Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp).clickable(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-
-                            Image(
-                                painterResource(R.drawable.coding_with_cat_icon),
-                                null,
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .width(40.dp).height(40.dp)
-                                    .clip(CircleShape),
-                                contentScale = ContentScale.Fit
-                            )
-
-                            Spacer(modifier = Modifier.padding(horizontal = 10.dp))
-
-                            Text("Coding")
-
-                        }
+                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Coding")
 
                         Spacer(modifier = Modifier.padding(vertical = 4.dp))
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp).clickable {  },
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-
-                            Image(
-                                painterResource(R.drawable.coding_with_cat_icon),
-                                null,
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .width(40.dp).height(40.dp)
-                                    .clip(CircleShape),
-                                contentScale = ContentScale.Fit
-                            )
-
-                            Spacer(modifier = Modifier.padding(horizontal = 10.dp))
-
-                            Text("With")
-
-                        }
+                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "With")
 
                         Spacer(modifier = Modifier.padding(vertical = 4.dp))
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp).clickable {  },
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-
-                            Image(
-                                painterResource(R.drawable.coding_with_cat_icon),
-                                null,
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .width(40.dp).height(40.dp)
-                                    .clip(CircleShape),
-                                contentScale = ContentScale.Fit
-                            )
-
-                            Spacer(modifier = Modifier.padding(horizontal = 10.dp))
-
-                            Text("Cat")
-
-                        }
+                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Cat")
                     }
                 }
             ) {
@@ -137,8 +85,6 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
                 }
             }
 
-
-
             BackHandler(
                 enabled = (state.currentValue == ModalBottomSheetValue.HalfExpanded
                         || state.currentValue == ModalBottomSheetValue.Expanded),
@@ -154,20 +100,21 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun SheetItem(imageResource: Int, text: String) {
-        ..
-        val context = LocalContext.current
+    private fun SheetItem(context: Context, imageResource: Int, text: String) {
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp).clickable(
-                interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                indication = RippleWrapper.CreateIndication(true, Color.Red),
-                onClick = {
-                    Toast
-                        .makeText(context, text, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .clickable(
+                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
+                    indication = RippleWrapper.CreateIndication(true, Color.Red),
+                    onClick = {
+                        Toast
+                            .makeText(context, text, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -176,7 +123,8 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
                 null,
                 modifier = Modifier
                     .padding(4.dp)
-                    .width(40.dp).height(40.dp)
+                    .width(40.dp)
+                    .height(40.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Fit
             )
