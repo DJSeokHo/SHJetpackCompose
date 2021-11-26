@@ -29,19 +29,19 @@ class ColumnExampleActivity : ComponentActivity() {
 
         Row {
 
-            RowExample1()
+            Example1()
             SplitLine()
-            RowExample2()
+            Example2()
             SplitLine()
-            RowExample3()
+            Example3()
             SplitLine()
-            RowExample4()
+            Example4()
         }
 
     }
 
     @Composable
-    private fun RowExample1() {
+    private fun Example1() {
         Column {
             Box(modifier = Modifier
                 .size(30.dp)
@@ -50,13 +50,13 @@ class ColumnExampleActivity : ComponentActivity() {
                 .size(50.dp)
                 .background(Color.Green))
             Box(modifier = Modifier
-                .size(30.dp)
+                .size(40.dp)
                 .background(Color.Blue))
         }
     }
 
     @Composable
-    private fun RowExample2() {
+    private fun Example2() {
         Column {
             Box(modifier = Modifier
                 .size(30.dp)
@@ -66,45 +66,57 @@ class ColumnExampleActivity : ComponentActivity() {
                 .weight(1f)
                 .background(Color.Green))
             Box(modifier = Modifier
-                .width(30.dp)
+                .width(40.dp)
                 .weight(1f)
                 .background(Color.Blue))
         }
     }
 
     @Composable
-    private fun RowExample3() {
+    private fun Example3() {
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             Box(modifier = Modifier
-                .size(width = 30.dp, height = 300.dp)
+                .size(width = 70.dp, height = 300.dp)
                 .background(Color.Red))
             Box(modifier = Modifier
-                .size(width = 50.dp, height = 500.dp)
+                .size(width = 80.dp, height = 500.dp)
                 .background(Color.Green))
             Box(modifier = Modifier
-                .size(width = 40.dp, height = 600.dp)
+                .size(width = 60.dp, height = 600.dp)
                 .background(Color.Blue))
         }
     }
 
     @Composable
-    private fun RowExample4() {
+    private fun Example4() {
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center
         ) {
             Box(modifier = Modifier
-                .size(30.dp)
-                .background(Color.Red))
+                .fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+
+                Box(modifier = Modifier
+                    .size(30.dp)
+                    .background(Color.Red))
+            }
+
             Box(modifier = Modifier
                 .size(50.dp)
-                .background(Color.Green))
-            Box(modifier = Modifier
-                .size(30.dp)
                 .background(Color.Blue))
+
+            Box(modifier = Modifier
+                .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(modifier = Modifier
+                    .size(50.dp)
+                    .background(Color.Green))
+            }
         }
     }
 
