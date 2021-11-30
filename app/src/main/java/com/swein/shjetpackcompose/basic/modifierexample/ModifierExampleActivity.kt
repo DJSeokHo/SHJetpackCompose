@@ -2,6 +2,7 @@ package com.swein.shjetpackcompose.basic.modifierexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 
@@ -59,6 +61,10 @@ class ModifierExampleActivity : ComponentActivity() {
 
         Column {
 
+            ModifierExample0()
+
+            SplitLine()
+
             ModifierExample1()
 
             SplitLine()
@@ -76,30 +82,42 @@ class ModifierExampleActivity : ComponentActivity() {
     }
 
     @Composable
+    private fun ModifierExample0() {
+
+        Card(
+            elevation = 5.dp,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                // add padding, then add background color
+                text = "example 1",
+                modifier = Modifier.padding(16.dp).background(Color.Red),
+                color = Color.White
+            )
+        }
+    }
+
+    @Composable
     private fun ModifierExample1() {
 
         Card(
             elevation = 5.dp,
-            /*
-            add clickable, then add
-
-            Fix the click able area, then when we add padding,
-            the Card will margin 16dp inside the click able area that we had already set
-
-            So, clickable area is big than Card area
-             */
-            modifier = Modifier
-                .clickable { }
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = "example 1")
+            Text(
+                // add background color, then add padding
+                text = "example 1",
+                modifier = Modifier.background(Color.Red).padding(16.dp),
+                color = Color.White
+            )
         }
 
     }
 
-
     @Composable
     private fun ModifierExample2() {
+
+        val context = LocalContext.current
 
         Card(
             elevation = 5.dp,
@@ -112,7 +130,9 @@ class ModifierExampleActivity : ComponentActivity() {
               So, clickable area is big than Card area
              */
             modifier = Modifier
-                .clickable { }
+                .clickable {
+                    Toast.makeText(context, "padding after clickable", Toast.LENGTH_SHORT).show()
+                }
                 .padding(16.dp)
         ) {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -126,6 +146,8 @@ class ModifierExampleActivity : ComponentActivity() {
     @Composable
     private fun ModifierExample3() {
 
+        val context = LocalContext.current
+
         Card(
             elevation = 5.dp,
             /*
@@ -138,7 +160,9 @@ class ModifierExampleActivity : ComponentActivity() {
              */
             modifier = Modifier
                 .padding(16.dp)
-                .clickable { }
+                .clickable {
+                    Toast.makeText(context, "clickable after padding", Toast.LENGTH_SHORT).show()
+                }
         ) {
             Box(modifier = Modifier.padding(20.dp)) {
                 Text(text = "example 3")
@@ -150,15 +174,19 @@ class ModifierExampleActivity : ComponentActivity() {
     @Composable
     private fun ModifierExample4() {
 
+        val context = LocalContext.current
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
                 .padding(16.dp)
-                .clickable { /* 不做任何事 */ },
+                .clickable {
+
+                },
             elevation = 8.dp
         ) {
-            // 内部没有组件
+            Toast.makeText(context, "I'm empty", Toast.LENGTH_SHORT).show()
         }
 
     }

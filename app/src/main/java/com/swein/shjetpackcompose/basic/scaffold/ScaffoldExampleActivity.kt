@@ -82,6 +82,10 @@ class ScaffoldExampleActivity : ComponentActivity() {
                     selectedItem = it
                 }
             },
+//            floatingActionButton: @Composable () -> Unit = {},
+//            floatingActionButtonPosition: FabPosition = FabPosition.End,
+//            isFloatingActionButtonDocked: Boolean = false,
+//            drawerContent: @Composable (ColumnScope.() -> Unit)? = null,
             drawerContent = {
                 SideMenuView.Content()
             },

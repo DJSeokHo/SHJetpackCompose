@@ -92,9 +92,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, ModifierExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
+        Intent(this, ModifierExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, AlertDialogExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -104,9 +104,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ScaffoldExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
     }
 }

@@ -50,11 +50,10 @@ class BoxExampleActivity : ComponentActivity() {
     @Composable
     private fun BoxExample1() {
 
-        Box {
-
-            Box(modifier = Modifier
-                .size(100.dp)
-                .background(Color.Red))
+        Box(
+            modifier = Modifier
+                .background(Color.Red)
+        ) {
 
             Text(
                 text = "Example 1",
@@ -68,11 +67,12 @@ class BoxExampleActivity : ComponentActivity() {
     private fun BoxExample2() {
 
         Box(
-            modifier = Modifier.size(200.dp)
+            modifier = Modifier.size(120.dp).background(Color.Black)
         ) {
 
             Box(modifier = Modifier
                 .fillMaxSize()
+                .padding(10.dp)
                 .background(Color.Red))
 
             Text(
@@ -96,13 +96,13 @@ class BoxExampleActivity : ComponentActivity() {
                 .background(Color.Blue)) {
 
                 Text(
-                    text = "Example 3",
+                    text = "Example 3 1",
                     color = Color.White,
                     modifier = Modifier.align(Alignment.TopCenter)
                 )
 
                 Text(
-                    text = "Example 3",
+                    text = "Example 3 2",
                     color = Color.White,
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
@@ -133,13 +133,13 @@ class BoxExampleActivity : ComponentActivity() {
                 .background(Color.Blue)) {
 
                 Text(
-                    text = "Example 3",
+                    text = "Example 4 1",
                     color = Color.White,
                     modifier = Modifier.align(Alignment.TopCenter)
                 )
 
                 Text(
-                    text = "Example 3",
+                    text = "Example 4 2",
                     color = Color.White,
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
@@ -153,7 +153,7 @@ class BoxExampleActivity : ComponentActivity() {
                 .background(Color.Green)
                 .clickable {
                     Toast
-                        .makeText(context, "Example 3", Toast.LENGTH_SHORT)
+                        .makeText(context, "Example 4", Toast.LENGTH_SHORT)
                         .show()
                 }
             )
