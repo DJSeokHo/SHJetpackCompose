@@ -16,6 +16,7 @@ import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 import com.swein.shjetpackcompose.basic.scaffold.ScaffoldExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
+import com.swein.shjetpackcompose.basic.topappbarexample.TopAppBarExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,9 +93,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ModifierExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, ModifierExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, AlertDialogExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -107,6 +108,10 @@ class MainActivity : ComponentActivity() {
 //        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+        Intent(this, TopAppBarExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
     }
 }

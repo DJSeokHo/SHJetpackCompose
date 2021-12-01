@@ -182,11 +182,11 @@ class ModifierExampleActivity : ComponentActivity() {
                 .height(100.dp)
                 .padding(16.dp)
                 .clickable {
-
+                    Toast.makeText(context, "I'm empty", Toast.LENGTH_SHORT).show()
                 },
             elevation = 8.dp
         ) {
-            Toast.makeText(context, "I'm empty", Toast.LENGTH_SHORT).show()
+
         }
 
     }

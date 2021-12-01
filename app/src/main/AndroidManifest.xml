@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.topappbarexample.TopAppBarExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.scaffold.ScaffoldExampleActivity"
             android:exported="false" />
         <activity
