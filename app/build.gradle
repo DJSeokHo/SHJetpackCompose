@@ -47,6 +47,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    compileSdkVersion 31
+    buildToolsVersion '30.0.3'
 }
 
 dependencies {
@@ -66,7 +68,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.0-beta03'
     debugImplementation 'androidx.compose.ui:ui-tooling:1.1.0-beta03'
 
-    implementation 'io.coil-kt:coil-compose:2.0.0-alpha02'
+    implementation 'io.coil-kt:coil-compose:2.0.0-alpha05'
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
 

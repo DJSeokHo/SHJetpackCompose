@@ -9,8 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
+import com.swein.shjetpackcompose.basic.alertdialogexample.CustomAlertDialogExampleActivity
 import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
 import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
+import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
+import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
@@ -101,17 +104,30 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
+//        Intent(this, CustomAlertDialogExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+
 //        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+        Intent(this, ConstraintExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-        Intent(this, TopAppBarExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, TopAppBarExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
     }
 }

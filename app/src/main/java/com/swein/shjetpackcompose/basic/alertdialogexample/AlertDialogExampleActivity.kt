@@ -3,7 +3,11 @@ package com.swein.shjetpackcompose.basic.alertdialogexample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,10 +50,8 @@ class AlertDialogExampleActivity : ComponentActivity() {
             Text(text = "Toggle Dialog")
         }
 
-        if (dialogController) {
-            AlertDialogExample(dialogController) {
-                dialogController = !it
-            }
+        AlertDialogExample(dialogController) {
+            dialogController = !it
         }
     }
 
@@ -97,12 +99,80 @@ class AlertDialogExampleActivity : ComponentActivity() {
                     TextButton(
                         onClick = {
                             onDismiss(dialogController)
-                        }
+                        },
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Color.Red
+                        )
                     ) {
                         Text(
                             "Cancel",
                             fontSize = 16.sp,
-                            color = Color.White // We don't need 'Cancel' button, right?
+                            modifier = Modifier.background(Color.Red),
+                            color = Color.White // We don't need 'Cancel' button, right?,
+                        )
+                    }
+                }
+            )
+        }
+    }
+
+    @Composable
+    private fun AlertDialogExample1(
+        dialogController: Boolean,
+        onDismiss: (dialogController: Boolean) -> Unit
+    ) {
+
+        if (dialogController) {
+
+            AlertDialog(
+                modifier = Modifier.size(300.dp),
+                backgroundColor = Color.Yellow,
+                shape = CircleShape,
+                onDismissRequest = {
+                    onDismiss(dialogController)
+                },
+                title = {
+                    Text(
+                        text = "Coding with cat",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.h6
+                    )
+                },
+                text = {
+                    Text(
+                        text = "Subscribe coding with cat is helpful",
+                        fontSize = 12.sp,
+                        color = Color.Gray
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            onDismiss(dialogController)
+                        },
+                    ) {
+                        Text(
+                            "Subscribe", // Just Subscribe
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = Color.Black
+                        )
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            onDismiss(dialogController)
+                        },
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Color.Red
+                        )
+                    ) {
+                        Text(
+                            "Cancel",
+                            fontSize = 16.sp,
+                            modifier = Modifier.background(Color.Red),
+                            color = Color.White // We don't need 'Cancel' button, right?,
                         )
                     }
                 }

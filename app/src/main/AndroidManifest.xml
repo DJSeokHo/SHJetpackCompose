@@ -26,6 +26,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.constraintexample.ConstraintExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.alertdialogexample.CustomAlertDialogExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.dropdownmenu.DropdownMenuExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.circularprogressexample.CircularProgressExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.topappbarexample.TopAppBarExampleActivity"
             android:exported="false" />
         <activity
