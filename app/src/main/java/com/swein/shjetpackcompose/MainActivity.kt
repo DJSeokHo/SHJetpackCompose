@@ -104,20 +104,16 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, CustomAlertDialogExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
+        Intent(this, CustomAlertDialogExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 
 //        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-        Intent(this, ConstraintExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//        Intent(this, ConstraintExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
@@ -126,6 +122,10 @@ class MainActivity : ComponentActivity() {
 //        }
 
 //        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
