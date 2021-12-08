@@ -104,14 +104,14 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CustomAlertDialogExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-
-//        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
+//        Intent(this, CustomAlertDialogExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+
+        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, ConstraintExampleActivity::class.java).apply {
 //            startActivity(this)

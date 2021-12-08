@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
@@ -33,70 +35,113 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
 
         setContent {
 
-            val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-            val scope = rememberCoroutineScope()
+            BottomActionSheetWithButton { state, scope ->
 
-            val context = LocalContext.current
+                // Make ModalBottomSheetLayout to wrap the activityContentScope
 
-            ModalBottomSheetLayout(
-                sheetState = state,
-                sheetContent = {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 10.dp)
-                    ) {
-
-                        Surface(
-                            modifier = Modifier.fillMaxWidth(),
-                            color = Color.DarkGray
-                        ) {
-                            Text("Bottom Sheet", color = Color.White, modifier = Modifier.padding(10.dp))
-                        }
-
-                        Spacer(modifier = Modifier.padding(vertical = 16.dp))
-
-                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Coding")
-
-                        Spacer(modifier = Modifier.padding(vertical = 4.dp))
-
-                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "With")
-
-                        Spacer(modifier = Modifier.padding(vertical = 4.dp))
-
-                        SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Cat")
-                    }
-                }
-            ) {
                 Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxWidth()
                 ) {
-                    Button(onClick = { scope.launch {
-                        state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
-//                        state.animateTo(ModalBottomSheetValue.HalfExpanded, tween(500))
-//                        state.show()
-                    } }) {
-                        Text("点我展开")
+
+                    Image(
+                        painterResource(R.drawable.coding_with_cat_icon),
+                        null,
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .size(200.dp)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Fit
+                    )
+
+                    Spacer(modifier = Modifier.padding(vertical = 20.dp))
+
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+                                //                        state.animateTo(ModalBottomSheetValue.HalfExpanded, tween(500))
+                                //                        state.show()
+                            }
+                        }
+                    ) {
+                        Text("Toggle Action Sheet")
                     }
                 }
+
+                BackHandler(
+                    enabled = (state.currentValue == ModalBottomSheetValue.HalfExpanded
+                            || state.currentValue == ModalBottomSheetValue.Expanded),
+                    onBack = {
+                        scope.launch{
+                            state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+//                        state.hide()
+                        }
+                    }
+                )
             }
 
-            BackHandler(
-                enabled = (state.currentValue == ModalBottomSheetValue.HalfExpanded
-                        || state.currentValue == ModalBottomSheetValue.Expanded),
-                onBack = {
-                    scope.launch{
-                        state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
-//                        state.hide()
-                    }
-                }
-            )
-
         }
+    }
+
+    @OptIn(ExperimentalMaterialApi::class)
+    @Composable
+    private fun BottomActionSheetWithButton(
+        activityContentScope: @Composable (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit
+    ) {
+
+        val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+        val scope = rememberCoroutineScope()
+
+        val context = LocalContext.current
+
+        ModalBottomSheetLayout(
+            sheetBackgroundColor = Color.White,
+            sheetElevation = 5.dp,
+            sheetShape = RoundedCornerShape(topStart = 30.dp),
+            sheetState = state,
+            sheetContent = {
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp)
+                ) {
+
+                    Surface(
+                        color = Color.DarkGray
+                    ) {
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
+                            Text("Bottom Sheet", color = Color.White, modifier = Modifier.padding(end = 10.dp))
+                        }
+
+                    }
+
+                    Spacer(modifier = Modifier.padding(vertical = 16.dp))
+
+                    SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Coding")
+
+                    Spacer(modifier = Modifier.padding(vertical = 4.dp))
+
+                    SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "With")
+
+                    Spacer(modifier = Modifier.padding(vertical = 4.dp))
+
+                    SheetItem(context = context, imageResource = R.drawable.coding_with_cat_icon, text = "Cat")
+                }
+            }
+        ) {
+            activityContentScope(state, scope)
+        }
+
     }
 
     @Composable
