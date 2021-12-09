@@ -15,6 +15,7 @@ import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
 import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
 import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
+import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 import com.swein.shjetpackcompose.basic.scaffold.ScaffoldExampleActivity
@@ -109,7 +110,11 @@ class MainActivity : ComponentActivity() {
 //        }
 
 
-        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
+//        Intent(this, ModalBottomSheetLayoutExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ModalDrawerExampleActivity::class.java).apply {
             startActivity(this)
         }
 
