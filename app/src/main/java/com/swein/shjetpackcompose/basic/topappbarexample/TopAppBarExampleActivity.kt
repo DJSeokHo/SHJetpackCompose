@@ -32,11 +32,13 @@ class TopAppBarExampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            TopAppBarSample(onBackClick = {
-                finish()
-            }, onImageClick = {
-                Toast.makeText(this, "Subscribe~~", Toast.LENGTH_SHORT).show()
-            })
+            TopAppBarSample(
+                onBackClick = {
+                    finish()
+                }, onImageClick = {
+                    Toast.makeText(this, "Subscribe~~", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 
@@ -85,6 +87,7 @@ class TopAppBarExampleActivity : ComponentActivity() {
                     }) {
                         Icon(Icons.Filled.Settings, null)
                     }
+
                 })
 
             Box(

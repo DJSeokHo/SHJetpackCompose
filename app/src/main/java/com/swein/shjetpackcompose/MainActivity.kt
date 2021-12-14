@@ -114,11 +114,7 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ModalDrawerExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-//        Intent(this, ConstraintExampleActivity::class.java).apply {
+//        Intent(this, ModalDrawerExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
@@ -126,11 +122,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
+//        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//        Intent(this, ConstraintExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
