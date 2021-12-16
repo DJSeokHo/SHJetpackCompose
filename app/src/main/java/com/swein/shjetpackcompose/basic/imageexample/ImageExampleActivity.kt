@@ -12,11 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.swein.shjetpackcompose.R
 
 class ImageExampleActivity : ComponentActivity() {
@@ -132,13 +135,25 @@ class ImageExampleActivity : ComponentActivity() {
         /*
         implementation 'io.coil-kt:coil-compose:2.0.0-alpha02'
          */
+
         Image(
-            painter = rememberImagePainter(
-                data = "https://developer.android.com/images/brand/Android_Robot.png"
+//            painter = rememberAsyncImagePainter(
+//                "https://developer.android.com/images/brand/Android_Robot.png"
+//            ),
+            painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .crossfade(true)
+                    .data("https://developer.android.com/images/brand/Android_Robot.png")
+                    .build(),
+                filterQuality = FilterQuality.High
             ),
+//            painter = rememberImagePainter(
+//                data = "https://developer.android.com/images/brand/Android_Robot.png"
+//            ),
             contentDescription = "Android Logo",
             modifier = Modifier.size(150.dp)
         )
+
     }
 
     @Composable
