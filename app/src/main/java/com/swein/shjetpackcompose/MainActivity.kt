@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
 import com.swein.shjetpackcompose.basic.alertdialogexample.CustomAlertDialogExampleActivity
+import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
 import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
 import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
 import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
@@ -122,13 +123,17 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, DropdownMenuExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//        Intent(this, DropdownMenuExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+//        Intent(this, BottomNavigationExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ScaffoldExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, ConstraintExampleActivity::class.java).apply {
 //            startActivity(this)

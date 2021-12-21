@@ -1,13 +1,23 @@
 package com.swein.shjetpackcompose.basic.scaffold
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.scaffold.favorite.FavoriteView
 import com.swein.shjetpackcompose.basic.scaffold.home.HomeView
@@ -82,12 +92,36 @@ class ScaffoldExampleActivity : ComponentActivity() {
                     selectedItem = it
                 }
             },
-//            floatingActionButton: @Composable () -> Unit = {},
-//            floatingActionButtonPosition: FabPosition = FabPosition.End,
-//            isFloatingActionButtonDocked: Boolean = false,
-//            drawerContent: @Composable (ColumnScope.() -> Unit)? = null,
+            floatingActionButton = {
+
+                FloatingActionButton(
+                    onClick = {
+                        Toast.makeText(this, "Subscribe Coding with cat", Toast.LENGTH_SHORT).show()
+                    },
+                    shape = CircleShape,
+                    elevation = FloatingActionButtonDefaults.elevation(10.dp),
+                    content = {
+                        Image(
+                            painter = painterResource(id = R.drawable.coding_with_cat_icon),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.size(56.dp).clip(CircleShape)
+                        )
+                    }
+                )
+//                ExtendedFloatingActionButton(
+//                    backgroundColor = Color.DarkGray,
+//                    contentColor = Color.White,
+//                    icon = { Icon(Icons.Filled.Favorite,"") },
+//                    text = { Text("FloatingActionButton") },
+//                    onClick = { /*do something*/ },
+//                    elevation = FloatingActionButtonDefaults.elevation(10.dp)
+//                )
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            isFloatingActionButtonDocked = true,
             drawerContent = {
-                SideMenuView.Content()
+                SideMenuView.ColumnScopeContent()
             },
             content = {
                 ContentView(selectedItem = selectedItem)
@@ -114,7 +148,7 @@ class ScaffoldExampleActivity : ComponentActivity() {
     @Composable
     private fun BottomNavigationBar(selectedItem: Int, onSelectedItem: (index: Int) -> Unit) {
 
-        val items = listOf("menu1", "menu2", "menu3", "menu4")
+        val items = listOf("menu1", "menu2", "", "menu3", "menu4")
 
         BottomNavigation {
             items.forEachIndexed { index, item ->
@@ -127,10 +161,10 @@ class ScaffoldExampleActivity : ComponentActivity() {
                             1 -> {
                                 Icon(Icons.Filled.Search, contentDescription = null)
                             }
-                            2 -> {
+                            3 -> {
                                 Icon(Icons.Filled.Favorite, contentDescription = null)
                             }
-                            3 -> {
+                            4 -> {
                                 Icon(Icons.Filled.Face, contentDescription = null)
                             }
                             else -> Unit
@@ -141,6 +175,11 @@ class ScaffoldExampleActivity : ComponentActivity() {
                     },
                     selected = selectedItem == index,
                     onClick = {
+
+                        if (index == 2) {
+                            return@BottomNavigationItem
+                        }
+
                         onSelectedItem(index)
                     }
                 )
@@ -160,10 +199,10 @@ class ScaffoldExampleActivity : ComponentActivity() {
             1 -> {
                 SearchView.Content()
             }
-            2 -> {
+            3 -> {
                 FavoriteView.Content()
             }
-            3 -> {
+            4 -> {
                 ProfileView.Content()
             }
             else -> Unit

@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.bottomnavigationexample.BottomNavigationExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.modaldrawer.ModalDrawerExampleActivity"
             android:exported="false" />
         <activity
