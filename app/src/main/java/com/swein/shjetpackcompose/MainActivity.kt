@@ -132,15 +132,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, FloatingActionButtonExampleActivity::class.java).apply {
+//        Intent(this, FloatingActionButtonExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ConstraintExampleActivity::class.java).apply {
             startActivity(this)
         }
 
 //        Intent(this, ScaffoldExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
-
-//        Intent(this, ConstraintExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

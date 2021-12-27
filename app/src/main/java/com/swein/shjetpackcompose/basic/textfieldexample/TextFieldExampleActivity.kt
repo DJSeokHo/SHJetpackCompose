@@ -13,10 +13,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -50,8 +47,13 @@ class TextFieldExampleActivity : ComponentActivity() {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
+                .background(Color.White)
                 .verticalScroll(rememberScrollState())
         ) {
+
+            TextFieldDoubleTrailingPart()
+
+            SplitLine()
 
             OutlineTextFieldExample()
 
@@ -386,6 +388,49 @@ class TextFieldExampleActivity : ComponentActivity() {
             ),
             shape = MaterialTheme.shapes.medium
         )
+    }
+
+    @Composable
+    private fun TextFieldDoubleTrailingPart() {
+
+        var text by remember{
+            mutableStateOf("")
+        }
+
+        Column {
+
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                value = text,
+                onValueChange = {
+                    text = it
+                },
+                singleLine = true,
+                trailingIcon = {
+
+                    Row(
+                        modifier = Modifier.wrapContentSize()
+                    ) {
+                        Icon(Icons.Filled.Close, null, tint = Color.Red)
+                        Spacer(modifier = Modifier.padding(horizontal = 5.dp))
+                        Icon(Icons.Filled.Email, null, tint = Color.Red)
+                    }
+
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.Red,
+                    backgroundColor = Color.Transparent,
+                    cursorColor = Color.Red,
+                    focusedIndicatorColor = Color.Red,
+                    unfocusedIndicatorColor = Color.Cyan,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Blue,
+                    placeholderColor = Color.LightGray
+                )
+            )
+        }
     }
 
     @Composable

@@ -28,6 +28,7 @@ import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 
 class ConstraintExampleActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,7 +36,7 @@ class ConstraintExampleActivity : ComponentActivity() {
 
             val context = LocalContext.current
 
-            SHJetpackComposeTheme {
+            SHJetpackComposeTheme(false) {
 
                 Column(
                     modifier = Modifier.fillMaxSize()
@@ -52,10 +53,7 @@ class ConstraintExampleActivity : ComponentActivity() {
 
                     ProfileView()
                 }
-
-
             }
-
         }
     }
 
