@@ -16,6 +16,8 @@ import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
 import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
 import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.floatingactionbutton.FloatingActionButtonExampleActivity
+import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnExampleActivity
+import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
 import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
 import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
@@ -136,13 +138,22 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ConstraintExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, ConstraintExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+//        Intent(this, LazyColumnExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LazyRowExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
 
     }
 }

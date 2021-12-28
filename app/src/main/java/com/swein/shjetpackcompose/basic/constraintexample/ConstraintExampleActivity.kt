@@ -8,6 +8,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -113,7 +115,6 @@ class ConstraintExampleActivity : ComponentActivity() {
                         .padding(6.dp)
                 )
 
-
             }
 
         }
@@ -181,6 +182,20 @@ class ConstraintExampleActivity : ComponentActivity() {
                     modifier = Modifier.layoutId("textInfoConstraint")
                 )
 
+                Button(
+                    onClick = {
+                        Toast.makeText(this, "Subscribe", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier.layoutId("buttonConstraint"),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red, contentColor = Color.White)
+                ) {
+                    Text(
+                        text = "Subscribe",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+
             }
         }
     }
@@ -191,6 +206,7 @@ class ConstraintExampleActivity : ComponentActivity() {
 
             val imageConstraint = createRefFor("imageConstraint")
             val textInfoConstraint = createRefFor("textInfoConstraint")
+            val buttonConstraint = createRefFor("buttonConstraint")
 
             constrain(imageConstraint) {
                 top.linkTo(parent.top, margin = 20.dp)
@@ -203,6 +219,13 @@ class ConstraintExampleActivity : ComponentActivity() {
                 top.linkTo(imageConstraint.bottom, margin = 15.dp)
                 start.linkTo(parent.start, margin = 16.dp)
                 end.linkTo(parent.end, margin = 16.dp)
+            }
+
+            constrain(buttonConstraint) {
+
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom, margin = 16.dp)
             }
 
         }

@@ -26,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.lazyrowexample.LazyRowExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.lazycolumnexample.LazyColumnExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.floatingactionbutton.FloatingActionButtonExampleActivity"
             android:exported="false" />
         <activity
