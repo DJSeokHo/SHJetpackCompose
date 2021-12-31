@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SHJetpackCompose">
         <activity
+            android:name=".basic.lazyverticalgridexample.LazyVerticalGridExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.lazyrowexample.LazyRowExampleActivity"
             android:exported="false" />
         <activity
