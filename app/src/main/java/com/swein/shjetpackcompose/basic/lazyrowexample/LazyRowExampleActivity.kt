@@ -65,6 +65,13 @@ class LazyRowExampleActivity : ComponentActivity() {
                     .padding(vertical = 10.dp)
             ) {
 
+                Text(
+                    text = "History Photos",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    modifier = Modifier.padding(top = 26.dp, start = 16.dp, bottom = 16.dp)
+                )
+
                 RowSectionItem("Row one", createRandomDataList(originalList)) {
 
                 }
@@ -218,9 +225,11 @@ class LazyRowExampleActivity : ComponentActivity() {
         return list
     }
 
+    private data class TestData(
+        val text: String,
+        val imageUrl: String
+    )
+
 }
 
-data class TestData(
-    val text: String,
-    val imageUrl: String
-)
+
