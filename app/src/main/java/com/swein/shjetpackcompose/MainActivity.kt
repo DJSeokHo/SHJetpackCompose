@@ -145,13 +145,13 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyRowExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-//        Intent(this, LazyVerticalGridExampleActivity::class.java).apply {
+//        Intent(this, LazyRowExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+        Intent(this, LazyVerticalGridExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
 //            startActivity(this)
