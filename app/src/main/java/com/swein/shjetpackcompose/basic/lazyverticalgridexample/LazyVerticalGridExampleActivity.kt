@@ -52,7 +52,6 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
         val list = createDataList()
 
         LazyVerticalGrid(
-//            cells = GridCells.Adaptive(128.dp),
             cells = GridCells.Fixed(3),
 
             // content padding
@@ -62,9 +61,12 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
             ),
             content = {
                 items(list.size) { index ->
-
                     GridItem(list[index]) {
-                        Toast.makeText(this@LazyVerticalGridExampleActivity, it.text, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LazyVerticalGridExampleActivity,
+                            it.text,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -77,7 +79,7 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
 
         Card(
             modifier = Modifier
-                .fillMaxWidth().height(220.dp)
+                .fillMaxWidth().height(210.dp)
                 .padding(4.dp)
                 .clickable(
                     /*
