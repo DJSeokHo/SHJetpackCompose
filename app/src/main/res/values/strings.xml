@@ -26,4 +26,5 @@
     <string name="title_activity_view_holder_example">ViewHolderExampleActivity</string>
     <string name="title_activity_custom_bottom_navigation_bar_example">CustomBottomNavigationBarExampleActivity</string>
     <string name="title_activity_text_example">TextExampleActivity</string>
+    <string name="title_activity_custom_theme_example">CustomThemeExampleActivity</string>
 </resources>

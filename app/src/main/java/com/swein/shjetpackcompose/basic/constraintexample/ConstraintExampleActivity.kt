@@ -1,6 +1,8 @@
 package com.swein.shjetpackcompose.basic.constraintexample
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,10 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,12 +29,19 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.ColorDDDDDD
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 
 class ConstraintExampleActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = android.graphics.Color.DKGRAY
+
+//        actionBar?.setBackgroundDrawable(ColorDrawable(ColorC57644.toArgb()))
+        actionBar?.hide()
 
         setContent {
 
@@ -66,11 +75,10 @@ class ConstraintExampleActivity : ComponentActivity() {
     ) {
 
         Surface(
-            color = colorResource(id = R.color.basic_color_2022),
+            color = Color.DarkGray,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
-                .layoutId("customTopBarConstraint"),
+                .height(60.dp),
             elevation = 10.dp
         ) {
 
@@ -157,8 +165,8 @@ class ConstraintExampleActivity : ComponentActivity() {
     private fun ProfileView() {
 
         Surface(
-            color = colorResource(id = R.color.cdddddd),
-            modifier = Modifier.fillMaxSize().layoutId("profileConstraint"),
+            color = ColorDDDDDD,
+            modifier = Modifier.fillMaxSize(),
         ) {
             ConstraintLayout(
                 constraintSet = profileViewConstraintSet()
@@ -230,4 +238,5 @@ class ConstraintExampleActivity : ComponentActivity() {
 
         }
     }
+
 }

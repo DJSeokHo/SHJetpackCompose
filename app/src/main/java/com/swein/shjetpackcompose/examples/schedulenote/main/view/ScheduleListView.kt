@@ -16,10 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,12 +29,15 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
-import coil.request.CachePolicy
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.Color111111
+import com.swein.shjetpackcompose.application.ui.theme.Color666666
+import com.swein.shjetpackcompose.application.ui.theme.Color999999
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.main.ScheduleListActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.viewmodel.ScheduleListViewModel
@@ -193,13 +196,12 @@ object ScheduleListView {
                 ) {
                     // Image area
                     Image(
-                        painter = rememberImagePainter(
-                            data = File(scheduleModel.contentImage),
-                            builder = {
-                                crossfade(true)
-                                placeholder(R.drawable.coding_with_cat_icon)
-                                memoryCachePolicy(CachePolicy.DISABLED)
-                            }
+                        painter = rememberAsyncImagePainter(
+                            model = ImageRequest.Builder(context = LocalContext.current)
+                                .crossfade(true)
+                                .data(File(scheduleModel.contentImage))
+                                .build(),
+                            filterQuality = FilterQuality.High
                         ),
                         contentDescription = "Android Logo",
                         modifier = Modifier.size(60.dp),
@@ -217,7 +219,7 @@ object ScheduleListView {
 
                     Text(
                         text = scheduleModel.title,
-                        color = colorResource(id = R.color.c111111),
+                        color = Color111111,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -227,7 +229,7 @@ object ScheduleListView {
 
                     Text(
                         text = scheduleModel.content,
-                        color = colorResource(id = R.color.c666666),
+                        color = Color666666,
                         fontSize = 16.sp,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
@@ -236,7 +238,7 @@ object ScheduleListView {
 
                     Text(
                         text = scheduleModel.createDate,
-                        color = colorResource(id = R.color.c999999),
+                        color = Color999999,
                         fontSize = 10.sp,
                         maxLines = 1,
                         modifier = modifier.layoutId("date")

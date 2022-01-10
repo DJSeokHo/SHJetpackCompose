@@ -26,6 +26,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.ColorEEEEEE
 
 class CardExampleActivity : ComponentActivity() {
 
@@ -82,7 +83,7 @@ class CardExampleActivity : ComponentActivity() {
                             .show()
                     }
                 ),
-            backgroundColor = colorResource(id = R.color.ceeeeee),
+            backgroundColor = ColorEEEEEE,
             elevation = 8.dp
         ) {
 
@@ -115,7 +116,7 @@ class CardExampleActivity : ComponentActivity() {
                             .show()
                     }
                 ),
-            backgroundColor = colorResource(id = R.color.ceeeeee),
+            backgroundColor = ColorEEEEEE,
             elevation = 8.dp
         ) {
 
@@ -160,7 +161,7 @@ class CardExampleActivity : ComponentActivity() {
                             .show()
                     }
                 ),
-            backgroundColor = colorResource(id = R.color.ceeeeee),
+            backgroundColor = ColorEEEEEE,
             elevation = 8.dp
         ) {
 

@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swein.framework.compose.ripple.RippleWrapper
+import com.swein.shjetpackcompose.application.ui.theme.Color666666
 
 class TopAppBarExampleActivity : ComponentActivity() {
 
@@ -50,7 +50,7 @@ class TopAppBarExampleActivity : ComponentActivity() {
                 title = {
                     Text(text = "Coding with cat", color = Color.White, fontSize = 15.sp)
                 },
-                backgroundColor =  colorResource(id = com.swein.shjetpackcompose.R.color.c666666),
+                backgroundColor = Color666666,
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.Filled.ArrowBack, null, tint = Color.White)

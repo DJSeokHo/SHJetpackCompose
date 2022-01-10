@@ -16,11 +16,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,10 +32,14 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
-import coil.size.OriginalSize
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.Color111111
+import com.swein.shjetpackcompose.application.ui.theme.Color999999
+import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.ColorFAFAFA
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
@@ -43,7 +47,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.File
 
 object EditToDoItemView {
 
@@ -146,7 +149,7 @@ object EditToDoItemView {
 
                         },
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = colorResource(id = R.color.basic_color_2022)
+                            backgroundColor = ColorC57644
                         )
                     ) {
                         Text(
@@ -156,7 +159,7 @@ object EditToDoItemView {
                             else {
                                 R.string.update
                             }),
-                            color = colorResource(id = R.color.white),
+                            color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -409,7 +412,7 @@ object EditToDoItemView {
 
             Text(
                 text = stringResource(id = R.string.schedule_title_label),
-                color = colorResource(id = R.color.basic_color_2022),
+                color = ColorC57644,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -429,16 +432,16 @@ object EditToDoItemView {
                 onValueChange = onTitleChange,
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = colorResource(id = R.color.c111111),
+                    textColor = Color111111,
                     backgroundColor = Color.Transparent,
-                    cursorColor = colorResource(id = R.color.basic_color_2022),
-                    focusedIndicatorColor = colorResource(id = R.color.basic_color_2022)
+                    cursorColor = ColorC57644,
+                    focusedIndicatorColor = ColorC57644
                 )
                 ,
                 label = {
                     Text(
                         text = stringResource(R.string.schedule_title_hint),
-                        color = colorResource(id = R.color.c999999),
+                        color = Color999999,
                         fontSize = 12.sp
                     )
                 }
@@ -461,7 +464,7 @@ object EditToDoItemView {
 
             Text(
                 text = stringResource(id = R.string.schedule_content_label),
-                color = colorResource(id = R.color.basic_color_2022),
+                color = ColorC57644,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -482,16 +485,16 @@ object EditToDoItemView {
                 ),
                 onValueChange = onContentChange,
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = colorResource(id = R.color.c111111),
+                    textColor = Color111111,
                     backgroundColor = Color.Transparent,
-                    cursorColor = colorResource(id = R.color.basic_color_2022),
-                    focusedIndicatorColor = colorResource(id = R.color.basic_color_2022)
+                    cursorColor = ColorC57644,
+                    focusedIndicatorColor = ColorC57644
                 )
                 ,
                 label = {
                     Text(
                         text = stringResource(R.string.schedule_content_hint),
-                        color = colorResource(id = R.color.c999999),
+                        color = Color999999,
                         fontSize = 12.sp
                     )
                 }
@@ -509,11 +512,12 @@ object EditToDoItemView {
                 painterResource(id = R.mipmap.ti_image)
             }
             else {
-                rememberImagePainter(
-                    data = File(contentImage),
-                    builder = {
-                        size(OriginalSize)
-                    },
+                rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .crossfade(true)
+                        .data(contentImage)
+                        .build(),
+                    filterQuality = FilterQuality.High
                 )
             },
             contentDescription = "",
@@ -526,7 +530,7 @@ object EditToDoItemView {
                         state.show()
                     }
                 }
-                .background(color = colorResource(id = R.color.cfafafa)),
+                .background(color = ColorFAFAFA),
             contentScale = if (contentImage == "") {
                 ContentScale.Inside
             }
@@ -572,7 +576,7 @@ object EditToDoItemView {
                         )
                         Spacer(modifier = modifier.width(10.dp))
                         Text(
-                            text = "camera", color = colorResource(id = R.color.c111111),
+                            text = "camera", color = Color111111,
                             fontSize = 15.sp, modifier = modifier.align(Alignment.CenterVertically)
                         )
                     }
@@ -601,7 +605,7 @@ object EditToDoItemView {
                         )
                         Spacer(modifier = modifier.width(10.dp))
                         Text(
-                            text = "gallery", color = colorResource(id = R.color.c111111),
+                            text = "gallery", color = Color111111,
                             fontSize = 15.sp, modifier = modifier.align(Alignment.CenterVertically)
                         )
                     }

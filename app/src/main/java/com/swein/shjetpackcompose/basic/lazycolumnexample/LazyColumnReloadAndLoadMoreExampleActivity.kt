@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +37,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.BlackTransparent30
+import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
 import kotlinx.coroutines.launch
 
 class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
@@ -313,13 +314,13 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable { },
-                color = colorResource(id = R.color.black_30_transparent)
+                color = BlackTransparent30
             ) {
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = colorResource(id = R.color.basic_color_2022)
+                        color = ColorC57644
                     )
                 }
             }

@@ -23,8 +23,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.SHJetpackCompose">
+        android:supportsRtl="true">
+        <activity
+            android:name=".basic.compositionlocalexample.CompositionLocalExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.customthemeexample.CustomThemeExampleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_custom_theme_example" />
         <activity
             android:name=".basic.lazycolumnexample.LazyColumnReloadAndLoadMoreExampleActivity"
             android:exported="false" />
@@ -54,9 +60,6 @@
             android:exported="false" />
         <activity
             android:name=".basic.dropdownmenu.DropdownMenuExampleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basic.circularprogressexample.CircularProgressExampleActivity"
             android:exported="false" />
         <activity
             android:name=".basic.topappbarexample.TopAppBarExampleActivity"
@@ -100,64 +103,53 @@
         <activity
             android:name=".basic.textexample.TextExampleActivity"
             android:exported="false"
-            android:label="@string/title_activity_text_example"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_text_example" />
         <activity
             android:name=".examples.custombottomnavigationbarexample.CustomBottomNavigationBarExampleActivity"
             android:exported="true"
-            android:label="@string/title_activity_custom_bottom_navigation_bar_example"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_custom_bottom_navigation_bar_example" />
         <activity
             android:name=".examples.viewholderexample.ViewHolderExampleActivity"
             android:exported="true"
-            android:label="@string/title_activity_view_holder_example"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_view_holder_example" />
         <activity
             android:name=".examples.marginandpaddingexample.MarginAndPaddingExampleActivity"
             android:exported="true" />
         <activity
             android:name=".examples.lazycolumexample.LazyColumnExampleActivity"
             android:exported="true"
-            android:label="@string/title_activity_lazy_column_example"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_lazy_column_example" />
         <activity
             android:name=".examples.schedulenote.edit.EditScheduleActivity"
             android:exported="true"
-            android:label="@string/title_activity_edit_schedule_item"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_edit_schedule_item" />
         <activity
             android:name=".examples.schedulenote.main.ScheduleListActivity"
             android:exported="true"
-            android:label="@string/title_activity_schedule_note"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_schedule_note" />
         <activity
             android:name=".examples.loginscreen.LoginScreenOneActivity"
             android:exported="true"
-            android:label="@string/title_activity_login_screen_one"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_login_screen_one" />
         <activity
             android:name=".googletutorial.vilayout.GTLayoutActivity"
             android:exported="true"
-            android:label="@string/title_activity_gtlayout"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:label="@string/title_activity_gtlayout" />
         <activity
             android:name=".googletutorial.ivbasic.GTBasicActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasic"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".googletutorial.ibasictutorial.GTBasicTutorialActivity"
             android:exported="true"
             android:label="@string/title_activity_gtbasictutorial"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.SHJetpackCompose.NoActionBar">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

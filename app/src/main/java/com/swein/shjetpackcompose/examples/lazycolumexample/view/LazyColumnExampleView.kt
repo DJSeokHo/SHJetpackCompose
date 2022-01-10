@@ -11,12 +11,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -27,7 +25,8 @@ import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
-import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.Color111111
+import com.swein.shjetpackcompose.application.ui.theme.Color666666
 import com.swein.shjetpackcompose.examples.lazycolumexample.model.LazyColumnExampleModel
 import com.swein.shjetpackcompose.examples.lazycolumexample.viewmodel.LazyColumnExampleViewModel
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
@@ -177,7 +176,7 @@ object LazyColumnExampleView {
 
                     Text(
                         text = "index ${lazyColumnExampleModel.index}",
-                        color = colorResource(id = R.color.c111111),
+                        color = Color111111,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -187,7 +186,7 @@ object LazyColumnExampleView {
 
                     Text(
                         text = lazyColumnExampleModel.content,
-                        color = colorResource(id = R.color.c666666),
+                        color = Color666666,
                         fontSize = 16.sp,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,

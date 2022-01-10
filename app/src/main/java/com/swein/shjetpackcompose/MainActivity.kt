@@ -13,7 +13,9 @@ import com.swein.shjetpackcompose.basic.alertdialogexample.CustomAlertDialogExam
 import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
 import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
 import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
+import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
 import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
+import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
 import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.floatingactionbutton.FloatingActionButtonExampleActivity
 import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
@@ -149,19 +151,28 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyVerticalGridExampleActivity::class.java).apply {
+//        Intent(this, LazyVerticalGridExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ConstraintExampleActivity::class.java).apply {
             startActivity(this)
         }
+
+//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
 
 //        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-//        Intent(this, ConstraintExampleActivity::class.java).apply {
+//        Intent(this, CustomThemeExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//        Intent(this, CompositionLocalExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

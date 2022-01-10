@@ -9,11 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
 
 object CustomBottomNavigationBarView {
 
@@ -36,7 +36,7 @@ object CustomBottomNavigationBarView {
                     .fillMaxWidth()
                     .height(60.dp)
                     .align(Alignment.BottomStart),
-                color = colorResource(id = R.color.basic_color_2022)
+                color = ColorC57644
             ) {
 
                 Row(

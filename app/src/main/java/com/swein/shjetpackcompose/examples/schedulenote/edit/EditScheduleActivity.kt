@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenCreated
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
-import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
-import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
@@ -37,7 +37,7 @@ class EditScheduleActivity : ComponentActivity() {
             }
         }
 
-        WindowUtility.setStatusBarColor(this, getColor(R.color.basic_color_2022))
+        WindowUtility.setStatusBarColor(this, ColorC57644.toArgb())
         WindowUtility.setStateBarToDarkTheme(this)
 
         setContent {
@@ -66,41 +66,24 @@ class EditScheduleActivity : ComponentActivity() {
 
     fun takePhoto() {
         systemPhotoPickManager.requestPermission {
-            it.takePicture(
-                true,
-                takeUriDelegate = {
 
-                },
-                takePathDelegate = { string ->
-                    ILog.debug(TAG, "takePathDelegate $string")
-                    viewModel.contentImage.value = string
-                },
-                takeBitmapDelegate = {
+            it.takePictureWithFilePath(true) { imagePath ->
+                ILog.debug(TAG, "takePathDelegate $imagePath")
+                viewModel.contentImage.value = imagePath
+            }
 
-                },
-                DateUtility.getCurrentDateTimeMillisecondStringWithNoSpace("_")
-            )
         }
     }
 
     fun selectImage() {
         systemPhotoPickManager.requestPermission {
 
-            it.selectPicture(
-                true,
-                selectedUriDelegate = {
+            it.selectPathPicture(true) { imagePath ->
+                ILog.debug(TAG, "selectedPathDelegate $imagePath")
+                viewModel.contentImage.value = imagePath
+            }
 
-                },
-                selectedPathDelegate = { string ->
-                    ILog.debug(TAG, "selectedPathDelegate $string")
-                    viewModel.contentImage.value = string
-                },
-                DateUtility.getCurrentDateTimeMillisecondStringWithNoSpace("_")
-            )
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }

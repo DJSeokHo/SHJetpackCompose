@@ -7,8 +7,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +24,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.application.ui.theme.BlackTransparent30
+import com.swein.shjetpackcompose.application.ui.theme.Color999999
+import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
 
 object CommonView {
 
@@ -42,7 +43,7 @@ object CommonView {
     ) {
 
         Surface(
-            color = colorResource(id = R.color.basic_color_2022),
+            color = ColorC57644,
             modifier = modifier
                 .fillMaxWidth()
                 .height(60.dp),
@@ -143,14 +144,14 @@ object CommonView {
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable { },
-                color = colorResource(id = R.color.black_30_transparent)
+                color = BlackTransparent30
 //                color = colorResource(id = R.color.transparent)
             ) {
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = colorResource(id = R.color.basic_color_2022)
+                        color = ColorC57644
                     )
                 }
             }
@@ -200,11 +201,11 @@ object CommonView {
                          Button(
                             modifier = Modifier.weight(1f),
                             onClick = onCancel,
-                            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.c999999))
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color999999)
                         ) {
                             Text(
                                 text = cancelButtonText,
-                                color = colorResource(id = R.color.white),
+                                color = Color.White,
                                 fontSize = 12.sp
                             )
                         }
@@ -212,11 +213,11 @@ object CommonView {
                         Button(
                             modifier = Modifier.weight(1f).padding(start = 16.dp),
                             onClick = onConfirm,
-                            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.basic_color_2022))
+                            colors = ButtonDefaults.buttonColors(backgroundColor = ColorC57644)
                         ) {
                             Text(
                                 text = confirmButtonText,
-                                color = colorResource(id = R.color.white),
+                                color = Color.White,
                                 fontSize = 12.sp
                             )
                         }

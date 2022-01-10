@@ -32,9 +32,10 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion "1.1.0-rc01"
+        kotlinCompilerVersion '1.5.21'
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = '1.8'
         useIR = true
         freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
     }
@@ -70,10 +71,6 @@ dependencies {
     implementation 'io.coil-kt:coil-compose:2.0.0-alpha05'
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
-
-    implementation 'com.github.DJSeokHo:EasyEventObserver:1.0.6'
-
-    implementation 'com.github.DJSeokHo:EasyPermissionManager:1.0.9'
 
     // app start up
     implementation 'androidx.startup:startup-runtime:1.1.0'
