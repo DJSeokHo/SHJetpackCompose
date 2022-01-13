@@ -21,6 +21,7 @@ import com.swein.shjetpackcompose.basic.floatingactionbutton.FloatingActionButto
 import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
 import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnExampleActivity
 import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnReloadAndLoadMoreExampleActivity
+import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnStickerHeaderExampleActivity
 import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
 import com.swein.shjetpackcompose.basic.lazyverticalgridexample.LazyVerticalGridExampleActivity
 import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
@@ -28,6 +29,7 @@ import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 import com.swein.shjetpackcompose.basic.scaffold.ScaffoldExampleActivity
+import com.swein.shjetpackcompose.basic.tabrowexample.TabRowExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.basic.topappbarexample.TopAppBarExampleActivity
 
@@ -155,24 +157,31 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ConstraintExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, ConstraintExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, ScaffoldExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
+        Intent(this, LazyColumnStickerHeaderExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-//        Intent(this, CustomThemeExampleActivity::class.java).apply {
+//        Intent(this, TabRowExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
 //        Intent(this, CompositionLocalExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CustomThemeExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

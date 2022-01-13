@@ -11,6 +11,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
@@ -41,8 +42,33 @@ class LazyColumnExampleActivity : ComponentActivity() {
     @Composable
     private fun ContentView() {
 
+//        LazyColumnTest()
         LazyColumnExample()
 
+    }
+
+    @Composable
+    fun LazyColumnTest() {
+
+        val list = ArrayList<String>()
+        for(i in 0..4){
+            list.add(i.toString())
+        }
+
+        LazyColumn {
+            item {
+                Text(text = "标题")
+            }
+            items(2) {
+                Text(text = "两条副标题")
+            }
+            itemsIndexed(list) { index: Int, item: String ->
+                Row {
+                    Text(text = item)
+                    Text(text = "索引位置$index")
+                }
+            }
+        }
     }
 
     @Composable

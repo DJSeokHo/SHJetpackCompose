@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.swein.androidkotlintool.framework.utility.eventsplitshot.eventcenter.EventCenter
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
-import com.swein.framework.utility.uuid.UUIDUtil
+import com.swein.framework.utility.uuid.UUIDUtility
 import com.swein.shjetpackcompose.examples.schedulenote.constants.ScheduleNoteConstants
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.model.ScheduleModel
@@ -110,7 +110,7 @@ class EditScheduleViewModel: ViewModel() {
                     val insert = async {
 
                         val scheduleModel = ScheduleModel()
-                        scheduleModel.uuid = UUIDUtil.getUUIDString()
+                        scheduleModel.uuid = UUIDUtility.getUUIDString()
                         scheduleModel.title = title.value
                         scheduleModel.content = content.value
                         scheduleModel.contentImage = contentImage.value
