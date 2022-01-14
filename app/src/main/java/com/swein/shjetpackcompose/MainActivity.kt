@@ -27,9 +27,11 @@ import com.swein.shjetpackcompose.basic.lazyverticalgridexample.LazyVerticalGrid
 import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
 import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
+import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
 import com.swein.shjetpackcompose.basic.scaffold.ScaffoldExampleActivity
 import com.swein.shjetpackcompose.basic.tabrowexample.TabRowExampleActivity
+import com.swein.shjetpackcompose.basic.tabrowpagerexample.TabRowPagerExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.basic.topappbarexample.TopAppBarExampleActivity
 
@@ -165,15 +167,23 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyColumnStickerHeaderExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, LazyColumnStickerHeaderExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
 //        Intent(this, TabRowExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, PagerExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
+//        Intent(this, TabRowPagerExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
