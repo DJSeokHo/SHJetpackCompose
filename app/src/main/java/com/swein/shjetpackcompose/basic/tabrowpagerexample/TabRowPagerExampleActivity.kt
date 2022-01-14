@@ -37,6 +37,8 @@ class TabRowPagerExampleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        actionBar?.hide()
+
         setContent {
 
             ContentView()
