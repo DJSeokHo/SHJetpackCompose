@@ -13,7 +13,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,10 +22,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.swein.framework.utility.debug.ILog
-import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.BlackTransparent30
 import com.swein.shjetpackcompose.application.ui.theme.Color999999
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 
 object CommonView {
 
@@ -43,7 +41,7 @@ object CommonView {
     ) {
 
         Surface(
-            color = ColorC57644,
+            color = Color6868AD,
             modifier = modifier
                 .fillMaxWidth()
                 .height(60.dp),
@@ -151,7 +149,7 @@ object CommonView {
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = ColorC57644
+                        color = Color6868AD
                     )
                 }
             }
@@ -213,7 +211,7 @@ object CommonView {
                         Button(
                             modifier = Modifier.weight(1f).padding(start = 16.dp),
                             onClick = onConfirm,
-                            colors = ButtonDefaults.buttonColors(backgroundColor = ColorC57644)
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color6868AD)
                         ) {
                             Text(
                                 text = confirmButtonText,

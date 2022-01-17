@@ -27,7 +27,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 
 class PagerExampleActivity : ComponentActivity() {
 
@@ -132,7 +132,7 @@ class PagerExampleActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ColorC57644),
+                .background(Color6868AD),
             verticalArrangement = Arrangement.Center
         ) {
 

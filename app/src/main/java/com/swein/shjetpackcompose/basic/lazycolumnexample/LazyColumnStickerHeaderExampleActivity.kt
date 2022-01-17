@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.Color111111
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import java.util.*
 import kotlin.random.Random
 
@@ -85,7 +85,7 @@ class LazyColumnStickerHeaderExampleActivity : ComponentActivity() {
     private fun StickyHeaderItem(testDataGroup: TestDataGroup) {
 
         Card(
-            backgroundColor = ColorC57644,
+            backgroundColor = Color6868AD,
             modifier = Modifier.fillMaxWidth(),
             elevation = 8.dp,
             shape = RoundedCornerShape(0.dp)

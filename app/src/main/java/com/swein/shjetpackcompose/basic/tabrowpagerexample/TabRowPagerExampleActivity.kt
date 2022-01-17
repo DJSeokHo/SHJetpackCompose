@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.*
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import kotlinx.coroutines.launch
 
 
@@ -93,7 +93,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
                 TabRowDefaults.Indicator(
                     modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
                     height = 3.dp,
-                    color = ColorC57644
+                    color = Color6868AD
                 )
             }
         ) {
@@ -197,7 +197,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ColorC57644)
+                .background(Color6868AD)
         ) {
             Text(
                 text = "Coding",
@@ -215,7 +215,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ColorC57644)
+                .background(Color6868AD)
         ) {
             Text(
                 text = "With",
@@ -233,7 +233,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ColorC57644)
+                .background(Color6868AD)
         ) {
             Text(
                 text = "Cat",

@@ -38,7 +38,7 @@ import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.Color111111
 import com.swein.shjetpackcompose.application.ui.theme.Color999999
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import com.swein.shjetpackcompose.application.ui.theme.ColorFAFAFA
 import com.swein.shjetpackcompose.examples.schedulenote.commonpart.CommonView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
@@ -149,7 +149,7 @@ object EditToDoItemView {
 
                         },
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = ColorC57644
+                            backgroundColor = Color6868AD
                         )
                     ) {
                         Text(
@@ -412,7 +412,7 @@ object EditToDoItemView {
 
             Text(
                 text = stringResource(id = R.string.schedule_title_label),
-                color = ColorC57644,
+                color = Color6868AD,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -434,8 +434,8 @@ object EditToDoItemView {
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color111111,
                     backgroundColor = Color.Transparent,
-                    cursorColor = ColorC57644,
-                    focusedIndicatorColor = ColorC57644
+                    cursorColor = Color6868AD,
+                    focusedIndicatorColor = Color6868AD
                 )
                 ,
                 label = {
@@ -464,7 +464,7 @@ object EditToDoItemView {
 
             Text(
                 text = stringResource(id = R.string.schedule_content_label),
-                color = ColorC57644,
+                color = Color6868AD,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -487,8 +487,8 @@ object EditToDoItemView {
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color111111,
                     backgroundColor = Color.Transparent,
-                    cursorColor = ColorC57644,
-                    focusedIndicatorColor = ColorC57644
+                    cursorColor = Color6868AD,
+                    focusedIndicatorColor = Color6868AD
                 )
                 ,
                 label = {

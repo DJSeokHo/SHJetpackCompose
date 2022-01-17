@@ -12,7 +12,7 @@ import androidx.lifecycle.whenCreated
 import com.swein.androidkotlintool.framework.utility.eventsplitshot.eventcenter.EventCenter
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import com.swein.shjetpackcompose.examples.schedulenote.constants.ScheduleNoteConstants
 import com.swein.shjetpackcompose.examples.schedulenote.edit.EditScheduleActivity
 import com.swein.shjetpackcompose.examples.schedulenote.main.view.ScheduleListView
@@ -32,7 +32,7 @@ class ScheduleListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowUtility.setStatusBarColor(this, ColorC57644.toArgb())
+        WindowUtility.setStatusBarColor(this, Color6868AD.toArgb())
         WindowUtility.setStateBarToDarkTheme(this)
 
         initESS()

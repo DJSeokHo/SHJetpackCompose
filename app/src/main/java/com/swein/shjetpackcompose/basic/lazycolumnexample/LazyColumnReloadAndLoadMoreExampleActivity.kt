@@ -38,7 +38,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.BlackTransparent30
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import kotlinx.coroutines.launch
 
 class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
@@ -320,7 +320,7 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = ColorC57644
+                        color = Color6868AD
                     )
                 }
             }

@@ -10,7 +10,7 @@ import androidx.lifecycle.whenCreated
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import com.swein.shjetpackcompose.examples.schedulenote.edit.service.EditScheduleService
 import com.swein.shjetpackcompose.examples.schedulenote.edit.view.EditToDoItemView
 import com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel.EditScheduleViewModel
@@ -37,7 +37,7 @@ class EditScheduleActivity : ComponentActivity() {
             }
         }
 
-        WindowUtility.setStatusBarColor(this, ColorC57644.toArgb())
+        WindowUtility.setStatusBarColor(this, Color6868AD.toArgb())
         WindowUtility.setStateBarToDarkTheme(this)
 
         setContent {

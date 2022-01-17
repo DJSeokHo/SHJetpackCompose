@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swein.framework.extension.compose.modifier.customTabIndicatorOffset
 import com.swein.shjetpackcompose.R
-import com.swein.shjetpackcompose.application.ui.theme.ColorC57644
+import com.swein.shjetpackcompose.application.ui.theme.Color6868AD
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 
 class TabRowExampleActivity : ComponentActivity() {
@@ -96,8 +96,8 @@ class TabRowExampleActivity : ComponentActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            backgroundColor = ColorC57644,
-            contentColor = ColorC57644
+            backgroundColor = Color6868AD,
+            contentColor = Color6868AD
         ) {
             tabData.forEachIndexed { index, text ->
 
@@ -144,8 +144,8 @@ class TabRowExampleActivity : ComponentActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            backgroundColor = ColorC57644,
-            contentColor = ColorC57644
+            backgroundColor = Color6868AD,
+            contentColor = Color6868AD
         ) {
             tabIcon.forEachIndexed { index, icon ->
 
@@ -184,8 +184,8 @@ class TabRowExampleActivity : ComponentActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            backgroundColor = ColorC57644,
-            contentColor = ColorC57644
+            backgroundColor = Color6868AD,
+            contentColor = Color6868AD
         ) {
             tabTextAndIcon.forEachIndexed { index, pair ->
 
@@ -236,7 +236,7 @@ class TabRowExampleActivity : ComponentActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            backgroundColor = ColorC57644
+            backgroundColor = Color6868AD
         ) {
             tabTextAndIcon.forEachIndexed { index, text ->
 
@@ -327,7 +327,7 @@ class TabRowExampleActivity : ComponentActivity() {
 //                    modifier = Modifier.tabIndicatorOffset(it[tabIndex]),
                     modifier = Modifier.customTabIndicatorOffset(30.dp, it[tabIndex], 500),
                     height = 3.dp,
-                    color = ColorC57644
+                    color = Color6868AD
                 )
             }
         ) {
@@ -447,7 +447,7 @@ class TabRowExampleActivity : ComponentActivity() {
 //                    modifier = Modifier.tabIndicatorOffset(it[tabIndex]),
                     modifier = Modifier.customTabIndicatorOffset(30.dp, it[tabIndex], 500),
                     height = 3.dp,
-                    color = ColorC57644
+                    color = Color6868AD
                 )
             }
         ) {
