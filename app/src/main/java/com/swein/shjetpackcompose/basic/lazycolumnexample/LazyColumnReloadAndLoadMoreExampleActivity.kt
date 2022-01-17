@@ -52,37 +52,7 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
-            val swipeRefreshState = rememberSwipeRefreshState(false)
-
-            SwipeRefresh(
-                state = swipeRefreshState,
-                onRefresh = {
-
-                    reload(onLoading = {
-                        swipeRefreshState.isRefreshing = true
-                        isLoading.value = true
-                    },
-                    onLoaded = {
-                        swipeRefreshState.isRefreshing = false
-                        isLoading.value = false
-                    })
-                },
-                modifier = Modifier.fillMaxSize()
-            ) {
-                ContentView(list, isLoading.value) {
-
-                    loadMore(
-                        offset = list.size,
-                        onLoading = {
-                            isLoading.value = true
-                        },
-                        onLoaded = {
-                            isLoading.value = false
-                        }
-                    )
-                }
-            }
+            ContentView()
         }
 
         lifecycleScope.launch {
@@ -103,81 +73,72 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
     }
 
 
-    private fun reload(onLoading: () -> Unit, onLoaded: () -> Unit) {
-
-        onLoading()
-
-        Thread {
-
-            val tempList = createTempData(0, 20)
-
-            Thread.sleep(1500)
-
-            handler.post {
-
-                list.clear()
-                list.addAll(tempList)
-
-                onLoaded()
-            }
-
-        }.start()
-
-    }
-
-    private fun loadMore(offset: Int, onLoading: () -> Unit, onLoaded: () -> Unit) {
-
-        ILog.debug("???", "loadMore $offset")
-
-        onLoading()
-
-        Thread {
-
-            val tempList = createTempData(offset, 10)
-
-            Thread.sleep(1000)
-
-            handler.post {
-
-                list.addAll(tempList)
-
-                onLoaded()
-            }
-
-        }.start()
-    }
-
     @Composable
-    private fun ContentView(list: List<TestData>, isLoading: Boolean, onLoadMore: () -> Unit) {
+    private fun ContentView() {
 
-        LazyColumn(
-            state = rememberLazyListState(),
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
+        val swipeRefreshState = rememberSwipeRefreshState(false)
+
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
 
-            items(
-                items = list
-            ) { item ->
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = {
 
-                val lastIndex = list.lastIndex
-                val currentIndex = list.indexOf(item)
+                    reload(onLoading = {
+                        swipeRefreshState.isRefreshing = true
+                        isLoading.value = true
+                    },
+                        onLoaded = {
+                            swipeRefreshState.isRefreshing = false
+                            isLoading.value = false
+                        })
+                },
+                modifier = Modifier.fillMaxSize()
+            ) {
 
-                if (item.index % 3 == 0) {
-                    BigItem(data = item)
-                }
-                else {
-                    SmallItem(data = item)
-                }
+                LazyColumn(
+                    state = rememberLazyListState(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.White)
+                ) {
 
-                if (currentIndex == lastIndex) {
-                    onLoadMore()
+                    items(
+                        items = list
+                    ) { item ->
+
+                        val lastIndex = list.lastIndex
+                        val currentIndex = list.indexOf(item)
+
+                        if (item.index % 3 == 0) {
+                            BigItem(data = item)
+                        }
+                        else {
+                            SmallItem(data = item)
+                        }
+
+                        if (currentIndex == lastIndex) {
+
+                            loadMore(
+                                offset = list.size,
+                                onLoading = {
+                                    isLoading.value = true
+                                },
+                                onLoaded = {
+                                    isLoading.value = false
+                                }
+                            )
+
+                        }
+                    }
                 }
             }
-        }
 
-        Progress(isLoading)
+            Progress(isLoading.value)
+
+        }
 
     }
 
@@ -326,7 +287,52 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
             }
         }
     }
-    
+
+    private fun reload(onLoading: () -> Unit, onLoaded: () -> Unit) {
+
+        onLoading()
+
+        Thread {
+
+            val tempList = createTempData(0, 20)
+
+            Thread.sleep(1500)
+
+            handler.post {
+
+                list.clear()
+                list.addAll(tempList)
+
+                onLoaded()
+            }
+
+        }.start()
+
+    }
+
+    private fun loadMore(offset: Int, onLoading: () -> Unit, onLoaded: () -> Unit) {
+
+        ILog.debug("???", "loadMore $offset")
+
+        onLoading()
+
+        Thread {
+
+            val tempList = createTempData(offset, 10)
+
+            Thread.sleep(1000)
+
+            handler.post {
+
+                list.addAll(tempList)
+
+                onLoaded()
+            }
+
+        }.start()
+    }
+
+
     private fun createTempData(offset: Int, limit: Int): List<TestData> {
         
         val list = mutableListOf<TestData>()
