@@ -51,6 +51,8 @@ class LazyColumnReloadAndLoadMoreExampleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        actionBar?.hide()
+
         setContent {
             ContentView()
         }

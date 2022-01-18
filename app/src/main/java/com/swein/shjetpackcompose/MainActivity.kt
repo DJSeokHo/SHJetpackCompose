@@ -167,14 +167,13 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
-            startActivity(this)
-        }
-
-//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//        Intent(this, LazyColumnReloadAndLoadMoreExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
+        Intent(this, ScaffoldExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, TabRowExampleActivity::class.java).apply {
 //            startActivity(this)
