@@ -1,9 +1,6 @@
 package com.swein.shjetpackcompose.basic.scaffold.sidemenu
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -37,9 +34,7 @@ object SideMenuView {
         ) {
 
             Image(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
+                modifier = modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop,
                 painter = painterResource(id = R.drawable.test_image_1),
                 contentDescription = null
@@ -77,14 +72,14 @@ object SideMenuView {
 
         ListItem(
             icon = {
-                Icon(Icons.Filled.Favorite, null)
+                Icon(Icons.Filled.Favorite, null, tint = Color.Red)
             },
             modifier = Modifier
                 .clickable {
 
                 }
         ) {
-            Text("Subscribe")
+            Text("Subscribe", color = Color.White)
         }
 
     }

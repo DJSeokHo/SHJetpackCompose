@@ -14,15 +14,13 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.basic.scaffold.favorite.FavoriteView
-import com.swein.shjetpackcompose.basic.scaffold.home.HomeView
-import com.swein.shjetpackcompose.basic.scaffold.profile.ProfileView
-import com.swein.shjetpackcompose.basic.scaffold.search.SearchView
+import com.swein.shjetpackcompose.basic.scaffold.sub.ContentViewEmitter
 import com.swein.shjetpackcompose.basic.scaffold.sidemenu.SideMenuView
 import kotlinx.coroutines.launch
 
@@ -53,6 +51,8 @@ class ScaffoldExampleActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        actionBar?.hide()
 
         setContent {
 
@@ -105,9 +105,11 @@ class ScaffoldExampleActivity : ComponentActivity() {
                             painter = painterResource(id = R.drawable.coding_with_cat_icon),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(56.dp).clip(CircleShape)
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(CircleShape)
                         )
-                    }
+                    },
                 )
 //                ExtendedFloatingActionButton(
 //                    backgroundColor = Color.DarkGray,
@@ -124,7 +126,7 @@ class ScaffoldExampleActivity : ComponentActivity() {
                 SideMenuView.ColumnScopeContent()
             },
             content = {
-                ContentView(selectedItem = selectedItem)
+                SubContentView(selectedItem = selectedItem)
             }
         )
     }
@@ -136,12 +138,13 @@ class ScaffoldExampleActivity : ComponentActivity() {
                 IconButton(
                     onClick = onMenuClick
                 ) {
-                    Icon(Icons.Filled.Menu, null)
+                    Icon(Icons.Filled.Menu, null, tint = Color.Yellow)
                 }
             },
             title = {
-                Text("Coding with cat")
-            }
+                Text("Coding with cat", color = Color.White)
+            },
+            backgroundColor = Color.DarkGray
         )
     }
 
@@ -150,28 +153,30 @@ class ScaffoldExampleActivity : ComponentActivity() {
 
         val items = listOf("menu1", "menu2", "", "menu3", "menu4")
 
-        BottomNavigation {
+        BottomNavigation(
+            backgroundColor = Color.DarkGray
+        ) {
             items.forEachIndexed { index, item ->
                 BottomNavigationItem(
                     icon = {
                         when(index) {
                             0 -> {
-                                Icon(Icons.Filled.Home, contentDescription = null)
+                                Icon(Icons.Filled.Home, contentDescription = null, tint = if (selectedItem == index) { Color.Yellow } else { Color.LightGray })
                             }
                             1 -> {
-                                Icon(Icons.Filled.Search, contentDescription = null)
+                                Icon(Icons.Filled.Search, contentDescription = null, tint = if (selectedItem == index) { Color.Yellow } else { Color.LightGray })
                             }
                             3 -> {
-                                Icon(Icons.Filled.Favorite, contentDescription = null)
+                                Icon(Icons.Filled.Favorite, contentDescription = null, tint = if (selectedItem == index) { Color.Yellow } else { Color.LightGray })
                             }
                             4 -> {
-                                Icon(Icons.Filled.Face, contentDescription = null)
+                                Icon(Icons.Filled.Face, contentDescription = null, tint = if (selectedItem == index) { Color.Yellow } else { Color.LightGray })
                             }
                             else -> Unit
                         }
                     },
                     label = {
-                        Text(item)
+                        Text(text = item, color = if (selectedItem == index) { Color.Yellow } else { Color.LightGray })
                     },
                     selected = selectedItem == index,
                     onClick = {
@@ -188,22 +193,22 @@ class ScaffoldExampleActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun ContentView(
+    private fun SubContentView(
         selectedItem: Int
     ) {
 
         when (selectedItem) {
             0 -> {
-                HomeView.Content()
+                ContentViewEmitter.ContentView("Coding with cat")
             }
             1 -> {
-                SearchView.Content()
+                ContentViewEmitter.ContentView("Search")
             }
             3 -> {
-                FavoriteView.Content()
+                ContentViewEmitter.ContentView("Favorite")
             }
             4 -> {
-                ProfileView.Content()
+                ContentViewEmitter.ContentView("Profile")
             }
             else -> Unit
         }

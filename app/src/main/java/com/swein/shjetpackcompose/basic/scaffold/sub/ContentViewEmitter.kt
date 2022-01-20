@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.basic.scaffold.home
+package com.swein.shjetpackcompose.basic.scaffold.sub
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,16 +9,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-object HomeView {
+object ContentViewEmitter {
 
     @Composable
-    fun Content(modifier: Modifier = Modifier) {
+    fun ContentView(content: String) {
 
         Box(
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().background(Color.Black),
             contentAlignment = Alignment.Center
         ) {
-            Text("Coding with cat")
+            Text(content)
         }
     }
 
