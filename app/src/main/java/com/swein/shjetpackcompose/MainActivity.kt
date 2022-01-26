@@ -171,9 +171,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ScaffoldExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, ScaffoldExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, TabRowExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -183,9 +183,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, TabRowPagerExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
+        Intent(this, TabRowPagerExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, CompositionLocalExampleActivity::class.java).apply {
 //            startActivity(this)

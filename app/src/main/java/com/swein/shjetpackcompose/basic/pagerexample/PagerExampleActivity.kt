@@ -52,7 +52,7 @@ class PagerExampleActivity : ComponentActivity() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(Color.White),
         ) {
             PagerContent(pagerState)
         }
@@ -66,6 +66,7 @@ class PagerExampleActivity : ComponentActivity() {
         CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
 
             HorizontalPager(
+                modifier = Modifier.height(200.dp),
                 count = 3,
                 state = pagerState
             ) { page ->

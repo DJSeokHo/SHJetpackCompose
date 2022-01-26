@@ -85,7 +85,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
             contentColor = Color.DarkGray,
             divider = {
                 TabRowDefaults.Divider(
-                    thickness = 1.dp,
+                    thickness = 3.dp,
                     color = Color.Black
                 )
             },
@@ -93,7 +93,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
                 TabRowDefaults.Indicator(
                     modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
                     height = 3.dp,
-                    color = Color6868AD
+                    color = Color.Yellow
                 )
             }
         ) {
@@ -168,26 +168,43 @@ class TabRowPagerExampleActivity : ComponentActivity() {
 
         CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
 
-            HorizontalPager(
-                count = 3,
-                state = pagerState
-            ) { page ->
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
 
-                when (page) {
-                    0 -> {
-                        ScreenOne()
-                    }
+                HorizontalPager(
+                    count = 3,
+                    state = pagerState
+                ) { page ->
 
-                    1 -> {
-                        ScreenTwo()
-                    }
+                    when (page) {
+                        0 -> {
+                            ScreenOne()
+                        }
 
-                    2 -> {
-                        ScreenThree()
+                        1 -> {
+                            ScreenTwo()
+                        }
+
+                        2 -> {
+                            ScreenThree()
+                        }
                     }
                 }
-            }
 
+                HorizontalPagerIndicator(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 20.dp),
+                    pagerState = pagerState,
+                    activeColor = Color.Yellow,
+                    inactiveColor = Color.DarkGray,
+                    indicatorWidth = 8.dp,
+                    indicatorHeight = 8.dp,
+                    indicatorShape = CircleShape,
+                    spacing = 5.dp
+                )
+            }
         }
 
     }
@@ -199,6 +216,9 @@ class TabRowPagerExampleActivity : ComponentActivity() {
                 .fillMaxSize()
                 .background(Color6868AD)
         ) {
+
+            Spacer(modifier = Modifier.padding(vertical = 16.dp))
+
             Text(
                 text = "Coding",
                 fontWeight = FontWeight.Bold,
@@ -217,6 +237,9 @@ class TabRowPagerExampleActivity : ComponentActivity() {
                 .fillMaxSize()
                 .background(Color6868AD)
         ) {
+
+            Spacer(modifier = Modifier.padding(vertical = 16.dp))
+
             Text(
                 text = "With",
                 fontWeight = FontWeight.Bold,
@@ -233,7 +256,8 @@ class TabRowPagerExampleActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color6868AD)
+                .background(Color6868AD),
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "Cat",
