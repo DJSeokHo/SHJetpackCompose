@@ -8,32 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
-import com.swein.shjetpackcompose.basic.alertdialogexample.CustomAlertDialogExampleActivity
-import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
-import com.swein.shjetpackcompose.basic.boxexample.BoxExampleActivity
-import com.swein.shjetpackcompose.basic.columnexample.ColumnExampleActivity
-import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
-import com.swein.shjetpackcompose.basic.constraintexample.ConstraintExampleActivity
-import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
-import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
-import com.swein.shjetpackcompose.basic.floatingactionbutton.FloatingActionButtonExampleActivity
-import com.swein.shjetpackcompose.basic.imageexample.ImageExampleActivity
-import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnExampleActivity
-import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnReloadAndLoadMoreExampleActivity
-import com.swein.shjetpackcompose.basic.lazycolumnexample.LazyColumnStickerHeaderExampleActivity
-import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
-import com.swein.shjetpackcompose.basic.lazyverticalgridexample.LazyVerticalGridExampleActivity
-import com.swein.shjetpackcompose.basic.modalbottomsheetlayoutexample.ModalBottomSheetLayoutExampleActivity
-import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
-import com.swein.shjetpackcompose.basic.modifierexample.ModifierExampleActivity
-import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
-import com.swein.shjetpackcompose.basic.rowexample.RowExampleActivity
-import com.swein.shjetpackcompose.basic.scaffold.ScaffoldExampleActivity
-import com.swein.shjetpackcompose.basic.tabrowexample.TabRowExampleActivity
-import com.swein.shjetpackcompose.basic.tabrowpagerexample.TabRowPagerExampleActivity
-import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
-import com.swein.shjetpackcompose.basic.topappbarexample.TopAppBarExampleActivity
+import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
+import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
+import com.swein.shjetpackcompose.basic.xmltocompose.XMLToComposeExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,15 +160,31 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, TabRowPagerExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, TabRowPagerExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, CompositionLocalExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
 //        Intent(this, CustomThemeExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ComposeToXMLExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, XMLToComposeExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, NavigationExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
+//        Intent(this, WebViewExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

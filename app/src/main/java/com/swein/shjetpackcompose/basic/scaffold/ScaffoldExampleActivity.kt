@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.web.WebView
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.scaffold.sub.ContentViewEmitter
@@ -65,6 +66,7 @@ class ScaffoldExampleActivity : ComponentActivity() {
 
     @Composable
     private fun ScaffoldContainer() {
+
         val scaffoldState = rememberScaffoldState()
         val scope = rememberCoroutineScope()
 

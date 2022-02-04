@@ -25,6 +25,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".basic.navigationexample.NavigationExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.xmltocompose.XMLToComposeExampleActivity"
+            android:exported="false" />
+        <activity
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:name=".basic.composetoxml.ComposeToXMLExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.webviewexample.WebViewExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.pagerexample.PagerExampleActivity"
             android:exported="false" />
         <activity
