@@ -8,7 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
 import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
+import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
+import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
 import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
 import com.swein.shjetpackcompose.basic.xmltocompose.XMLToComposeExampleActivity
 
