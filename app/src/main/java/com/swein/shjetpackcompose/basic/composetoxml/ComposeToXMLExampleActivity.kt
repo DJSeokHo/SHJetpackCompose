@@ -35,7 +35,7 @@ class ComposeToXMLExampleActivity : AppCompatActivity() {
         composeView.setContent {
 
             Text(
-                text = "text from compose view",
+                text = "Coding with cat from compose view with place holder.",
                 modifier = Modifier.fillMaxWidth().wrapContentHeight().background(Color.Yellow).padding(20.dp),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
@@ -49,8 +49,8 @@ class ComposeToXMLExampleActivity : AppCompatActivity() {
             setContent {
 
                 Text(
-                    text = "text from compose view",
-                    modifier = Modifier.fillMaxWidth().wrapContentHeight().background(Color.Cyan).padding(20.dp),
+                    text = "Coding with cat from compose view dynamically",
+                    modifier = Modifier.fillMaxWidth().wrapContentHeight().background(Color.Yellow).padding(20.dp),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,

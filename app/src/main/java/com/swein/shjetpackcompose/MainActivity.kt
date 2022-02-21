@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
 import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
+import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
 import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
 import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
 import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
@@ -179,13 +180,17 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, XMLToComposeExampleActivity::class.java).apply {
+        Intent(this, XMLToComposeExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
+//        Intent(this, NavigationExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-        Intent(this, NavigationExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, CameraAndPhotoActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, WebViewExampleActivity::class.java).apply {
 //            startActivity(this)
