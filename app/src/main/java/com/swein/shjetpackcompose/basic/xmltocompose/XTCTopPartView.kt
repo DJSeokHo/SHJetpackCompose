@@ -19,13 +19,12 @@ import com.swein.shjetpackcompose.R
 @SuppressLint("ViewConstructor")
 class XTCTopPartView(
     context: Context,
-    onImageFavoriteClick: (isFavorite: Boolean) -> Unit
+    isFavorite: Boolean,
+    onImageFavoriteClick: () -> Unit
 ): LinearLayout(context) {
 
     private var imageViewFavorite: ImageView
     private var composeView: ComposeView
-
-    private var isFavorite: Boolean = false
 
     init {
 
@@ -36,7 +35,7 @@ class XTCTopPartView(
 
         imageViewFavorite.setOnClickListener {
 
-            onImageFavoriteClick(isFavorite)
+            onImageFavoriteClick()
 
         }
 
@@ -51,16 +50,10 @@ class XTCTopPartView(
             )
         }
 
-        updateFavorite()
+        updateFavorite(isFavorite)
     }
 
-    fun toggleFavorite(isFavorite: Boolean) {
-        this.isFavorite = isFavorite
-
-        updateFavorite()
-    }
-
-    private fun updateFavorite() {
+    fun updateFavorite(isFavorite: Boolean) {
 
         imageViewFavorite.setImageResource(
             if (isFavorite) {

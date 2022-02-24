@@ -180,15 +180,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, XMLToComposeExampleActivity::class.java).apply {
+//        Intent(this, XMLToComposeExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CameraAndPhotoActivity::class.java).apply {
             startActivity(this)
         }
 
 //        Intent(this, NavigationExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
-
-//        Intent(this, CameraAndPhotoActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

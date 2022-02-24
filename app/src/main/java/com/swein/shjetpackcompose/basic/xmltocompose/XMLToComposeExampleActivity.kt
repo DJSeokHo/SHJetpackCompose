@@ -44,7 +44,7 @@ class XMLToComposeExampleActivity : ComponentActivity() {
         ) {
 
             TopPart(isFavoriteState.value) {
-                isFavoriteState.value = !it
+                isFavoriteState.value = !isFavoriteState.value
             }
 
             Spacer(modifier = Modifier.padding(vertical = 30.dp))
@@ -68,20 +68,19 @@ class XMLToComposeExampleActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun TopPart(isFavorite: Boolean, onImageFavoriteClick: (isFavorite: Boolean) -> Unit) {
+    private fun TopPart(isFavorite: Boolean, onImageFavoriteClick: () -> Unit) {
 
         AndroidView(
             factory = { context ->
-
-                XTCTopPartView(context) {
-                    onImageFavoriteClick(it)
+                XTCTopPartView(context, isFavorite) {
+                    onImageFavoriteClick()
                 }
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             update = {
-                it.toggleFavorite(isFavorite)
+                it.updateFavorite(isFavorite)
             }
         )
     }
