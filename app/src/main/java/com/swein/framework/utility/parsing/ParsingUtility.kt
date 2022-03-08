@@ -1,4 +1,4 @@
-package kr.co.dotv365.android.framework.utility.parsing
+package com.swein.framework.utility.parsing
 
 import org.json.JSONArray
 import org.json.JSONObject

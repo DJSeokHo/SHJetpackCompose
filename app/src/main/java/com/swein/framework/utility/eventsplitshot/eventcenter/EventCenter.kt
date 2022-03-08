@@ -1,4 +1,4 @@
-package com.swein.androidkotlintool.framework.utility.eventsplitshot.eventcenter
+package com.swein.framework.utility.eventsplitshot.eventcenter
 
 import java.lang.ref.WeakReference
 

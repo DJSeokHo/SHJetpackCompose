@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenCreated
-import com.swein.androidkotlintool.framework.utility.eventsplitshot.eventcenter.EventCenter
+import com.swein.framework.utility.eventsplitshot.eventcenter.EventCenter
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.window.WindowUtility
 import com.swein.shjetpackcompose.application.ui.theme.Color6868AD

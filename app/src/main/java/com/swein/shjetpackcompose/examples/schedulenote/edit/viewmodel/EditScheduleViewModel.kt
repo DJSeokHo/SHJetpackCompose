@@ -3,7 +3,7 @@ package com.swein.shjetpackcompose.examples.schedulenote.edit.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.swein.androidkotlintool.framework.utility.eventsplitshot.eventcenter.EventCenter
+import com.swein.framework.utility.eventsplitshot.eventcenter.EventCenter
 import com.swein.framework.utility.date.DateUtility
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.uuid.UUIDUtility

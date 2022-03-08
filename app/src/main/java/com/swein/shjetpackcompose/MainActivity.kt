@@ -14,6 +14,8 @@ import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
 import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
 import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
 import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
+import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
+import com.swein.shjetpackcompose.basic.webviewexample.WebViewExampleActivity
 import com.swein.shjetpackcompose.basic.xmltocompose.XMLToComposeExampleActivity
 
 class MainActivity : ComponentActivity() {
@@ -184,17 +186,19 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CameraAndPhotoActivity::class.java).apply {
+        Intent(this, WebViewExampleActivity::class.java).apply {
             startActivity(this)
         }
+
+//        Intent(this, CameraAndPhotoActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, NavigationExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
-//        Intent(this, WebViewExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
+
 
     }
 }
