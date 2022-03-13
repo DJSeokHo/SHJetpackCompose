@@ -1,11 +1,11 @@
 package com.swein.framework.module.systemimagepicker
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
@@ -89,9 +89,11 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
 
                 takeBitmapDelegate?.let { takeBitmapDelegate ->
 
-                    val exif = ExifInterface(tempImageFilePath)
+                    val exif = android.media.ExifInterface(tempImageFilePath)
+
+                    @SuppressLint("ExifInterface")
                     val exifOrientation: Int = exif.getAttributeInt(
-                        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
+                        android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL
                     )
                     val exifDegree: Int = exifOrientationToDegrees(exifOrientation)
 
@@ -269,9 +271,11 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
     private fun compressImage(filePath: String, targetMB: Double = 1.0) {
         var image: Bitmap = BitmapFactory.decodeFile(filePath)
 
-        val exif = ExifInterface(filePath)
+        val exif = android.media.ExifInterface(filePath)
+
+        @SuppressLint("ExifInterface")
         val exifOrientation: Int = exif.getAttributeInt(
-            ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
+            android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL
         )
         val exifDegree: Int = exifOrientationToDegrees(exifOrientation)
 
@@ -308,15 +312,16 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
         )
     }
 
+    @SuppressLint("ExifInterface")
     private fun exifOrientationToDegrees(exifOrientation: Int): Int {
         return when (exifOrientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> {
+            android.media.ExifInterface.ORIENTATION_ROTATE_90 -> {
                 90
             }
-            ExifInterface.ORIENTATION_ROTATE_180 -> {
+            android.media.ExifInterface.ORIENTATION_ROTATE_180 -> {
                 180
             }
-            ExifInterface.ORIENTATION_ROTATE_270 -> {
+            android.media.ExifInterface.ORIENTATION_ROTATE_270 -> {
                 270
             }
             else -> 0

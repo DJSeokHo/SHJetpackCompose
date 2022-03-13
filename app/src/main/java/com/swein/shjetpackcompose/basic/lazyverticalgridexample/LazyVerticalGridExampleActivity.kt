@@ -9,8 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -51,10 +50,8 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
     fun LazyVerticalGridDemo() {
         val list = createDataList()
 
-        LazyVerticalGrid(
-            cells = GridCells.Fixed(3),
-
-            // content padding
+        androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(
                 horizontal = 5.dp,
                 vertical = 16.dp
@@ -79,7 +76,8 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
 
         Card(
             modifier = Modifier
-                .fillMaxWidth().height(210.dp)
+                .fillMaxWidth()
+                .height(210.dp)
                 .padding(4.dp)
                 .clickable(
                     /*
