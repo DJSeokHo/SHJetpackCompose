@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
@@ -28,12 +32,15 @@ import coil.request.ImageRequest
 import com.swein.framework.module.systemimagepicker.SystemPhotoPickManager
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.Color111111
+import com.swein.shjetpackcompose.application.ui.theme.ColorFFFF781C
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class CameraAndPhotoActivity : ComponentActivity() {
 
     private val systemPhotoPickManager = SystemPhotoPickManager(this)
+
+    private val viewModel: CameraAndPhotoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +58,9 @@ class CameraAndPhotoActivity : ComponentActivity() {
     @Composable
     private fun ContentView() {
 
-        val contentImage = remember {
-            mutableStateOf("")
-        }
+//        val contentImage = remember {
+//            mutableStateOf("")
+//        }
 
         val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
@@ -62,26 +69,34 @@ class CameraAndPhotoActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize().background(Color.DarkGray)
         ) {
 
-            PhotoView(
-                contentImage = contentImage.value,
-                scope = scope,
-                state = state
-            )
-
             BottomActionSheet(
                 state = state,
                 scope = scope,
-                onTakePhoto = {
-                    takePhoto {
-                        contentImage.value = it
+                onTakeImage = {
+
+                    if (it) {
+                        viewModel.takeImage(systemPhotoPickManager, true)
+//                        takePhoto {
+//                            contentImage.value = it
+//                        }
                     }
-                },
-                onSelectImage = {
-                    selectImage {
-                        contentImage.value = it
+                    else {
+                        viewModel.takeImage(systemPhotoPickManager, false)
+//                        selectPhoto {
+//                            contentImage.value = it
+//                        }
                     }
+
                 }
-            )
+            ) {
+
+                PhotoView(
+//                    imagePath = contentImage.value,
+                imagePath = viewModel.imagePath.value,
+                    scope = scope,
+                    state = state
+                )
+            }
 
         }
     }
@@ -89,17 +104,17 @@ class CameraAndPhotoActivity : ComponentActivity() {
 
     @OptIn(ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
     @Composable
-    fun PhotoView(modifier: Modifier = Modifier, contentImage: String, scope: CoroutineScope, state: ModalBottomSheetState) {
+    fun PhotoView(modifier: Modifier = Modifier, imagePath: String, scope: CoroutineScope, state: ModalBottomSheetState) {
 
         Image(
-            painter = if (contentImage == "") {
+            painter = if (imagePath == "") {
                 painterResource(id = R.mipmap.ti_image)
             }
             else {
                 rememberAsyncImagePainter(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .crossfade(true)
-                        .data(contentImage)
+                        .data(imagePath)
                         .build(),
                     filterQuality = FilterQuality.High
                 )
@@ -107,15 +122,17 @@ class CameraAndPhotoActivity : ComponentActivity() {
             contentDescription = "",
             modifier = modifier
                 .fillMaxWidth()
-                .padding(20.dp)
+                .padding(40.dp)
                 .defaultMinSize(minHeight = 100.dp)
                 .clickable {
                     scope.launch {
                         state.show()
                     }
                 }
-                .background(color = Color.White),
-            contentScale = if (contentImage == "") {
+                .background(color = Color.Transparent)
+                .clip(RoundedCornerShape(16.dp))
+                .border(1.dp, ColorFFFF781C, RoundedCornerShape(16.dp)),
+            contentScale = if (imagePath == "") {
                 ContentScale.Inside
             }
             else {
@@ -127,9 +144,8 @@ class CameraAndPhotoActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    private fun BottomActionSheet(
-        modifier: Modifier = Modifier, state: ModalBottomSheetState, scope: CoroutineScope,
-        onTakePhoto: () -> Unit, onSelectImage: () -> Unit
+    private fun BottomActionSheet(state: ModalBottomSheetState, scope: CoroutineScope,
+        onTakeImage: (isCamera: Boolean) -> Unit, modalBottomSheetLayoutScope: @Composable () -> Unit
     ) {
 
         ModalBottomSheetLayout(
@@ -137,67 +153,35 @@ class CameraAndPhotoActivity : ComponentActivity() {
             sheetContent = {
                 Column{
 
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                            .clickable {
+                    BottomActionItem(
+                        title = "camera",
+                        resource = R.mipmap.ti_camera,
+                        isCamera = true
+                    ) { isCamera ->
 
-                                scope.launch {
-                                    state.hide()
-                                }
+                        scope.launch {
+                            state.hide()
+                        }
 
-                                onTakePhoto()
-                            }
-                    ) {
-
-                        Image(
-                            painter = painterResource(id = R.mipmap.ti_camera),
-                            contentDescription = "",
-                            modifier = modifier
-                                .size(40.dp)
-                                .align(Alignment.CenterVertically),
-                            contentScale = ContentScale.Inside
-                        )
-                        Spacer(modifier = modifier.width(10.dp))
-                        Text(
-                            text = "camera", color = Color111111,
-                            fontSize = 15.sp, modifier = modifier.align(Alignment.CenterVertically)
-                        )
+                        onTakeImage(isCamera)
                     }
 
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                            .clickable {
+                    BottomActionItem(
+                        title = "gallery",
+                        resource = R.mipmap.ti_gallery,
+                        isCamera = false
+                    ) { isCamera ->
 
-                                scope.launch {
-                                    state.hide()
-                                }
+                        scope.launch {
+                            state.hide()
+                        }
 
-                                onSelectImage()
-                            }
-                    ) {
-
-                        Image(
-                            painter = painterResource(id = R.mipmap.ti_gallery),
-                            contentDescription = "",
-                            modifier = modifier
-                                .size(40.dp)
-                                .align(Alignment.CenterVertically),
-                            contentScale = ContentScale.Inside
-                        )
-                        Spacer(modifier = modifier.width(10.dp))
-                        Text(
-                            text = "gallery", color = Color111111,
-                            fontSize = 15.sp, modifier = modifier.align(Alignment.CenterVertically)
-                        )
+                        onTakeImage(isCamera)
                     }
                 }
             }
         ) {
-
+            modalBottomSheetLayoutScope()
         }
 
         BackHandler(
@@ -211,26 +195,55 @@ class CameraAndPhotoActivity : ComponentActivity() {
         )
     }
 
-    private fun takePhoto(onResult: (result: String) -> Unit) {
+    @Composable
+    private fun BottomActionItem(modifier: Modifier = Modifier, title: String, resource: Int, isCamera: Boolean, onTakeImage: (isCamera: Boolean) -> Unit) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .clickable {
 
-        systemPhotoPickManager.requestPermission {
+                    onTakeImage(isCamera)
+                }
+        ) {
 
-            it.takePictureWithFilePath(true) { imagePath ->
-
-                onResult(imagePath)
-            }
-
+            Image(
+                painter = painterResource(id = resource),
+                contentDescription = "",
+                modifier = modifier
+                    .size(40.dp)
+                    .align(Alignment.CenterVertically),
+                contentScale = ContentScale.Inside
+            )
+            Spacer(modifier = modifier.width(10.dp))
+            Text(
+                text = title, color = Color111111,
+                fontSize = 15.sp, modifier = modifier.align(Alignment.CenterVertically)
+            )
         }
     }
 
-    private fun selectImage(onResult: (result: String) -> Unit) {
-        systemPhotoPickManager.requestPermission {
 
-            it.selectPathPicture(true) { imagePath ->
-
-                onResult(imagePath)
-            }
-
-        }
-    }
+//    private fun takePhoto(onResult: (result: String) -> Unit) {
+//
+//        systemPhotoPickManager.requestPermission {
+//
+//            it.takePictureWithFilePath(true) { imagePath ->
+//
+//                onResult(imagePath)
+//            }
+//
+//        }
+//    }
+//
+//    private fun selectPhoto(onResult: (result: String) -> Unit) {
+//        systemPhotoPickManager.requestPermission {
+//
+//            it.selectPathPicture(true) { imagePath ->
+//
+//                onResult(imagePath)
+//            }
+//
+//        }
+//    }
 }

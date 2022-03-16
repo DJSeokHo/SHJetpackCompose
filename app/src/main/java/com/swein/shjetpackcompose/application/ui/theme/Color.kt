@@ -28,6 +28,7 @@ val ColorEEEEEE = Color(0xFFEEEEEE)
 val ColorFFFFFF = Color(0xFFFFFFFF)
 val ColorFAFAFA = Color(0xFFFAFAFA)
 val Color6868AD = Color(0xFF6868AD)
+val ColorFFFF781C = Color(0xFFFF781C)
 
 //@Stable
 //class MyColors(
