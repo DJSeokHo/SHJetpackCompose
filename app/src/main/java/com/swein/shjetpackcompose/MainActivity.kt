@@ -13,7 +13,9 @@ import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
 import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
 import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
 import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
+import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
+import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewExampleActivity
@@ -119,9 +121,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, DropdownMenuExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
+        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, BottomNavigationExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -135,9 +137,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyRowExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, LazyRowExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, LazyVerticalGridExampleActivity::class.java).apply {
 //            startActivity(this)
