@@ -121,9 +121,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, DropdownMenuExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, DropdownMenuExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, BottomNavigationExampleActivity::class.java).apply {
 //            startActivity(this)
