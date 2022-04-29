@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
+import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
 import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
 import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
 import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
