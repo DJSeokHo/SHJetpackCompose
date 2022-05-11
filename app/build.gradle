@@ -48,13 +48,14 @@ android {
     }
     compileSdkVersion 31
     buildToolsVersion '30.0.3'
+    namespace 'com.swein.shjetpackcompose'
 }
 
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.compose.ui:ui:1.2.0-alpha08'
     implementation 'androidx.compose.material:material:1.2.0-alpha08'
     implementation 'androidx.compose.ui:ui-tooling-preview:1.2.0-alpha08'
