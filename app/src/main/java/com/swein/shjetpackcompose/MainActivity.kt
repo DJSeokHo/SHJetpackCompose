@@ -17,6 +17,8 @@ import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleAct
 import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
 import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
 import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
+import com.swein.shjetpackcompose.basic.navigationandbottomexample.NavigationAndBottomExampleActivity
+import com.swein.shjetpackcompose.basic.navigationanddrawerexample.NavigationAndDrawerExampleActivity
 import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewExampleActivity
@@ -202,6 +204,13 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
+        Intent(this, NavigationAndBottomExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
+//        Intent(this, NavigationAndDrawerExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
     }
 }
 
