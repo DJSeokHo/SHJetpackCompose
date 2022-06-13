@@ -23,6 +23,7 @@ import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActiv
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewExampleActivity
 import com.swein.shjetpackcompose.basic.xmltocompose.XMLToComposeExampleActivity
+import com.swein.shjetpackcompose.examples.selectablelazycolumnitemexample.SelectableLazyColumnItemExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,13 +205,18 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, NavigationAndBottomExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, NavigationAndBottomExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, NavigationAndDrawerExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
+
+        Intent(this, SelectableLazyColumnItemExampleActivity::class.java).apply {
+            startActivity(this)
+        }
+
     }
 }
 

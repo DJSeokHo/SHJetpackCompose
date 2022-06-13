@@ -41,7 +41,7 @@ object DateUtility {
         val cal: Calendar = Calendar.getInstance()
 
         try {
-            cal.time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date)
+            cal.time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date) ?: Date()
 
             var w: Int = cal.get(Calendar.DAY_OF_WEEK) - 1
             if (w < 0) {

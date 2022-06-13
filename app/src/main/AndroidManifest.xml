@@ -24,6 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".examples.selectablelazycolumnitemexample.SelectableLazyColumnItemExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.navigationanddrawerexample.NavigationAndDrawerExampleActivity"
             android:exported="false" />
         <activity
