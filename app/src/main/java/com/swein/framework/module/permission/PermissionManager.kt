@@ -18,7 +18,8 @@ import androidx.core.app.ActivityCompat
  */
 class PermissionManager(private val componentActivity: ComponentActivity) {
 
-    private var runnable: Runnable? = null
+    private var runnableAfterPermissionGranted: Runnable? = null
+    private var runnableAfterPermissionNotGranted: Runnable? = null
 
     private val permissionNotGrantedList = mutableListOf<String>()
 
@@ -37,7 +38,6 @@ class PermissionManager(private val componentActivity: ComponentActivity) {
     }
 
     private fun registerPermission(): ActivityResultLauncher<Array<String>> {
-
 
         return componentActivity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
 
@@ -78,7 +78,10 @@ class PermissionManager(private val componentActivity: ComponentActivity) {
             }
 
             if (deniedPermissionList.isEmpty()) {
-                runnable?.run()
+                runnableAfterPermissionGranted?.run()
+            }
+            else {
+                runnableAfterPermissionNotGranted?.run()
             }
         }
     }
@@ -101,20 +104,22 @@ class PermissionManager(private val componentActivity: ComponentActivity) {
             }
 
             if (deniedPermissionList.isEmpty()) {
-                runnable?.run()
+                runnableAfterPermissionGranted?.run()
                 permissionNotGrantedList.clear()
             }
-
+            else {
+                runnableAfterPermissionNotGranted?.run()
+            }
         }
-
     }
 
     fun requestPermission(
-        permissionDialogTitle: String,
-        permissionDialogMessage: String,
-        permissionDialogPositiveButtonTitle: String,
+        permissionDialogTitle: String = "",
+        permissionDialogMessage: String = "권한요청",
+        permissionDialogPositiveButtonTitle: String =  "설정",
         permissions: Array<String>,
-        runnableAfterPermissionGranted: Runnable? = null
+        runnableAfterPermissionGranted: Runnable? = null,
+        runnableAfterPermissionNotGranted: Runnable? = null
     ) {
 
         permissionNotGrantedList.clear()
@@ -134,7 +139,8 @@ class PermissionManager(private val componentActivity: ComponentActivity) {
             positiveButtonTitle = permissionDialogPositiveButtonTitle
 
             // save the context and runnable
-            runnable = runnableAfterPermissionGranted
+            this.runnableAfterPermissionGranted = runnableAfterPermissionGranted
+            this.runnableAfterPermissionNotGranted = runnableAfterPermissionNotGranted
 
             activityPermission.launch(permissions)
         }

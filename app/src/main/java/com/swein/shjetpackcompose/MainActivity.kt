@@ -4,30 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.swein.shjetpackcompose.application.ui.theme.SHJetpackComposeTheme
-import com.swein.shjetpackcompose.basic.alertdialogexample.AlertDialogExampleActivity
-import com.swein.shjetpackcompose.basic.bottomnavigationexample.BottomNavigationExampleActivity
-import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
-import com.swein.shjetpackcompose.basic.composetoxml.ComposeToXMLExampleActivity
-import com.swein.shjetpackcompose.basic.compositionlocalexample.CompositionLocalExampleActivity
-import com.swein.shjetpackcompose.basic.customthemeexample.CustomThemeExampleActivity
-import com.swein.shjetpackcompose.basic.dropdownmenu.DropdownMenuExampleActivity
-import com.swein.shjetpackcompose.basic.lazyrowexample.LazyRowExampleActivity
-import com.swein.shjetpackcompose.basic.modaldrawer.ModalDrawerExampleActivity
-import com.swein.shjetpackcompose.basic.navigationandbottomexample.NavigationAndBottomExampleActivity
-import com.swein.shjetpackcompose.basic.navigationanddrawerexample.NavigationAndDrawerExampleActivity
-import com.swein.shjetpackcompose.basic.navigationexample.NavigationExampleActivity
+import androidx.compose.runtime.*
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
-import com.swein.shjetpackcompose.basic.webviewexample.WebViewExampleActivity
-import com.swein.shjetpackcompose.basic.xmltocompose.XMLToComposeExampleActivity
-import com.swein.shjetpackcompose.examples.selectablelazycolumnitemexample.SelectableLazyColumnItemExampleActivity
+import com.swein.shjetpackcompose.examples.lazycolumnswipetorevealmenuexample.LazyColumnSwipeToRevealMenuExampleActivity
+import com.swein.shjetpackcompose.examples.swipeableexample.SwipeableExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
 //            SHJetpackComposeTheme {
 //                // A surface container using the 'background' color from the theme
@@ -35,6 +22,17 @@ class MainActivity : ComponentActivity() {
 //                    Greeting("Android")
 //                }
 //            }
+
+            val count = remember {
+                mutableStateOf(0)
+            }
+
+            ClickCounter(
+                clicks = count.value,
+                onClick = {
+                    count.value++
+                }
+            )
         }
 
 //        Intent(this, GTBasicTutorialActivity::class.java).apply {
@@ -213,22 +211,27 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, SelectableLazyColumnItemExampleActivity::class.java).apply {
+//        Intent(this, SelectableLazyColumnItemExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, LazyColumnSwipeToDismissExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, SwipeableExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LazyColumnSwipeToRevealMenuExampleActivity::class.java).apply {
             startActivity(this)
         }
-
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SHJetpackComposeTheme {
-        Greeting("Android")
+private fun ClickCounter(clicks: Int, onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Text("I've been clicked $clicks times")
     }
 }

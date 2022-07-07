@@ -259,6 +259,7 @@ class WebViewExampleActivity : ComponentActivity() {
                 return super.shouldOverrideUrlLoading(view, request)
             }
 
+            @Deprecated("Deprecated in Java", ReplaceWith("true"))
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 return true
             }

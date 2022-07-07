@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Tab
@@ -166,7 +166,7 @@ class TabRowPagerExampleActivity : ComponentActivity() {
     @Composable
     private fun PagerContent(pagerState: PagerState) {
 
-        CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
+        CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
 
             Box(
                 modifier = Modifier.fillMaxSize()

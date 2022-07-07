@@ -34,6 +34,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import coil.size.Size
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.Color111111
@@ -516,6 +517,7 @@ object EditToDoItemView {
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .crossfade(true)
                         .data(contentImage)
+                        .size(Size.ORIGINAL)
                         .build(),
                     filterQuality = FilterQuality.High
                 )
