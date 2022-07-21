@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
 import com.swein.shjetpackcompose.examples.lazycolumnswipetorevealmenuexample.LazyColumnSwipeToRevealMenuExampleActivity
+import com.swein.shjetpackcompose.examples.shadowbuttonexample.ShadowButtonExampleActivity
 import com.swein.shjetpackcompose.examples.swipeableexample.SwipeableExampleActivity
 
 class MainActivity : ComponentActivity() {
@@ -223,7 +224,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyColumnSwipeToRevealMenuExampleActivity::class.java).apply {
+//        Intent(this, LazyColumnSwipeToRevealMenuExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ShadowButtonExampleActivity::class.java).apply {
             startActivity(this)
         }
     }
