@@ -33,14 +33,14 @@ import androidx.navigation.compose.rememberNavController
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.ColorFFFF781C
 
-sealed class MainScreen(val route: String, val title: String, val icon: ImageVector) {
+private sealed class MainScreen(val route: String, val title: String, val icon: ImageVector) {
     object Home : MainScreen("route_home", "Home", Icons.Filled.Home)
     object Search : MainScreen("route_search", "Search", Icons.Filled.Search)
     object Favorite : MainScreen("route_favorite", "Favorite", Icons.Filled.Favorite)
     object Profile : MainScreen("route_profile", "Profile", Icons.Filled.Person)
 }
 
-val mainItems = listOf(
+private val mainItems = listOf(
     MainScreen.Home,
     MainScreen.Search,
     MainScreen.Favorite,

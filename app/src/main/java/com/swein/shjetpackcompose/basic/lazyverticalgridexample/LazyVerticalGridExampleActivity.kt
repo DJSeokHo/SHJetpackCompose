@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -45,12 +46,11 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
 
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun LazyVerticalGridDemo() {
         val list = createDataList()
 
-        androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
+        LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(
                 horizontal = 5.dp,
@@ -69,7 +69,6 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
             }
         )
     }
-
 
     @Composable
     private fun GridItem(testData: TestData, onItemClick: (testData: TestData) -> Unit) {
@@ -120,11 +119,8 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
                     fontSize = 10.sp,
                     color = Color.White
                 )
-
             }
-
         }
-
     }
 
     private fun createDataList(): List<TestData> {

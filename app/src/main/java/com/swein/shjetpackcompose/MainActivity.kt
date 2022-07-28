@@ -7,10 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import com.swein.shjetpackcompose.basic.textfieldexample.TextFieldExampleActivity
-import com.swein.shjetpackcompose.examples.lazycolumnswipetorevealmenuexample.LazyColumnSwipeToRevealMenuExampleActivity
-import com.swein.shjetpackcompose.examples.shadowbuttonexample.ShadowButtonExampleActivity
-import com.swein.shjetpackcompose.examples.swipeableexample.SwipeableExampleActivity
+import com.swein.shjetpackcompose.basic.lazycolumnexample.headerandfooter.LazyColumnWithHeaderAndFooterExampleActivity
+import com.swein.shjetpackcompose.basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -228,7 +226,19 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ShadowButtonExampleActivity::class.java).apply {
+//        Intent(this, ShadowButtonExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, MultipleNavigationExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, LazyColumnWithHeaderAndFooterExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LazyVerticalGridWithHeaderAndFooterExampleActivity::class.java).apply {
             startActivity(this)
         }
     }

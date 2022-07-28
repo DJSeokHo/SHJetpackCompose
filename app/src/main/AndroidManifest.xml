@@ -24,6 +24,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.lazycolumnexample.headerandfooter.LazyColumnWithHeaderAndFooterExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basic.multiplenavigationexample.MultipleNavigationExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".examples.shadowbuttonexample.ShadowButtonExampleActivity"
             android:exported="false" />
         <activity
