@@ -24,6 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".examples.pdfreaderexample.PDFReaderExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity"
             android:exported="false" />
         <activity

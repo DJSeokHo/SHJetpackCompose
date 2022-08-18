@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import com.swein.shjetpackcompose.basic.lazycolumnexample.headerandfooter.LazyColumnWithHeaderAndFooterExampleActivity
 import com.swein.shjetpackcompose.basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity
+import com.swein.shjetpackcompose.examples.pdfreaderexample.PDFReaderExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -238,7 +239,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyVerticalGridWithHeaderAndFooterExampleActivity::class.java).apply {
+//        Intent(this, LazyVerticalGridWithHeaderAndFooterExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, PDFReaderExampleActivity::class.java).apply {
             startActivity(this)
         }
     }
