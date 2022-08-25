@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import com.swein.shjetpackcompose.basic.lazycolumnexample.headerandfooter.LazyColumnWithHeaderAndFooterExampleActivity
 import com.swein.shjetpackcompose.basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity
 import com.swein.shjetpackcompose.examples.pdfreaderexample.PDFReaderExampleActivity
+import com.swein.shjetpackcompose.examples.textfieldfocusexample.TextFieldFocusExampleActivity
 import com.swein.shjetpackcompose.examples.viewpagerandlistexample.ViewPagerAndListExampleActivity
 
 class MainActivity : ComponentActivity() {
@@ -248,7 +249,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, ViewPagerAndListExampleActivity::class.java).apply {
+//        Intent(this, ViewPagerAndListExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, TextFieldFocusExampleActivity::class.java).apply {
             startActivity(this)
         }
 
