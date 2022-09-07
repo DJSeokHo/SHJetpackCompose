@@ -6,12 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import com.swein.shjetpackcompose.basic.lazycolumnexample.headerandfooter.LazyColumnWithHeaderAndFooterExampleActivity
-import com.swein.shjetpackcompose.basic.lazyverticalgridexample.headerandfooter.LazyVerticalGridWithHeaderAndFooterExampleActivity
-import com.swein.shjetpackcompose.examples.pdfreaderexample.PDFReaderExampleActivity
-import com.swein.shjetpackcompose.examples.textfieldfocusexample.TextFieldFocusExampleActivity
-import com.swein.shjetpackcompose.examples.viewpagerandlistexample.ViewPagerAndListExampleActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.swein.shjetpackcompose.examples.otpviewexample.OTPViewExampleActivity
+import com.swein.shjetpackcompose.examples.tapgesturesexample.TapGesturesExampleActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -253,10 +252,21 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, TextFieldFocusExampleActivity::class.java).apply {
+//        Intent(this, TextFieldFocusExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, TextFieldCursorPositionExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, OTPViewExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, TapGesturesExampleActivity::class.java).apply {
             startActivity(this)
         }
-
     }
 }
 

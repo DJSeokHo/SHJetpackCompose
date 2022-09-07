@@ -24,6 +24,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".examples.tapgesturesexample.TapGesturesExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.textfieldcursorpositionexample.TextFieldCursorPositionExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.otpviewexample.OTPViewExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".examples.textfieldfocusexample.TextFieldFocusExampleActivity"
             android:exported="false" />
         <activity

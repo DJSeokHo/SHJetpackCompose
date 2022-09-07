@@ -236,8 +236,6 @@ private fun InputPasswordView(
     onNext: () -> Unit
 ) {
 
-
-
     TextField(
         modifier = Modifier
             .fillMaxWidth()
