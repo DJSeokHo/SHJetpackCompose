@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasBasicExampleActivity
+import com.swein.shjetpackcompose.examples.canvasexample.CanvasDragExampleActivity
+import com.swein.shjetpackcompose.examples.canvasexample.CanvasDrawExampleActivity
 import com.swein.shjetpackcompose.examples.otpviewexample.OTPViewExampleActivity
 import com.swein.shjetpackcompose.examples.tapgesturesexample.TapGesturesExampleActivity
 
@@ -269,7 +271,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CanvasBasicExampleActivity::class.java).apply {
+//        Intent(this, CanvasBasicExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CanvasDragExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CanvasDrawExampleActivity::class.java).apply {
             startActivity(this)
         }
 
