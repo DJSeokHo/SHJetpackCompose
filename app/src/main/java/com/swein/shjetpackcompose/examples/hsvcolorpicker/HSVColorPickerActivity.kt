@@ -69,9 +69,13 @@ private fun ContentView() {
 
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-            ColorMap(density, color = selectedColor.value, onColorChanged = {
-                selectedColor.value = it
-            })
+            ColorMap(
+                density = density,
+                color = selectedColor.value,
+                onColorChanged = {
+                    selectedColor.value = it
+                }
+            )
 
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
@@ -86,90 +90,93 @@ private fun ColorMap(
     color: Color,
     onColorChanged: (color: Color) -> Unit
 ) {
+    with(density) {
 
-    val paddingHorizontal = 30.dp
-    val selectorRadius = 25.dp
+        val paddingHorizontal = 30.dp
 
-    val colorMapWidth = with(density) {
         // because horizontal padding, the real width of color map must minus horizontal padding twice. (left and right)
-        LocalConfiguration.current.screenWidthDp.dp.toPx() - paddingHorizontal.toPx() - paddingHorizontal.toPx()
-    }
+        val colorMapWidth = LocalConfiguration.current.screenWidthDp.dp - paddingHorizontal - paddingHorizontal
 
-    val minimumDragPx = with(density) {
+        val selectorRadius = 25.dp
+
         // the radius of the drag able selector is 25. To drag to start position of the color map, minimum is -25dp
-        -selectorRadius.toPx()
-    }
+        val selectorMinimum = -selectorRadius
 
-    val maximumDragPx = colorMapWidth - with(density) {
         // the radius of the drag able selector is 25. To drag to end position of the color map, maximum is color map width + 25dp
-        selectorRadius.toPx()
-    }
+        val selectorMaximum = colorMapWidth - selectorRadius
 
-    val dragOffset = remember {
-        mutableStateOf(minimumDragPx)
-    }
+        val colorMapOffsetPx = remember {
+            mutableStateOf(
+                with(density) {
+                    selectorMinimum.toPx()
+                }
+            )
+        }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = paddingHorizontal)
-            .height(50.dp)
-    ) {
-
-        // color map
         Box(
             modifier = Modifier
-                .align(Alignment.Center)
                 .fillMaxWidth()
-                .height(40.dp)
-                .clip(RoundedCornerShape(50))
-                .background(colorMap(colorMapWidth))
-                .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
-                .pointerInput(Unit) {
-                    detectTapGestures { offset ->
+                .padding(horizontal = paddingHorizontal)
+                .height(50.dp)
+        ) {
 
-                        dragOffset.value = offset.x - with(density) {
-                            selectorRadius.toPx()
+            // color map
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(
+                        createColorMap(colorMapWidth.toPx())
+                    )
+                    .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
+                    .pointerInput(Unit) {
+                        detectTapGestures { offset ->
+
+                            colorMapOffsetPx.value = offset.x - with(density) {
+                                selectorRadius.toPx()
+                            }
+
+                            val correctOffset = colorMapOffsetPx.value + with(density) {
+                                // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
+                                // so we need to plus the selector's radius as the correct offset
+                                selectorRadius.toPx()
+                            }
+
+                            onColorChanged(getSelectedColor(correctOffset, colorMapWidth.toPx()))
                         }
-
-                        val correctOffset = dragOffset.value + with(density) {
-                            // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                            // so we need to plus the selector's radius as the correct offset
-                            selectorRadius.toPx()
-                        }
-
-                        onColorChanged(getSelectedColor(correctOffset, colorMapWidth))
                     }
-                }
-        )
+            )
 
-        // drag able item
-        Box(
-            modifier = Modifier
-                .offset {
-                    IntOffset(dragOffset.value.roundToInt(), 0)
-                }
-                .size(selectorRadius * 2)
-                .clip(CircleShape)
-                .background(color)
-                .border(width = 2.dp, color = Color.Black, shape = CircleShape)
-                .draggable(
-                    orientation = Orientation.Horizontal,
-                    state = rememberDraggableState { delta ->
-
-                        val newValue = dragOffset.value + delta
-                        dragOffset.value = newValue.coerceIn(minimumDragPx, maximumDragPx)
-
-                        val correctOffset = dragOffset.value + with(density) {
-                            // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                            // so we need to plus the selector's radius as the correct offset
-                            selectorRadius.toPx()
-                        }
-
-                        onColorChanged(getSelectedColor(correctOffset, colorMapWidth))
+            // color map selector
+            Box(
+                modifier = Modifier
+                    .offset {
+                        IntOffset(colorMapOffsetPx.value.roundToInt(), 0)
                     }
-                )
-        )
+                    .size(selectorRadius * 2)
+                    .clip(CircleShape)
+                    .background(color)
+                    .border(width = 2.dp, color = Color.Black, shape = CircleShape)
+                    .draggable(
+                        orientation = Orientation.Horizontal,
+                        state = rememberDraggableState { delta ->
+
+                            val newValue = colorMapOffsetPx.value + delta
+                            colorMapOffsetPx.value = newValue.coerceIn(selectorMinimum.toPx(), selectorMaximum.toPx())
+
+                            val correctOffset = colorMapOffsetPx.value + with(density) {
+                                // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
+                                // so we need to plus the selector's radius as the correct offset
+                                selectorRadius.toPx()
+                            }
+
+                            onColorChanged(getSelectedColor(correctOffset, colorMapWidth.toPx()))
+                        }
+                    )
+            )
+        }
     }
 }
 
@@ -187,7 +194,8 @@ private fun Result(color: Color) {
                 .padding(horizontal = 60.dp)
                 .aspectRatio(1f),
             elevation = 5.dp,
-            color = color
+            color = color,
+            shape = RoundedCornerShape(8.dp)
         ) {}
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -233,107 +241,8 @@ private fun Result(color: Color) {
     }
 }
 
-@Composable
-private fun Saturation(
-    density: Density,
-    selectedColor: Color
-) {
-
-    val paddingHorizontal = 30.dp
-    val selectorRadius = 5.dp
-
-    val colorMapWidth = with(density) {
-        // because horizontal padding, the real width of color map must minus horizontal padding twice. (left and right)
-        LocalConfiguration.current.screenWidthDp.dp.toPx() - paddingHorizontal.toPx() - paddingHorizontal.toPx()
-    }
-
-    val minimumDragPx = with(density) {
-        // the radius of the drag able selector is 25. To drag to start position of the color map, minimum is -25dp
-        -selectorRadius.toPx()
-    }
-
-    val maximumDragPx = colorMapWidth - with(density) {
-        // the radius of the drag able selector is 25. To drag to end position of the color map, maximum is color map width + 25dp
-        selectorRadius.toPx()
-    }
-
-    val dragOffset = remember {
-        mutableStateOf(minimumDragPx)
-    }
-
-    val selectedColor = remember {
-        mutableStateOf(Color.Red)
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = paddingHorizontal)
-            .height(10.dp)
-    ) {
-
-        // color map
-        Box(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .fillMaxWidth()
-                .height(6.dp)
-                .clip(RoundedCornerShape(50))
-                .background(colorMap(colorMapWidth))
-                .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
-                .pointerInput(Unit) {
-                    detectTapGestures { offset ->
-
-                        dragOffset.value = offset.x - with(density) {
-                            selectorRadius.toPx()
-                        }
-
-                        val correctOffset = dragOffset.value + with(density) {
-                            // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                            // so we need to plus the selector's radius as the correct offset
-                            selectorRadius.toPx()
-                        }
-
-                        selectedColor.value = getSelectedColor(correctOffset, colorMapWidth)
-                    }
-                }
-        )
-
-        // drag able item
-        Box(
-            modifier = Modifier
-                .offset {
-                    IntOffset(dragOffset.value.roundToInt(), 0)
-                }
-                .size(selectorRadius * 2)
-                .clip(CircleShape)
-                .background(selectedColor.value)
-                .border(width = 2.dp, color = Color.Black, shape = CircleShape)
-                .draggable(
-                    orientation = Orientation.Horizontal,
-                    state = rememberDraggableState { delta ->
-
-                        val newValue = dragOffset.value + delta
-                        dragOffset.value = newValue.coerceIn(minimumDragPx, maximumDragPx)
-
-                        val correctOffset = dragOffset.value + with(density) {
-                            // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                            // so we need to plus the selector's radius as the correct offset
-                            selectorRadius.toPx()
-                        }
-
-                        selectedColor.value = getSelectedColor(correctOffset, colorMapWidth)
-                    }
-                )
-        )
-    }
-
-}
-
-
-
-private fun getSelectedColor(dragPosition: Float, colorMapWidth: Float): Color {
-    val hue = (dragPosition / colorMapWidth) * 360f
+private fun getSelectedColor(colorMapOffset: Float, colorMapWidth: Float): Color {
+    val hue = (colorMapOffset / colorMapWidth) * 360f
     val saturation = 1f
     val lightness = 1f
     return Color(
@@ -347,7 +256,7 @@ private fun getSelectedColor(dragPosition: Float, colorMapWidth: Float): Color {
     )
 }
 
-private fun colorMap(colorMapWidth: Float): Brush {
+private fun createColorMap(colorMapWidth: Float): Brush {
 
     val colors = mutableListOf<Color>()
 
