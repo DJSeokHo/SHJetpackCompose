@@ -24,11 +24,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.swein.framework.extension.compose.color.toHexCode
+import androidx.compose.ui.unit.*
+import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.application.ui.theme.Color333333
 import kotlin.math.roundToInt
 
@@ -49,10 +46,50 @@ class HSVColorPickerActivity : ComponentActivity() {
 private fun ContentView() {
 
     val density = LocalDensity.current
+    val paddingHorizontal = 30.dp
 
-    val selectedColor = remember {
-        mutableStateOf(Color.Red)
+    // ======= color hue =======
+    val colorMapWidth = LocalConfiguration.current.screenWidthDp.dp - paddingHorizontal - paddingHorizontal
+    val colorMapSelectorRadius = 25.dp
+
+    val colorMapOffsetPx = remember {
+        mutableStateOf(
+            with(density) {
+                -colorMapSelectorRadius.toPx()
+            }
+        )
     }
+    // ======= color hue =======
+
+    // ======= saturation =======
+    val saturationSelectorRadius = 10.dp
+    val saturationOffsetPx = remember {
+        mutableStateOf(
+            with(density) {
+                // because the saturation default value is 1, so the selector should be on right.
+                (colorMapWidth - saturationSelectorRadius).toPx()
+            }
+        )
+    }
+    val saturation = remember {
+        mutableStateOf(1f)
+    }
+    // ======= saturation =======
+
+    // ======= lightness =======
+    val lightnessSelectorRadius = 10.dp
+    val lightnessOffsetPx = remember {
+        mutableStateOf(
+            with(density) {
+                // because the lightness default value is 1, so the selector should be on right.
+                (colorMapWidth - lightnessSelectorRadius).toPx()
+            }
+        )
+    }
+    val lightness = remember {
+        mutableStateOf(1f)
+    }
+    // ======= lightness =======
 
     Surface(
         modifier = Modifier
@@ -69,119 +106,285 @@ private fun ContentView() {
 
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-            ColorMap(
+            ColorMapSelector(
                 density = density,
-                color = selectedColor.value,
-                onColorChanged = {
-                    selectedColor.value = it
-                }
+                paddingHorizontal = paddingHorizontal,
+                colorMapWidth = colorMapWidth,
+                colorMapSelectorRadius = colorMapSelectorRadius,
+                colorMapOffsetPx = colorMapOffsetPx.value,
+                onColorMapOffsetPx = {
+                    colorMapOffsetPx.value = it
+                },
+                saturation = saturation.value,
+                lightness = lightness.value,
+//                saturation = 1f,
+//                lightness = 1f
             )
+
+            Spacer(modifier = Modifier.padding(vertical = 4.dp))
+
+            Text(
+                text = "saturation",
+                fontSize = 14.sp,
+                color = Color.White
+            )
+            // saturation
+            SLSelector(
+                density = density,
+                paddingHorizontal = paddingHorizontal,
+                slWidth = colorMapWidth, // width is as same as color map
+                slSelectorRadius = saturationSelectorRadius,
+                slOffsetPx = saturationOffsetPx.value
+            ) {
+                saturationOffsetPx.value = it
+
+                val correctOffset = calculateCorrectOffset(
+                    selectorOffset = saturationOffsetPx.value,
+                    selectorRadius = with(density) {
+                        saturationSelectorRadius.toPx()
+                    }
+                )
+
+                saturation.value = correctOffset / (with(density) { colorMapWidth.toPx() })
+            }
+
+            Spacer(modifier = Modifier.padding(vertical = 4.dp))
+
+            Text(
+                text = "lightness",
+                fontSize = 14.sp,
+                color = Color.White
+            )
+            // lightness
+            SLSelector(
+                density = density,
+                paddingHorizontal = paddingHorizontal,
+                slWidth = colorMapWidth, // width is as same as color map
+                slSelectorRadius = lightnessSelectorRadius,
+                slOffsetPx = lightnessOffsetPx.value
+            ) {
+                lightnessOffsetPx.value = it
+
+                val correctOffset = calculateCorrectOffset(
+                    selectorOffset = lightnessOffsetPx.value,
+                    selectorRadius = with(density) {
+                        lightnessSelectorRadius.toPx()
+                    }
+                )
+
+                lightness.value = correctOffset / (with(density) { colorMapWidth.toPx() })
+            }
 
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-            Result(color = selectedColor.value)
+            Result(
+                color = getSelectedColor(
+                    colorMapOffset = calculateCorrectOffset(
+                        selectorOffset = colorMapOffsetPx.value,
+                        selectorRadius = with(density) {
+                            colorMapSelectorRadius.toPx()
+                        }
+                    ),
+                    colorMapWidth = with(density) {
+                        colorMapWidth.toPx()
+                    },
+                saturation = saturation.value,
+                lightness = lightness.value,
+//                    saturation = 1f,
+//                    lightness = 1f
+                )
+            )
         }
     }
 }
 
 @Composable
-private fun ColorMap(
+private fun ColorMapSelector(
     density: Density,
-    color: Color,
-    onColorChanged: (color: Color) -> Unit
+    paddingHorizontal: Dp,
+    colorMapWidth: Dp,
+    colorMapSelectorRadius: Dp,
+    colorMapOffsetPx: Float,
+    onColorMapOffsetPx: (colorMapOffsetPx: Float) -> Unit,
+    saturation: Float,
+    lightness: Float
 ) {
-    with(density) {
 
-        val paddingHorizontal = 30.dp
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = paddingHorizontal)
+            .height(colorMapSelectorRadius * 2)
+    ) {
 
-        // because horizontal padding, the real width of color map must minus horizontal padding twice. (left and right)
-        val colorMapWidth = LocalConfiguration.current.screenWidthDp.dp - paddingHorizontal - paddingHorizontal
+        // color map
+        Box(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()
+                .height(40.dp)
+                .clip(RoundedCornerShape(50))
+                .background(
+                    createColorMap(
+                        with(density) {
+                            colorMapWidth.toPx()
+                        }
+                    )
+                )
+                .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
+                .pointerInput(Unit) {
+                    detectTapGestures { offset ->
 
-        val selectorRadius = 25.dp
+                        ILog.debug("???", "tap offset $offset")
 
-        // the radius of the drag able selector is 25. To drag to start position of the color map, minimum is -25dp
-        val selectorMinimum = -selectorRadius
+                        val offsetPx = offset.x - with(density) {
+                            // the tapped position need to minus the selector's radius as the correct position for the selector
+                            colorMapSelectorRadius.toPx()
+                        }
 
-        // the radius of the drag able selector is 25. To drag to end position of the color map, maximum is color map width + 25dp
-        val selectorMaximum = colorMapWidth - selectorRadius
-
-        val colorMapOffsetPx = remember {
-            mutableStateOf(
-                with(density) {
-                    selectorMinimum.toPx()
+                        ILog.debug("???", "offset $offsetPx")
+                        onColorMapOffsetPx(offsetPx)
+                    }
                 }
-            )
-        }
+        )
+
+        // color selector
+        Box(
+            modifier = Modifier
+                .offset {
+                    IntOffset(colorMapOffsetPx.roundToInt(), 0)
+                }
+                .size(colorMapSelectorRadius * 2)
+                .clip(CircleShape)
+                .background(
+                    getSelectedColor(
+                        colorMapOffset = calculateCorrectOffset(
+                            selectorOffset = colorMapOffsetPx,
+                            selectorRadius = with(density) {
+                                colorMapSelectorRadius.toPx()
+                            }
+                        ),
+                        colorMapWidth = with(density) {
+                            colorMapWidth.toPx()
+                        },
+                        saturation = saturation,
+                        lightness = lightness
+                    )
+                )
+                .border(width = 2.dp, color = Color.Black, shape = CircleShape)
+                .draggable(
+                    orientation = Orientation.Horizontal,
+                    state = rememberDraggableState { delta ->
+
+                        val offsetPx = (colorMapOffsetPx + delta).coerceIn(
+                            /*
+                            keep the drag in the range that the minimum is zero minus selector's radius
+                            and the maximum is the color map's width minus selector's radius
+                             */
+                            with(density) {
+                                -colorMapSelectorRadius.toPx()
+                            },
+                            with(density) {
+                                (colorMapWidth - colorMapSelectorRadius).toPx()
+                            }
+                        )
+
+                        ILog.debug("???", "drag $offsetPx")
+                        onColorMapOffsetPx(offsetPx)
+                    }
+                )
+        )
+
+    }
+}
+
+/**
+ * Saturation or Lightness
+ */
+@Composable
+private fun SLSelector(
+    density: Density,
+    paddingHorizontal: Dp,
+    slWidth: Dp,
+    slSelectorRadius: Dp,
+    slOffsetPx: Float,
+    onSLOffsetPx: (slOffsetPx: Float) -> Unit
+) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = paddingHorizontal)
+            .height(slSelectorRadius * 2)
+    ) {
 
         Box(
             modifier = Modifier
+                .align(Alignment.Center)
                 .fillMaxWidth()
-                .padding(horizontal = paddingHorizontal)
-                .height(50.dp)
-        ) {
+                .height(6.dp)
+                .clip(RoundedCornerShape(50))
+                .background(Color.White)
+                .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
+                .pointerInput(Unit) {
+                    detectTapGestures { offset ->
 
-            // color map
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth()
-                    .height(40.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(
-                        createColorMap(colorMapWidth.toPx())
-                    )
-                    .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(50))
-                    .pointerInput(Unit) {
-                        detectTapGestures { offset ->
+                        ILog.debug("???", "tap offset $offset")
 
-                            colorMapOffsetPx.value = offset.x - with(density) {
-                                selectorRadius.toPx()
-                            }
-
-                            val correctOffset = colorMapOffsetPx.value + with(density) {
-                                // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                                // so we need to plus the selector's radius as the correct offset
-                                selectorRadius.toPx()
-                            }
-
-                            onColorChanged(getSelectedColor(correctOffset, colorMapWidth.toPx()))
+                        val offsetPx = offset.x - with(density) {
+                            // the tapped position need to minus the selector's radius as the correct position for the selector
+                            slSelectorRadius.toPx()
                         }
+
+                        ILog.debug("???", "offset $offsetPx")
+                        onSLOffsetPx(offsetPx)
                     }
-            )
+                }
+        )
 
-            // color map selector
-            Box(
-                modifier = Modifier
-                    .offset {
-                        IntOffset(colorMapOffsetPx.value.roundToInt(), 0)
-                    }
-                    .size(selectorRadius * 2)
-                    .clip(CircleShape)
-                    .background(color)
-                    .border(width = 2.dp, color = Color.Black, shape = CircleShape)
-                    .draggable(
-                        orientation = Orientation.Horizontal,
-                        state = rememberDraggableState { delta ->
+        Box(
+            modifier = Modifier
+                .offset {
+                    IntOffset(slOffsetPx.roundToInt(), 0)
+                }
+                .size(slSelectorRadius * 2)
+                .clip(CircleShape)
+                .background(Color.White)
+                .border(width = 2.dp, color = Color.Black, shape = CircleShape)
+                .draggable(
+                    orientation = Orientation.Horizontal,
+                    state = rememberDraggableState { delta ->
 
-                            val newValue = colorMapOffsetPx.value + delta
-                            colorMapOffsetPx.value = newValue.coerceIn(selectorMinimum.toPx(), selectorMaximum.toPx())
-
-                            val correctOffset = colorMapOffsetPx.value + with(density) {
-                                // the draggable position is the start part of the selector, but the drag position we want is center of the selector,
-                                // so we need to plus the selector's radius as the correct offset
-                                selectorRadius.toPx()
+                        val offsetPx = (slOffsetPx + delta).coerceIn(
+                            /*
+                            keep the drag in the range that the minimum is zero minus selector's radius
+                            and the maximum is the color map's width minus selector's radius
+                             */
+                            with(density) {
+                                -slSelectorRadius.toPx()
+                            },
+                            with(density) {
+                                (slWidth - slSelectorRadius).toPx()
                             }
+                        )
 
-                            onColorChanged(getSelectedColor(correctOffset, colorMapWidth.toPx()))
-                        }
-                    )
-            )
-        }
+                        ILog.debug("???", "drag $offsetPx")
+                        onSLOffsetPx(offsetPx)
+                    }
+                )
+        )
+
     }
 }
 
+private fun calculateCorrectOffset(selectorOffset: Float, selectorRadius: Float): Float {
+    return selectorOffset + selectorRadius
+}
+
 @Composable
-private fun Result(color: Color) {
+private fun Result(
+    color: Color
+) {
 
     Column(
         modifier = Modifier
@@ -241,10 +444,16 @@ private fun Result(color: Color) {
     }
 }
 
-private fun getSelectedColor(colorMapOffset: Float, colorMapWidth: Float): Color {
+// extension
+fun Color.toHexCode(): String {
+    val red = this.red * 255
+    val green = this.green * 255
+    val blue = this.blue * 255
+    return String.format("#%02x%02x%02x", red.toInt(), green.toInt(), blue.toInt())
+}
+
+private fun getSelectedColor(colorMapOffset: Float, colorMapWidth: Float, saturation: Float, lightness: Float): Color {
     val hue = (colorMapOffset / colorMapWidth) * 360f
-    val saturation = 1f
-    val lightness = 1f
     return Color(
         HSVToColor(
             floatArrayOf(
