@@ -36,6 +36,7 @@ import com.swein.shjetpackcompose.examples.canvasexample.CanvasBasicExampleActiv
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasDragExampleActivity
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasDrawExampleActivity
 import com.swein.shjetpackcompose.examples.hsvcolorpicker.HSVColorPickerActivity
+import com.swein.shjetpackcompose.examples.newsystemphotopicker.NewSystemPhotoPickerActivity
 import com.swein.shjetpackcompose.examples.otpviewexample.OTPViewExampleActivity
 import com.swein.shjetpackcompose.examples.tapgesturesexample.TapGesturesExampleActivity
 import kotlin.math.roundToInt
@@ -314,7 +315,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, HSVColorPickerActivity::class.java).apply {
+//        Intent(this, HSVColorPickerActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, NewSystemPhotoPickerActivity::class.java).apply {
             startActivity(this)
         }
 

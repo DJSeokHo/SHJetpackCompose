@@ -24,6 +24,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".examples.newsystemphotopicker.NewSystemPhotoPickerActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".examples.hsvcolorpicker.HSVColorPickerActivity"
             android:exported="false">
             <meta-data
