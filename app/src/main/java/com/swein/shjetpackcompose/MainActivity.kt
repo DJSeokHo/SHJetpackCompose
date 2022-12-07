@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasBasicExampleActivity
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasDragExampleActivity
 import com.swein.shjetpackcompose.examples.canvasexample.CanvasDrawExampleActivity
+import com.swein.shjetpackcompose.examples.customswitchwithmotionlayout.CustomSwitchWithMotionLayoutExampeActivity
 import com.swein.shjetpackcompose.examples.hsvcolorpicker.HSVColorPickerActivity
 import com.swein.shjetpackcompose.examples.newsystemphotopicker.NewSystemPhotoPickerActivity
 import com.swein.shjetpackcompose.examples.otpviewexample.OTPViewExampleActivity
@@ -319,7 +320,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, NewSystemPhotoPickerActivity::class.java).apply {
+//        Intent(this, NewSystemPhotoPickerActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CustomSwitchWithMotionLayoutExampeActivity::class.java).apply {
             startActivity(this)
         }
 
