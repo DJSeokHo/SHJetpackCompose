@@ -26,7 +26,7 @@ import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import com.swein.shjetpackcompose.application.ui.theme.LocalSpacing
 
-class CustomSwitchWithMotionLayoutExampeActivity : ComponentActivity() {
+class CustomSwitchWithMotionLayoutExampleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

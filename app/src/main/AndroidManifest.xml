@@ -24,7 +24,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:name=".examples.customswitchwithmotionlayout.CustomSwitchWithMotionLayoutExampeActivity"
+            android:name=".examples.animationexamples.breathinglightshadow.AnimationExamplesBreathingLightActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".examples.customswitchwithmotionlayout.CustomSwitchWithMotionLayoutExampleActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

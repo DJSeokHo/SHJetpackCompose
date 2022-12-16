@@ -32,14 +32,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.swein.shjetpackcompose.examples.canvasexample.CanvasBasicExampleActivity
-import com.swein.shjetpackcompose.examples.canvasexample.CanvasDragExampleActivity
-import com.swein.shjetpackcompose.examples.canvasexample.CanvasDrawExampleActivity
-import com.swein.shjetpackcompose.examples.customswitchwithmotionlayout.CustomSwitchWithMotionLayoutExampeActivity
-import com.swein.shjetpackcompose.examples.hsvcolorpicker.HSVColorPickerActivity
-import com.swein.shjetpackcompose.examples.newsystemphotopicker.NewSystemPhotoPickerActivity
-import com.swein.shjetpackcompose.examples.otpviewexample.OTPViewExampleActivity
-import com.swein.shjetpackcompose.examples.tapgesturesexample.TapGesturesExampleActivity
+import com.swein.shjetpackcompose.examples.animationexamples.breathinglightshadow.AnimationExamplesBreathingLightActivity
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import android.graphics.Color as AndroidColor
@@ -324,7 +317,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CustomSwitchWithMotionLayoutExampeActivity::class.java).apply {
+//        Intent(this, CustomSwitchWithMotionLayoutExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, AnimationExamplesBreathingLightActivity::class.java).apply {
             startActivity(this)
         }
 
