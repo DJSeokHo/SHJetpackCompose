@@ -33,6 +33,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.examples.animationexamples.breathinglightshadow.AnimationExamplesBreathingLightActivity
+import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonExampleActivity
+import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonListExampleActivity
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import android.graphics.Color as AndroidColor
@@ -321,7 +323,15 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, AnimationExamplesBreathingLightActivity::class.java).apply {
+//        Intent(this, AnimationExamplesBreathingLightActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, SkeletonExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, SkeletonListExampleActivity::class.java).apply {
             startActivity(this)
         }
 
