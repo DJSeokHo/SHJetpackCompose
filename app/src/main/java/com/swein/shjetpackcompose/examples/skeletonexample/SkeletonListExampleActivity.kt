@@ -20,6 +20,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -157,6 +158,7 @@ class SkeletonListExampleActivity : ComponentActivity() {
             list.add(model)
         }
 
+
         return list
     }
 }
@@ -169,6 +171,7 @@ private fun ContentView(
     skeletonFlag: Boolean,
     loadMoreFlag: Boolean
 ) {
+
 
     Surface(
         color = Color.White,

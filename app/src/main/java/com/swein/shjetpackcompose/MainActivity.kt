@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.examples.animationexamples.breathinglightshadow.AnimationExamplesBreathingLightActivity
+import com.swein.shjetpackcompose.examples.customsnackbar.CustomSnackBarActivity
 import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonExampleActivity
 import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonListExampleActivity
 import kotlin.math.roundToInt
@@ -331,7 +332,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, SkeletonListExampleActivity::class.java).apply {
+//        Intent(this, SkeletonListExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CustomSnackBarActivity::class.java).apply {
             startActivity(this)
         }
 
