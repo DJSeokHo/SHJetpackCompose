@@ -1,10 +1,17 @@
 package com.swein.shjetpackcompose
 
+import android.R
+import android.annotation.SuppressLint
+import android.app.WallpaperManager
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
@@ -14,10 +21,7 @@ import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.*
@@ -27,20 +31,29 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.swein.shjetpackcompose.examples.animationexamples.breathinglightshadow.AnimationExamplesBreathingLightActivity
-import com.swein.shjetpackcompose.examples.customsnackbar.CustomSnackBarActivity
-import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonExampleActivity
-import com.swein.shjetpackcompose.examples.skeletonexample.SkeletonListExampleActivity
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
+import com.swein.shjetpackcompose.examples.customratingbar.CustomRatingBarActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.net.URL
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import android.graphics.Color as AndroidColor
 
+
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,20 +65,78 @@ class MainActivity : ComponentActivity() {
 //                }
 //            }
 
-            val count = remember {
-                mutableStateOf(0)
-            }
-
-            ClickCounter(
-                clicks = count.value,
-                onClick = {
-                    count.value++
-                }
-            )
-
 //            ColorPicker {
 //
 //            }
+            val context = LocalContext.current
+            val url = "https://img3.wallspic.com/crops/6/4/1/9/6/169146/169146-an_zhuo-gu_ge-zhi_neng_shou_ji-google_pixel-qi_fen-1680x3000.jpg"
+            val coroutineScope = rememberCoroutineScope()
+
+            Surface(
+                color = Color.White,
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+
+                    Column {
+
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = ImageRequest.Builder(context = context)
+                                    .crossfade(true)
+                                    .data(url)
+                                    .size(Size.ORIGINAL)
+                                    .build(),
+                                filterQuality = FilterQuality.High
+                            ),
+                            contentDescription = null,
+                            contentScale = ContentScale.FillWidth,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 40.dp)
+                        )
+
+                        Button(
+                            onClick = {
+
+                                val wallpaperManager = WallpaperManager.getInstance(context)
+                                try {
+
+                                    coroutineScope.launch {
+
+                                        val task = async(Dispatchers.IO) {
+                                            BitmapFactory.decodeStream(URL(url).openConnection().getInputStream())
+                                        }
+
+                                        val bitmap = task.await()
+                                        wallpaperManager.setBitmap(bitmap) // home and lock
+//                                        wallpaperManager.setBitmap(bitmap, null, false, WallpaperManager.FLAG_LOCK)
+//                                        wallpaperManager.setBitmap(bitmap, null, false, WallpaperManager.FLAG_SYSTEM)
+
+                                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                                    }
+
+                                }
+                                catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, backgroundColor = Color.Black)
+                        ) {
+                            Text(
+                                "set wallpaper"
+                            )
+                        }
+                    }
+
+                }
+
+            }
         }
 
 //        Intent(this, GTBasicTutorialActivity::class.java).apply {
@@ -336,7 +407,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CustomSnackBarActivity::class.java).apply {
+//        Intent(this, CustomSnackBarActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CustomRatingBarActivity::class.java).apply {
             startActivity(this)
         }
 
@@ -434,12 +509,4 @@ fun getActiveColor(dragPosition: Float, screenWidth: Float): Color {
             )
         )
     )
-}
-
-
-@Composable
-private fun ClickCounter(clicks: Int, onClick: () -> Unit) {
-    Button(onClick = onClick) {
-        Text("I've been clicked $clicks times")
-    }
 }
