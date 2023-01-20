@@ -7,9 +7,7 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!--access permission to set the wallpaper-->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- access permission to set the wallpaper -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <uses-feature
@@ -26,6 +24,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity
+            android:name=".examples.hyperlinkexample.HyperlinkExampleActivity"
+            android:exported="false" />
         <activity
             android:name=".examples.customratingbar.CustomRatingBarActivity"
             android:exported="false">
