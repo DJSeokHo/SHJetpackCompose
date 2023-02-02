@@ -68,7 +68,8 @@ class DropdownMenuExampleActivity : ComponentActivity() {
             DropDownMenuCompose {
 
                 bottomActionSheetScope.launch {
-                    bottomActionSheetState.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+//                    bottomActionSheetState.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+                    bottomActionSheetState.show()
                     //                        state.animateTo(ModalBottomSheetValue.HalfExpanded, tween(500))
                     //                        state.show()
                 }
@@ -80,8 +81,8 @@ class DropdownMenuExampleActivity : ComponentActivity() {
                         || bottomActionSheetState.currentValue == ModalBottomSheetValue.Expanded),
                 onBack = {
                     bottomActionSheetScope.launch{
-                        bottomActionSheetState.animateTo(ModalBottomSheetValue.Hidden, tween(300))
-//                        state.hide()
+//                        bottomActionSheetState.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+                        bottomActionSheetState.hide()
                     }
                 }
             )

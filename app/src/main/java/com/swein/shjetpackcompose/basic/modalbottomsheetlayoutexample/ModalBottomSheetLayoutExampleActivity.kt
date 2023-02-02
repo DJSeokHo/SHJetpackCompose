@@ -60,9 +60,9 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
                     Button(
                         onClick = {
                             scope.launch {
-                                state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+//                                state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
                                 //                        state.animateTo(ModalBottomSheetValue.HalfExpanded, tween(500))
-                                //                        state.show()
+                                state.show()
                             }
                         }
                     ) {
@@ -75,8 +75,8 @@ class ModalBottomSheetLayoutExampleActivity : ComponentActivity() {
                             || state.currentValue == ModalBottomSheetValue.Expanded),
                     onBack = {
                         scope.launch{
-                            state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
-//                        state.hide()
+//                            state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+                        state.hide()
                         }
                     }
                 )

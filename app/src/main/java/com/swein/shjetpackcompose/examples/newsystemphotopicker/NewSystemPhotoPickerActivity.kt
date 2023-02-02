@@ -147,7 +147,8 @@ private fun ContentView(
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray, contentColor = Color.White),
                     onClick = {
                         scope.launch {
-                            state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+//                            state.animateTo(ModalBottomSheetValue.Expanded, tween(500))
+                            state.show()
                         }
                     }
                 ) {
@@ -164,7 +165,8 @@ private fun ContentView(
                     || state.currentValue == ModalBottomSheetValue.Expanded),
             onBack = {
                 scope.launch{
-                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+//                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+                    state.hide()
                 }
             }
         )
@@ -194,7 +196,8 @@ private fun BottomActionSheetView(
             onClick = {
 
                 scope.launch{
-                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+//                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+                    state.hide()
                 }
 
                 onSingle()
@@ -215,7 +218,8 @@ private fun BottomActionSheetView(
             onClick = {
 
                 scope.launch{
-                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+//                    state.animateTo(ModalBottomSheetValue.Hidden, tween(300))
+                    state.hide()
                 }
 
                 onMultiple()

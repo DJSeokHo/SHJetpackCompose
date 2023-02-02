@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.swein.shjetpackcompose.examples.autoresizingtextexample.AutoResizingTextExampleActivity
 import com.swein.shjetpackcompose.examples.customratingbar.CustomRatingBarActivity
 import com.swein.shjetpackcompose.examples.hyperlinkexample.HyperlinkExampleActivity
 import kotlinx.coroutines.Dispatchers
@@ -416,7 +417,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, HyperlinkExampleActivity::class.java).apply {
+//        Intent(this, HyperlinkExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, AutoResizingTextExampleActivity::class.java).apply {
             startActivity(this)
         }
 
