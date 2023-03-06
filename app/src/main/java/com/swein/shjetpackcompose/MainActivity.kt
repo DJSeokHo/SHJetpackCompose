@@ -45,6 +45,7 @@ import coil.size.Size
 import com.swein.shjetpackcompose.examples.autoresizingtextexample.AutoResizingTextExampleActivity
 import com.swein.shjetpackcompose.examples.customratingbar.CustomRatingBarActivity
 import com.swein.shjetpackcompose.examples.hyperlinkexample.HyperlinkExampleActivity
+import com.swein.shjetpackcompose.examples.lazystaggeredgridexample.LazyVerticalStaggeredGridExample
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -421,7 +422,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, AutoResizingTextExampleActivity::class.java).apply {
+//        Intent(this, AutoResizingTextExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LazyVerticalStaggeredGridExample::class.java).apply {
             startActivity(this)
         }
 
