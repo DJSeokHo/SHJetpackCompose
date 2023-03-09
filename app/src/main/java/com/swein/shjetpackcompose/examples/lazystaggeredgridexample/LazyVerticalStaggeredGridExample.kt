@@ -58,7 +58,7 @@ class LazyVerticalStaggeredGridExample : ComponentActivity() {
                 list.add(
                     ItemData(
                         i,
-                        Random.nextInt(100, 200),
+                        Random.nextInt(100, 300),
                         "index $i",
                     )
                 )
@@ -77,26 +77,36 @@ private fun ContentView(list: List<ItemData>) {
             .fillMaxSize()
     ) {
 
-        LazyVerticalStaggeredGrid(
-            state = rememberLazyStaggeredGridState(),
-            columns = StaggeredGridCells.Fixed(2),
+//        LazyVerticalStaggeredGrid(
+        Box(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(10.dp), // out padding
-            horizontalArrangement = Arrangement.spacedBy(5.dp), // inner padding
-            verticalArrangement = Arrangement.spacedBy(5.dp) // inner padding
+            contentAlignment = Alignment.Center
         ) {
 
-            itemsIndexed(
-                items = list,
-                key = { _: Int, item: ItemData ->
-//                    item.index // if you use class, this is better
-                    item.hashCode() // if you use data class, this is better
-                }
-            ) {  _, item ->
+            LazyHorizontalStaggeredGrid(
+                state = rememberLazyStaggeredGridState(),
+//            columns = StaggeredGridCells.Fixed(2),
+                rows = StaggeredGridCells.Fixed(3),
+                modifier = Modifier
+                    .height(500.dp),
+                contentPadding = PaddingValues(10.dp), // out padding
+                horizontalArrangement = Arrangement.spacedBy(5.dp), // inner padding
+                verticalArrangement = Arrangement.spacedBy(5.dp) // inner padding
+            ) {
 
-                ItemView(item)
+                itemsIndexed(
+                    items = list,
+                    key = { _: Int, item: ItemData ->
+//                    item.index // if you use class, this is better
+                        item.hashCode() // if you use data class, this is better
+                    }
+                ) {  _, item ->
+
+                    ItemView(item)
+                }
             }
+
         }
     }
 }
@@ -106,8 +116,10 @@ private fun ItemView(itemData: ItemData) {
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(itemData.height.dp)
+//            .fillMaxWidth()
+//            .height(itemData.height.dp)
+            .fillMaxHeight()
+            .width(itemData.width.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(Color.Black),
         contentAlignment = Alignment.Center
@@ -116,13 +128,14 @@ private fun ItemView(itemData: ItemData) {
         Text(
             text = itemData.content,
             color = Color.White,
-            fontSize = 26.sp
+            fontSize = 23.sp
         )
     }
 }
 
 private data class ItemData(
     val index: Int,
-    val height: Int,
+//    val height: Int,
+    val width: Int,
     val content: String
 )
