@@ -1,12 +1,9 @@
 package com.swein.shjetpackcompose
 
-import android.R
-import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,10 +39,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.swein.shjetpackcompose.examples.autoresizingtextexample.AutoResizingTextExampleActivity
-import com.swein.shjetpackcompose.examples.customratingbar.CustomRatingBarActivity
-import com.swein.shjetpackcompose.examples.hyperlinkexample.HyperlinkExampleActivity
-import com.swein.shjetpackcompose.examples.lazystaggeredgridexample.LazyVerticalStaggeredGridExample
+import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.VoiceFriendActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -426,10 +420,33 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LazyVerticalStaggeredGridExample::class.java).apply {
+//        Intent(this, LazyVerticalStaggeredGridExample::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, TouchEventExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, PreviewExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, STTExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, TTSExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, AudioRecorderExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, VoiceFriendActivity::class.java).apply {
             startActivity(this)
         }
-
     }
 }
 

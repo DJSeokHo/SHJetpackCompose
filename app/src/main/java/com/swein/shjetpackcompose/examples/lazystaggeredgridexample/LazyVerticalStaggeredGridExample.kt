@@ -91,7 +91,7 @@ private fun ContentView(list: List<ItemData>) {
                 modifier = Modifier
                     .height(500.dp),
                 contentPadding = PaddingValues(10.dp), // out padding
-                horizontalArrangement = Arrangement.spacedBy(5.dp), // inner padding
+                horizontalItemSpacing = 5.dp, // inner padding
                 verticalArrangement = Arrangement.spacedBy(5.dp) // inner padding
             ) {
 
