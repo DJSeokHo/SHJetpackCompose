@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.swein.framework.utility.debug.ILog
 import com.swein.framework.utility.parsing.ParsingUtility
+import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.models.chatcompletionmodel.ChatCompletionMessageModel
+import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.models.chatcompletionmodel.response.ChatCompletionsResponseModel
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.models.gptmodel.GPTModel
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.service.VFService
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +43,9 @@ class VFViewModel: ViewModel() {
     val inputText = mutableStateOf("")
     var recordFile: File? = null
 
-    val gptModelList = mutableListOf<GPTModel>()
+    private val gptModelList = mutableListOf<GPTModel>()
+    val messageRecords = mutableListOf<ChatCompletionMessageModel>()
+
 
     fun models(onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.Main) {
 
@@ -118,6 +122,48 @@ class VFViewModel: ViewModel() {
                 state.toggleError(e.message.toString())
             }
 
+        }
+
+    }
+
+    fun chatCompletions(jsonObject: JSONObject, onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.Main) {
+
+        state.toggleLoading(true)
+        state.toggleError("")
+
+        try {
+
+            coroutineScope {
+
+                val task = async(Dispatchers.IO) {
+
+                    VFService.chatCompletions(jsonObject)
+                }
+
+                val responseString = task.await()
+
+                val response = JSONObject(responseString)
+
+                ILog.debug("???", response)
+
+                val model = ChatCompletionsResponseModel()
+                model.parsing(response)
+
+                if (model.choices.isNotEmpty()) {
+                    chatResponse.value = model.choices[0].message.content
+                    messageRecords.add(model.choices[0].message)
+                }
+
+                state.toggleLoading(false)
+
+                onSuccess()
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            ILog.debug("???", e.message)
+            state.toggleLoading(false)
+            state.toggleError(e.message.toString())
         }
 
     }

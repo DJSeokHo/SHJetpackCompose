@@ -5,11 +5,12 @@ import com.swein.framework.utility.okhttp.OKHttpWrapper
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.constants.VFWebConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.io.File
 
 object VFService {
 
-    const val TAG = "GPTService"
+    const val TAG = "VFService"
 
     suspend fun models(): String = withContext(Dispatchers.IO) {
 
@@ -21,7 +22,6 @@ object VFService {
         val coroutineResponse = OKHttpWrapper.requestGet(url, header)
 
         val responseString: String = OKHttpWrapper.getStringResponse(coroutineResponse.response)
-        ILog.debug(TAG, responseString)
 
         OKHttpWrapper.cancelCall(coroutineResponse.call)
 
@@ -50,17 +50,16 @@ object VFService {
         return@withContext responseString
     }
 
-    suspend fun chatCompletions(): String = withContext(Dispatchers.IO) {
+    suspend fun chatCompletions(jsonObject: JSONObject): String = withContext(Dispatchers.IO) {
 
         val url = VFWebConstants.chatCompletions()
         ILog.debug(TAG, "chatCompletions: $url")
 
         val header = mutableMapOf<String, String>()
         header[VFWebConstants.TOKEN_KEY] = VFWebConstants.TOKEN
-        val coroutineResponse = OKHttpWrapper.requestGet(url, header)
+        val coroutineResponse = OKHttpWrapper.requestPost(url, header, jsonObject = jsonObject)
 
         val responseString: String = OKHttpWrapper.getStringResponse(coroutineResponse.response)
-        ILog.debug(TAG, responseString)
 
         OKHttpWrapper.cancelCall(coroutineResponse.call)
 

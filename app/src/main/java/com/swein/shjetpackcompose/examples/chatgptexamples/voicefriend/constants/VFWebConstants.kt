@@ -12,7 +12,7 @@ object VFWebConstants {
     private const val DOMAIN = "$PROTOCOL$SERVER$SERVER_VERSION"
 
     const val TOKEN_KEY = "Authorization"
-    const val TOKEN = "Bearer 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"
+    const val TOKEN = "Bearer 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"
 
     fun getResponseJSONObject(responseString: String): JSONObject {
         return JSONObject(responseString)

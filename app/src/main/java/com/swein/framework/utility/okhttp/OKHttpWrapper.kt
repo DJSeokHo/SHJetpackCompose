@@ -12,6 +12,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -26,7 +27,12 @@ import java.io.IOException
  * and add android:usesCleartextTraffic="true" in the <application>
  */
 
-private var okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
+private var okHttpClient: OkHttpClient = OkHttpClient.Builder()
+    .connectTimeout(120, TimeUnit.SECONDS)
+    .callTimeout(120, TimeUnit.SECONDS)
+    .writeTimeout(120, TimeUnit.SECONDS)
+    .readTimeout(120, TimeUnit.SECONDS)
+    .build()
 
 data class FormDataFile(
     val filePath: String,

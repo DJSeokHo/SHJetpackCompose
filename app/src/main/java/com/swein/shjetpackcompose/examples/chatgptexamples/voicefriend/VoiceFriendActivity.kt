@@ -4,10 +4,15 @@ import android.Manifest
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,9 +36,12 @@ import androidx.compose.ui.unit.sp
 import com.swein.framework.module.permission.PermissionManager
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
+import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.models.chatcompletionmodel.ChatCompletionMessageModel
+import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.models.chatcompletionmodel.request.ChatCompletionRequestModel
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.viewmodel.VFViewModel
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 class VoiceFriendActivity : ComponentActivity() {
 
@@ -41,6 +50,8 @@ class VoiceFriendActivity : ComponentActivity() {
     private val viewModel: VFViewModel by viewModels()
 
     private var mediaRecorder: MediaRecorder? = null
+    private var textToSpeech: TextToSpeech? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +84,38 @@ class VoiceFriendActivity : ComponentActivity() {
 
                             viewModel.audioTranscriptions {
                                 ILog.debug("???", "success")
+
+                                // send to gpt
+                                val message = viewModel.inputText.value
+
+                                viewModel.messageRecords.add(
+                                    ChatCompletionMessageModel(
+                                        role = "user",
+                                        content = message
+                                    )
+                                )
+
+                                ChatCompletionRequestModel(
+                                    model = "gpt-3.5-turbo",
+                                    messages = viewModel.messageRecords,
+                                    temperature = 1f
+                                ).apply {
+                                    ILog.debug("???", toJSONObject().toString())
+                                }.toJSONObject().also {
+                                    viewModel.chatCompletions(it, onSuccess = {
+
+                                        // clean
+                                        viewModel.inputText.value = ""
+
+                                        textToSpeech?.setPitch(0.6.toFloat())
+                                        textToSpeech?.setSpeechRate(0.9.toFloat())
+
+                                        // TextToSpeech.QUEUE_FLUSH(진행중인 음성 출력을 끊고 이번 TTS의 음성 출력을 한다).
+                                        // TextToSpeech.QUEUE_ADD(진행중인 음성 출력이 끝난 후에 이번 TTS의 음성 출력을 진행한다.)
+                                        textToSpeech?.speak(viewModel.chatResponse.value, TextToSpeech.QUEUE_FLUSH, null, "id1")
+                                    })
+                                }
+
                             }
                         }
 
@@ -80,11 +123,37 @@ class VoiceFriendActivity : ComponentActivity() {
                 },
                 onSend = {
 
-                    // send to gpt
+//                    // send to gpt
+//                    val message = viewModel.inputText.value
+//
+//                    viewModel.messageRecords.add(
+//                        ChatCompletionMessageModel(
+//                            role = "user",
+//                            content = message
+//                        )
+//                    )
+//
+//                    ChatCompletionRequestModel(
+//                        model = "gpt-3.5-turbo",
+//                        messages = viewModel.messageRecords,
+//                        temperature = 0.2f
+//                    ).apply {
+//                        ILog.debug("???", toJSONObject().toString())
+//                    }.toJSONObject().also {
+//                        viewModel.chatCompletions(it, onSuccess = {
+//
+//                            // clean
+//                            viewModel.inputText.value = ""
+//
+//                            textToSpeech?.setPitch(0.6.toFloat())
+//                            textToSpeech?.setSpeechRate(0.9.toFloat())
+//
+//                            // TextToSpeech.QUEUE_FLUSH(진행중인 음성 출력을 끊고 이번 TTS의 음성 출력을 한다).
+//                            // TextToSpeech.QUEUE_ADD(진행중인 음성 출력이 끝난 후에 이번 TTS의 음성 출력을 진행한다.)
+//                            textToSpeech?.speak(viewModel.chatResponse.value, TextToSpeech.QUEUE_FLUSH, null, "id1")
+//                        })
+//                    }
 
-
-                    // clean
-                    viewModel.inputText.value = ""
                 }
             )
         }
@@ -100,6 +169,27 @@ class VoiceFriendActivity : ComponentActivity() {
             }
         )
 
+        textToSpeech = TextToSpeech(this) { p0 ->
+            if (p0 == TextToSpeech.SUCCESS) {
+
+                val result: Int = textToSpeech!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED
+                ) {
+                    ILog.debug("TTS", "This Language is not supported")
+                }
+            }
+            else {
+                Log.e("TTS", "Initilization Failed!")
+            }
+        }
+
+        viewModel.messageRecords.clear()
+        viewModel.messageRecords.add(
+            ChatCompletionMessageModel(
+                role = "system",
+                content = "너는 생활도우미입니다."
+            )
+        )
     }
 
     private fun startRecord(file: File) {
@@ -132,6 +222,10 @@ class VoiceFriendActivity : ComponentActivity() {
 
         mediaRecorder?.release()
         mediaRecorder = null
+
+        textToSpeech?.stop()
+        textToSpeech?.shutdown()
+        textToSpeech = null
     }
 }
 
@@ -141,6 +235,8 @@ private fun ContentView(
     onSend: () -> Unit,
     onRecord: () -> Unit
 ) {
+
+    val context = LocalContext.current
 
     Surface(
         color = Color.White
@@ -258,6 +354,56 @@ private fun ContentView(
                         )
                     )
                 }
+
+                Spacer(modifier = Modifier.padding(vertical = 20.dp))
+
+                if (viewModel.messageRecords.size > 2) {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, backgroundColor = Color.Black),
+                        onClick = {
+                            viewModel.messageRecords.clear()
+                            viewModel.messageRecords.add(
+                                ChatCompletionMessageModel(
+                                    role = "system",
+                                    content = "너는 생활도우미입니다."
+                                )
+                            )
+                        }
+                    ) {
+                        Text(
+                            text = "대화 처음부터 다시하기",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            }
+
+            if (viewModel.state.loading.value) {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable(
+                            indication = null,
+                            interactionSource = MutableInteractionSource(),
+                            onClick = { }
+                        ),
+                    color = Color.Black.copy(alpha = 0.7f),
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+
+            if (viewModel.state.error.value != "") {
+                Toast.makeText(context, viewModel.state.error.value, Toast.LENGTH_SHORT).show()
             }
         }
     }
