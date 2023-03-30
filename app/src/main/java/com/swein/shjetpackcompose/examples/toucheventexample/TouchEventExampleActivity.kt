@@ -1,6 +1,5 @@
 package com.swein.shjetpackcompose.examples.toucheventexample
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.ComponentActivity
@@ -16,14 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.R
 
@@ -46,9 +44,7 @@ class TouchEventExampleActivity : ComponentActivity() {
 @Composable
 private fun ContentView() {
 
-    val context = LocalContext.current
-//    val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.test_image_1)
-    val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.coding_with_cat_icon)
+    val imageBitmap = ImageBitmap.imageResource(id = R.drawable.coding_with_cat_icon)
 
     val red = remember {
         mutableStateOf(0)
@@ -92,7 +88,7 @@ private fun ContentView() {
             ) {
 
                 Image(
-                    bitmap = bitmap.asImageBitmap(),
+                    bitmap = imageBitmap,
                     contentDescription = "Test Image",
                     modifier = Modifier
                         .fillMaxWidth()
@@ -100,10 +96,10 @@ private fun ContentView() {
                         .padding(horizontal = 10.dp)
                         .onSizeChanged {
                             ILog.debug("???", "Image size is ${it.width}, ${it.height}")
-                            ILog.debug("???", "Bitmap size is ${bitmap.width}, ${bitmap.height}")
+                            ILog.debug("???", "Bitmap size is ${imageBitmap.width}, ${imageBitmap.height}")
 
-                            xRatioForBitmap.value = bitmap.width.toFloat() / it.width.toFloat()
-                            yRatioForBitmap.value = bitmap.height.toFloat() / it.height.toFloat()
+                            xRatioForBitmap.value = imageBitmap.width.toFloat() / it.width.toFloat()
+                            yRatioForBitmap.value = imageBitmap.height.toFloat() / it.height.toFloat()
                         }
                         .pointerInteropFilter { motionEvent: MotionEvent ->
 
@@ -111,19 +107,21 @@ private fun ContentView() {
 
                                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP -> {
 
-                                    val touchXToBitmap: Float = motionEvent.x * xRatioForBitmap.value
-                                    val touchYToBitmap: Float = motionEvent.y * yRatioForBitmap.value
+                                    val touchXToBitmap: Float =
+                                        motionEvent.x * xRatioForBitmap.value
+                                    val touchYToBitmap: Float =
+                                        motionEvent.y * yRatioForBitmap.value
 
                                     // make sure the touch event is inside bitmap
                                     if (touchXToBitmap < 0 || touchYToBitmap < 0) {
                                         return@pointerInteropFilter true
                                     }
-                                    if (touchXToBitmap > bitmap.width || touchYToBitmap > bitmap.height) {
+                                    if (touchXToBitmap > imageBitmap.width || touchYToBitmap > imageBitmap.height) {
                                         return@pointerInteropFilter true
                                     }
 
                                     // get bitmap
-                                    val pixel: Int = bitmap.getPixel(
+                                    val pixel: Int = imageBitmap.asAndroidBitmap().getPixel(
                                         touchXToBitmap.toInt(),
                                         touchYToBitmap.toInt()
                                     )
