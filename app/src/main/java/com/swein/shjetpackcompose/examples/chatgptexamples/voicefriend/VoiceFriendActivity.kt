@@ -10,13 +10,11 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
@@ -257,6 +255,12 @@ private fun ContentView(
             ) {
 
                 Text(
+                    modifier = Modifier
+                        .background(
+                            color = Color.Cyan,
+                            shape = RoundedCornerShape(6.dp)
+                        )
+                        .padding(8.dp),
                     text = "Chatting Demo",
                     fontSize = 25.sp,
                     color = Color.Black,

@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -144,14 +145,15 @@ private fun ContentView() {
                     modifier = Modifier
                         .size(200.dp)
                         .background(
-                            Color(
+                            color = Color(
                                 android.graphics.Color.argb(
                                     alpha.value,
                                     red.value,
                                     green.value,
                                     blue.value
                                 )
-                            )
+                            ),
+                            shape = RoundedCornerShape(8.dp)
                         )
                 )
             }

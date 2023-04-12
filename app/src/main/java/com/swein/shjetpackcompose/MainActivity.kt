@@ -39,7 +39,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.swein.shjetpackcompose.examples.badgeexample.BadgeExampleActivity
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.VoiceFriendActivity
+import com.swein.shjetpackcompose.examples.marquetextexample.MarqueeTextExampleActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -444,9 +446,18 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, VoiceFriendActivity::class.java).apply {
+//        Intent(this, VoiceFriendActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, BadgeExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, MarqueeTextExampleActivity::class.java).apply {
             startActivity(this)
         }
+
     }
 }
 
