@@ -25,6 +25,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".sideeffecttest.DerivedStateOfTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recomposetest.CorrectRecomposeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recomposetest.ClassRecomposeTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recomposetest.RecomposeTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.exoplayerexample.ExoplayerExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".examples.marquetextexample.MarqueeTextExampleActivity"
             android:exported="false" />
         <activity

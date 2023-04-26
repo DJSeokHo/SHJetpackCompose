@@ -41,7 +41,12 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.swein.shjetpackcompose.examples.badgeexample.BadgeExampleActivity
 import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.VoiceFriendActivity
+import com.swein.shjetpackcompose.examples.exoplayerexample.ExoplayerExampleActivity
 import com.swein.shjetpackcompose.examples.marquetextexample.MarqueeTextExampleActivity
+import com.swein.shjetpackcompose.recomposetest.ClassRecomposeTestActivity
+import com.swein.shjetpackcompose.recomposetest.CorrectRecomposeActivity
+import com.swein.shjetpackcompose.recomposetest.RecomposeTestActivity
+import com.swein.shjetpackcompose.sideeffecttest.DerivedStateOfTestActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -454,7 +459,27 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, MarqueeTextExampleActivity::class.java).apply {
+//        Intent(this, MarqueeTextExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ExoplayerExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, RecomposeTestActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ClassRecomposeTestActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CorrectRecomposeActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, DerivedStateOfTestActivity::class.java).apply {
             startActivity(this)
         }
 
