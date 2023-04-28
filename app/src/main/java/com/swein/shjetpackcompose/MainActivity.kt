@@ -39,14 +39,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.swein.shjetpackcompose.examples.badgeexample.BadgeExampleActivity
-import com.swein.shjetpackcompose.examples.chatgptexamples.voicefriend.VoiceFriendActivity
-import com.swein.shjetpackcompose.examples.exoplayerexample.ExoplayerExampleActivity
-import com.swein.shjetpackcompose.examples.marquetextexample.MarqueeTextExampleActivity
-import com.swein.shjetpackcompose.recomposetest.ClassRecomposeTestActivity
-import com.swein.shjetpackcompose.recomposetest.CorrectRecomposeActivity
-import com.swein.shjetpackcompose.recomposetest.RecomposeTestActivity
-import com.swein.shjetpackcompose.sideeffecttest.DerivedStateOfTestActivity
+import com.swein.shjetpackcompose.modifiertest.LayoutModifierActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -283,10 +276,6 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, CompositionLocalExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
-
 //        Intent(this, CustomThemeExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
@@ -479,7 +468,19 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, DerivedStateOfTestActivity::class.java).apply {
+//        Intent(this, DerivedStateOfTestActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CompositionLocalExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ModifierTestActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, LayoutModifierActivity::class.java).apply {
             startActivity(this)
         }
 

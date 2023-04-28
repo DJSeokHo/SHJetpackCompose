@@ -116,6 +116,7 @@ private fun drawTextView(drawScope: DrawScope, width: Float, height: Float, text
         ),
         style = textStyle
     )
+
 }
 
 private fun drawCircleView(drawScope: DrawScope, width: Float, height: Float) {
