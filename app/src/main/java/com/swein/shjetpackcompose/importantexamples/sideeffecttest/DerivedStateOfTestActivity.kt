@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.sideeffecttest
+package com.swein.shjetpackcompose.importantexamples.sideeffecttest
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

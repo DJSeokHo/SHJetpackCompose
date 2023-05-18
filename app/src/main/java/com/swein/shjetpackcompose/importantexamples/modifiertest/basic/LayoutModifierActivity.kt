@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.modifiertest
+package com.swein.shjetpackcompose.importantexamples.modifiertest.basic
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

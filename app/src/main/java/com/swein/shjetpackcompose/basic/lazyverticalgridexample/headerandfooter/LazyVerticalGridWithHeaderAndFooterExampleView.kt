@@ -272,7 +272,7 @@ private fun GridListHeaderView(
 }
 
 @Composable
-private fun GridListFooterView(
+fun GridListFooterView(
     onClick: () -> Unit
 ) {
 

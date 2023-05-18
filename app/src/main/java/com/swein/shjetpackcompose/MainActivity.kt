@@ -39,7 +39,22 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.swein.shjetpackcompose.modifiertest.LayoutModifierActivity
+import com.swein.shjetpackcompose.importantexamples.composecoroutinetest.CoroutineStateActivity
+import com.swein.shjetpackcompose.examples.custombottompasswordkeyboard.CustomBottomPasswordKeyboardActivity
+import com.swein.shjetpackcompose.examples.exoplayerexample.ExoplayerExampleActivity
+import com.swein.shjetpackcompose.importantexamples.customdraw.CustomDrawExampleActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.ModifierLocalActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.OnGloballyPositionedModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.OnPlacedModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.OnRemeasuredModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.ParentDataModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.PointerInputModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.SemanticsModifierActivity
+import com.swein.shjetpackcompose.importantexamples.modifiertest.basic.DrawModifierActivity
+import com.swein.shjetpackcompose.importantexamples.sideeffecttest.DisposableEffectActivity
+import com.swein.shjetpackcompose.importantexamples.sideeffecttest.LaunchedEffectActivity
+import com.swein.shjetpackcompose.importantexamples.sideeffecttest.RememberUpdatedStateActivity
+import com.swein.shjetpackcompose.importantexamples.sideeffecttest.SideEffectActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -480,9 +495,69 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, LayoutModifierActivity::class.java).apply {
+//        Intent(this, LayoutModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, DrawModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, PointerInputModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ParentDataModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, SemanticsModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, OnRemeasuredModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, OnPlacedModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, OnGloballyPositionedModifierActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ModifierLocalActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, SideEffectActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, DisposableEffectActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, LaunchedEffectActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, RememberUpdatedStateActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CoroutineStateActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, CustomBottomPasswordKeyboardActivity::class.java).apply {
             startActivity(this)
         }
+
+//        Intent(this, CustomDrawExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
     }
 }

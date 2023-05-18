@@ -197,7 +197,7 @@ class ExoplayerExampleActivity : ComponentActivity() {
 private fun ContentView(styledPlayerView: StyledPlayerView, onReady: () -> Unit) {
 
     Surface(
-        color = Color.White
+        color = Color.Black
     ) {
 
         Column(
@@ -207,7 +207,7 @@ private fun ContentView(styledPlayerView: StyledPlayerView, onReady: () -> Unit)
         ) {
 
             AndroidView(
-                factory = { context ->
+                factory = {
                     styledPlayerView
                 },
                 modifier = Modifier

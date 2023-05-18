@@ -1,4 +1,4 @@
-package com.swein.shjetpackcompose.recomposetest
+package com.swein.shjetpackcompose.importantexamples.recomposetest
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
