@@ -8,12 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.LookaheadLayout
-import androidx.compose.ui.layout.LookaheadLayoutCoordinates
 import androidx.compose.ui.layout.LookaheadScope
-import androidx.compose.ui.layout.MeasureResult
-import androidx.compose.ui.layout.OnGloballyPositionedModifier
-import androidx.compose.ui.layout.intermediateLayout
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInParent
@@ -70,7 +65,7 @@ class OnPlacedModifierActivity : ComponentActivity() {
 //                            .intermediateLayout { measurable, constraints ->
 //                                measurable.measure(constraints)
 //                            }
-                            .onPlaced { lookaheadScopeCoordinates: LookaheadLayoutCoordinates, layoutCoordinates: LookaheadLayoutCoordinates ->
+                            .onPlaced {
 
                             }
                     ) {
