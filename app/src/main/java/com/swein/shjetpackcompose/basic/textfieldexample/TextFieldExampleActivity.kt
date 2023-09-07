@@ -297,6 +297,9 @@ class TextFieldExampleActivity : ComponentActivity() {
                             modifier = Modifier.weight(1f),
                             contentAlignment = Alignment.CenterStart
                         ) {
+                            if (text == "") {
+                                Text("123123")
+                            }
                             innerTextField()
                         }
                         IconButton(

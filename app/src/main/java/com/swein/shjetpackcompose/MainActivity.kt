@@ -39,22 +39,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.swein.shjetpackcompose.importantexamples.composecoroutinetest.CoroutineStateActivity
-import com.swein.shjetpackcompose.examples.custombottompasswordkeyboard.CustomBottomPasswordKeyboardActivity
-import com.swein.shjetpackcompose.examples.exoplayerexample.ExoplayerExampleActivity
-import com.swein.shjetpackcompose.importantexamples.customdraw.CustomDrawExampleActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.ModifierLocalActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.OnGloballyPositionedModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.OnPlacedModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.OnRemeasuredModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.ParentDataModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.PointerInputModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.SemanticsModifierActivity
-import com.swein.shjetpackcompose.importantexamples.modifiertest.basic.DrawModifierActivity
-import com.swein.shjetpackcompose.importantexamples.sideeffecttest.DisposableEffectActivity
-import com.swein.shjetpackcompose.importantexamples.sideeffecttest.LaunchedEffectActivity
-import com.swein.shjetpackcompose.importantexamples.sideeffecttest.RememberUpdatedStateActivity
-import com.swein.shjetpackcompose.importantexamples.sideeffecttest.SideEffectActivity
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.swein.framework.utility.debug.ILog
+import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
+import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -112,6 +101,40 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(horizontal = 40.dp)
                         )
+
+                        Button(onClick = {
+                            val manager = ReviewManagerFactory.create(context)
+                            val request = manager.requestReviewFlow()
+                            request.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    // We got the ReviewInfo object
+                                    val reviewInfo = task.result
+                                    ILog.debug("???", reviewInfo.toString())
+
+                                    val flow = manager.launchReviewFlow(this@MainActivity, reviewInfo)
+                                    flow.addOnCompleteListener { result ->
+                                        // The flow has finished. The API does not indicate whether the user
+                                        // reviewed or not, or even whether the review dialog was shown. Thus, no
+                                        // matter the result, we continue our app flow.
+
+                                        ILog.debug("???", result.toString())
+                                    }
+                                }
+                                else {
+                                    // There was some problem, log or handle the error code.
+
+                                    val errorCode = (task.exception as ReviewException).errorCode
+                                    ILog.debug("???", errorCode)
+
+                                    val localizedMessage = (task.exception as ReviewException).localizedMessage
+                                    ILog.debug("???", localizedMessage)
+                                }
+                            }
+                        }) {
+                            Text(
+                                "review"
+                            )
+                        }
 
                         Button(
                             onClick = {
@@ -307,9 +330,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, CameraAndPhotoActivity::class.java).apply {
-//            startActivity(this)
-//        }
+        Intent(this, CameraAndPhotoActivity::class.java).apply {
+            startActivity(this)
+        }
 
 //        Intent(this, NavigationExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -551,11 +574,23 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CustomBottomPasswordKeyboardActivity::class.java).apply {
+//        Intent(this, CustomBottomPasswordKeyboardActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, CustomDrawExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ChildrenMathActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, WebViewAndBottomNavigationBarExampleActivity::class.java).apply {
             startActivity(this)
         }
 
-//        Intent(this, CustomDrawExampleActivity::class.java).apply {
+//        Intent(this, TimelineUIExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 

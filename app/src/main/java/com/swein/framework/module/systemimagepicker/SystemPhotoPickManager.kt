@@ -190,10 +190,11 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
             arrayOf(
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-        ) {
-            runnable(this)
-        }
+                Manifest.permission.READ_EXTERNAL_STORAGE),
+            runnableAfterPermissionGranted = {
+                runnable(this)
+            }
+        )
     }
 
     fun selectPicture(selectedDelegate: (uri: Uri) -> Unit) {

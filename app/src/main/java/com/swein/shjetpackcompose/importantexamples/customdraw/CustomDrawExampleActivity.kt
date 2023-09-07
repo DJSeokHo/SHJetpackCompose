@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.swein.shjetpackcompose.R
 import kotlin.math.roundToInt
 
-class CustomDrawExampleActivity : ComponentActivity() {
+class xCustomDrawExampleActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

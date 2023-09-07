@@ -145,7 +145,7 @@ class CameraAndPhotoActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     private fun BottomActionSheet(state: ModalBottomSheetState, scope: CoroutineScope,
-        onTakeImage: (isCamera: Boolean) -> Unit, modalBottomSheetLayoutScope: @Composable () -> Unit
+                                  onTakeImage: (isCamera: Boolean) -> Unit, modalBottomSheetLayoutScope: @Composable () -> Unit
     ) {
 
         ModalBottomSheetLayout(

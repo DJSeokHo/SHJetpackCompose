@@ -34,7 +34,6 @@ private fun ExampleFour() {
         mutableStateListOf("Coding with cat Android", "Coding with cat iOS")
     }
 
-
     ProcessedNames(names = names) {
         names.add("Coding with cat Python")
     }
@@ -68,7 +67,6 @@ private fun ProcessedNames(names: List<String>, onClick: () -> Unit) {
 
         }
     }
-
 }
 
 
