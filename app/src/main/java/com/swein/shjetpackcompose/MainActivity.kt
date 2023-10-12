@@ -43,7 +43,11 @@ import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
+import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
+import com.swein.shjetpackcompose.examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity
+import com.swein.shjetpackcompose.examples.tagviewexample.TagViewExampleActivity
+import com.swein.shjetpackcompose.examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -330,9 +334,9 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, CameraAndPhotoActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, CameraAndPhotoActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, NavigationExampleActivity::class.java).apply {
 //            startActivity(this)
@@ -586,14 +590,25 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, WebViewAndBottomNavigationBarExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, WebViewAndBottomNavigationBarExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
 //        Intent(this, TimelineUIExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
 
+//        Intent(this, TagViewExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, ViewPagerGalleryExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, InfiniteScrollViewPagerExampleActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.swein.shjetpackcompose.examples.lazycolumexample.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,6 +36,7 @@ object LazyColumnExampleView {
 
     private const val TAG = "LazyColumnExampleView"
 
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
     fun ActivityContentView(viewModel: LazyColumnExampleViewModel) {
 

@@ -26,13 +26,19 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.tagviewexample.TagViewExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity"
             android:exported="false" />
         <activity
             android:name=".examples.childrenmath.ChildrenMathActivity"
-            android:exported="false" />
-        <activity
-            android:name=".importantexamples.customdraw.CustomDrawExampleActivity"
             android:exported="false" />
         <activity
             android:name=".examples.custombottompasswordkeyboard.CustomBottomPasswordKeyboardActivity"

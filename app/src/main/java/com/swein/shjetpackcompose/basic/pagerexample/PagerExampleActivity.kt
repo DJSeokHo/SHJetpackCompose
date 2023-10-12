@@ -68,6 +68,8 @@ class PagerExampleActivity : ComponentActivity() {
             HorizontalPager(
                 modifier = Modifier.height(200.dp),
                 count = 3,
+                itemSpacing = (15).dp,
+                contentPadding = PaddingValues(horizontal = 40.dp),
                 state = pagerState
             ) { page ->
 
