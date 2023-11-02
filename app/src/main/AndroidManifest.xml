@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- access permission to set the wallpaper -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -28,6 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".examples.mviexample.MVIExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.makethreadpool.MakeThreadPoolExampleActivity"
+            android:exported="false" />
         <activity
             android:name=".basic.locationexample2023.LocationExample2023Activity"
             android:exported="false" />

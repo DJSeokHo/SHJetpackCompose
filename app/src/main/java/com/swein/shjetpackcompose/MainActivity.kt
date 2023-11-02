@@ -1,6 +1,7 @@
 package com.swein.shjetpackcompose
 
 import android.app.WallpaperManager
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Toast
@@ -46,6 +47,8 @@ import com.swein.shjetpackcompose.basic.locationexample2023.LocationExample2023A
 import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
 import com.swein.shjetpackcompose.examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity
+import com.swein.shjetpackcompose.examples.makethreadpool.MakeThreadPoolExampleActivity
+import com.swein.shjetpackcompose.examples.mviexample.MVIExampleActivity
 import com.swein.shjetpackcompose.examples.tagviewexample.TagViewExampleActivity
 import com.swein.shjetpackcompose.examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity
 import kotlinx.coroutines.Dispatchers
@@ -613,6 +616,14 @@ class MainActivity : ComponentActivity() {
 //        Intent(this, LocationExample2023Activity::class.java).apply {
 //            startActivity(this)
 //        }
+
+//        Intent(this, MakeThreadPoolExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, MVIExampleActivity::class.java).apply {
+            startActivity(this)
+        }
 
     }
 }
