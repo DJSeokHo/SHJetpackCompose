@@ -1,7 +1,6 @@
 package com.swein.shjetpackcompose
 
 import android.app.WallpaperManager
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Toast
@@ -43,6 +42,7 @@ import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.swein.framework.utility.debug.ILog
 import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
+import com.swein.shjetpackcompose.basic.locationexample2023.LocationExample2023Activity
 import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
 import com.swein.shjetpackcompose.examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity
@@ -606,9 +606,14 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, InfiniteScrollViewPagerExampleActivity::class.java).apply {
-            startActivity(this)
-        }
+//        Intent(this, InfiniteScrollViewPagerExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+//        Intent(this, LocationExample2023Activity::class.java).apply {
+//            startActivity(this)
+//        }
+
     }
 }
 

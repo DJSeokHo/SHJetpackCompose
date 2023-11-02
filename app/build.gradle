@@ -31,7 +31,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "1.4.3"
+        kotlinCompilerExtensionVersion "1.5.3"
     }
 
     kotlin {
@@ -57,17 +57,17 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
-    implementation 'androidx.compose.ui:ui:1.6.0-alpha07'
-    implementation 'androidx.compose.material:material:1.6.0-alpha07'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.6.0-alpha07'
+    implementation 'androidx.compose.ui:ui:1.6.0-alpha08'
+    implementation 'androidx.compose.material:material:1.6.0-alpha08'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.6.0-alpha08'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
     implementation 'androidx.activity:activity-compose:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.6.0-alpha07'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.6.0-alpha07'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.6.0-alpha08'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.6.0-alpha08'
 
     implementation 'io.coil-kt:coil-compose:2.0.0-rc03'
 
@@ -94,18 +94,18 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
     // room ----------------------------------->
-    implementation "androidx.room:room-runtime:2.5.2"
-    ksp "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-runtime:2.6.0"
+    ksp "androidx.room:room-compiler:2.6.0"
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.room:room-ktx:2.6.0"
     // <----------------------------------- room
 
     implementation 'com.google.accompanist:accompanist-swiperefresh:0.20.0'
 
     implementation "androidx.paging:paging-compose:3.2.1"
 
-    implementation "androidx.compose.animation:animation:1.6.0-alpha07"
+    implementation "androidx.compose.animation:animation:1.6.0-alpha08"
 
     // pager
     implementation "com.google.accompanist:accompanist-pager:0.19.0"
@@ -139,4 +139,9 @@ dependencies {
 
     // For Kotlin users also import the Kotlin extensions library for Play In-App Review:
     implementation("com.google.android.play:review-ktx:2.0.1")
+
+
+    // gps
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
 }
