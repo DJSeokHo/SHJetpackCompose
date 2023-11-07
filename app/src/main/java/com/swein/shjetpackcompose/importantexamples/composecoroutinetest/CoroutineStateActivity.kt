@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -49,7 +50,7 @@ class CoroutineStateActivity : ComponentActivity() {
             }
 
             val age = remember {
-                mutableStateOf(18)
+                mutableIntStateOf(18)
             }
 
             val flow = snapshotFlow {
@@ -58,7 +59,7 @@ class CoroutineStateActivity : ComponentActivity() {
 
             // 也可以创建多个值的flow
             val flows = snapshotFlow {
-                "${name.value} ${age.value}"
+                "${name.value} ${age.intValue}"
             }
 
             LaunchedEffect(key1 = Unit, block = {
@@ -92,7 +93,7 @@ class CoroutineStateActivity : ComponentActivity() {
                 }
 
                 Button(onClick = {
-                    age.value = 36
+                    age.intValue = 36
                 }) {
                     Text("button")
                 }

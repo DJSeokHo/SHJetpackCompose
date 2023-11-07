@@ -28,6 +28,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".examples.mviexampletest.MVIExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".examples.mvitodolistexample.MVIExampleToDoListActivity"
+            android:exported="false" />
+        <activity
             android:name=".examples.mviexample.MVIExampleActivity"
             android:exported="false" />
         <activity

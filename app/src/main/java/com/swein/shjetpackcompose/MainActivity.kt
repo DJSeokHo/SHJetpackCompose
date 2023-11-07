@@ -48,7 +48,7 @@ import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
 import com.swein.shjetpackcompose.examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity
 import com.swein.shjetpackcompose.examples.makethreadpool.MakeThreadPoolExampleActivity
-import com.swein.shjetpackcompose.examples.mviexample.MVIExampleActivity
+import com.swein.shjetpackcompose.examples.mviexampletest.MVIExampleActivity
 import com.swein.shjetpackcompose.examples.tagviewexample.TagViewExampleActivity
 import com.swein.shjetpackcompose.examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity
 import kotlinx.coroutines.Dispatchers
