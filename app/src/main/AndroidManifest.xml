@@ -28,6 +28,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".basic.boxwithconstraintsexample.BoxWithConstraintsActivity"
+            android:exported="false" />
+        <activity
             android:name=".examples.mviexampletest.MVIExampleActivity"
             android:exported="false" />
         <activity

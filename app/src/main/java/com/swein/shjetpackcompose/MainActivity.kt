@@ -42,6 +42,7 @@ import coil.size.Size
 import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.swein.framework.utility.debug.ILog
+import com.swein.shjetpackcompose.basic.boxwithconstraintsexample.BoxWithConstraintsActivity
 import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
 import com.swein.shjetpackcompose.basic.locationexample2023.LocationExample2023Activity
 import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
@@ -621,7 +622,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, MVIExampleActivity::class.java).apply {
+//        Intent(this, MVIExampleActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, BoxWithConstraintsActivity::class.java).apply {
             startActivity(this)
         }
 
