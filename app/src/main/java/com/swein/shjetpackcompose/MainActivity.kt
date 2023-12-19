@@ -52,6 +52,7 @@ import com.swein.shjetpackcompose.examples.makethreadpool.MakeThreadPoolExampleA
 import com.swein.shjetpackcompose.examples.mviexampletest.MVIExampleActivity
 import com.swein.shjetpackcompose.examples.tagviewexample.TagViewExampleActivity
 import com.swein.shjetpackcompose.examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity
+import com.swein.shjetpackcompose.importantexamples.animation.ComposeAnimationActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -626,7 +627,11 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-        Intent(this, BoxWithConstraintsActivity::class.java).apply {
+//        Intent(this, BoxWithConstraintsActivity::class.java).apply {
+//            startActivity(this)
+//        }
+
+        Intent(this, ComposeAnimationActivity::class.java).apply {
             startActivity(this)
         }
 

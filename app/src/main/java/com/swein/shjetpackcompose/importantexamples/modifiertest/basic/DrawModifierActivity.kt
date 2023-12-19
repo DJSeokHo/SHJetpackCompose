@@ -90,7 +90,7 @@ class DrawModifierActivity : ComponentActivity() {
 
                 Box(
                     // DrawModifier, LayoutModifier 同时使用的情况
-                    // 从右(下)到左(上)便利，所以背景色设置给了40dp的LayoutModifier
+                    // 从右(下)到左(上)遍历，所以背景色设置给了40dp的LayoutModifier
                     // 也就是说 DrawModifier 无论多少个，总是随着右边的那个LayoutModifier
                     // 比如这里的两个background就是修饰40dp的LayoutModifier
                     // 而红色背景是修饰80dp的LayoutModifier
