@@ -595,10 +595,6 @@ class MainActivity : ComponentActivity() {
 //            startActivity(this)
 //        }
 
-//        Intent(this, WebViewAndBottomNavigationBarExampleActivity::class.java).apply {
-//            startActivity(this)
-//        }
-
 //        Intent(this, TimelineUIExampleActivity::class.java).apply {
 //            startActivity(this)
 //        }
@@ -630,11 +626,14 @@ class MainActivity : ComponentActivity() {
 //        Intent(this, BoxWithConstraintsActivity::class.java).apply {
 //            startActivity(this)
 //        }
+//
+//        Intent(this, ComposeAnimationActivity::class.java).apply {
+//            startActivity(this)
+//        }
 
-        Intent(this, ComposeAnimationActivity::class.java).apply {
+        Intent(this, WebViewAndBottomNavigationBarExampleActivity::class.java).apply {
             startActivity(this)
         }
-
     }
 }
 

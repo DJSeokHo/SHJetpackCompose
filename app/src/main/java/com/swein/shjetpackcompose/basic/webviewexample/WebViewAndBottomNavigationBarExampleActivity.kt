@@ -97,7 +97,8 @@ private fun ContentView(webViewHolder: SimpleWebViewHolder?) {
 //                                    it.webView
 
                                     SimpleWebViewHolder(context).apply {
-                                        loadUrl("https://www.google.com")
+//                                        loadUrl("https://www.google.com")
+                                        loadUrl("https://wala-land.com/")
                                     }.webView
                                 },
                                 update = { view ->
