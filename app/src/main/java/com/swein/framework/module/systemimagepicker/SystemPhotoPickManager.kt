@@ -62,7 +62,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
     private var takeBitmapDelegate: ((bitmap: Bitmap) -> Unit)? = null
 
     private var tempImageFilePath = ""
-    private var tempImageUri: Uri? = null
+    private var tempImageUri: Uri = Uri.EMPTY
 
     private var shouldCompress = false
 
@@ -73,7 +73,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
             if (success) {
 
                 takeUriDelegate?.let { takeUriDelegate ->
-                    takeUriDelegate(tempImageUri!!)
+                    takeUriDelegate(tempImageUri)
                     return@registerForActivityResult
                 }
 
@@ -97,7 +97,7 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
                     )
                     val exifDegree: Int = exifOrientationToDegrees(exifOrientation)
 
-                    takeBitmapDelegate(rotateImage(BitmapFactory.decodeStream(componentActivity.contentResolver.openInputStream(tempImageUri!!)), exifDegree.toFloat()))
+                    takeBitmapDelegate(rotateImage(BitmapFactory.decodeStream(componentActivity.contentResolver.openInputStream(tempImageUri)), exifDegree.toFloat()))
                 }
 
             }
@@ -134,10 +134,6 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
     private fun registerSelectMultiplePicture(): ActivityResultLauncher<String> {
 
         return componentActivity.registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uriList ->
-
-            if (uriList == null) {
-                return@registerForActivityResult
-            }
 
             if (uriList.isEmpty()) {
                 return@registerForActivityResult
@@ -236,7 +232,6 @@ class SystemPhotoPickManager(private val componentActivity: ComponentActivity) {
         )
 
         takePicture.launch(tempImageUri)
-
     }
 
     fun takePictureWithUri(takeUriDelegate: (uri: Uri) -> Unit) {
