@@ -2,6 +2,7 @@ package com.swein.shjetpackcompose.basic.lazyverticalgridexample.headerandfooter
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -15,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -239,11 +241,10 @@ private fun GridListHeaderView(
             .wrapContentHeight()
             .padding(horizontal = 16.dp, vertical = 5.dp)
             .clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(
-                    bounded = true,
-                    color = Color.Black
-                ),
+                interactionSource = remember {
+                    MutableInteractionSource()
+                },
+                indication = LocalIndication.current,
                 onClick = onClick
             ),
         shape = RoundedCornerShape(8.dp),
@@ -282,11 +283,10 @@ fun GridListFooterView(
             .wrapContentHeight()
             .padding(horizontal = 16.dp, vertical = 5.dp)
             .clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(
-                    bounded = true,
-                    color = Color.Black
-                ),
+                interactionSource = remember {
+                    MutableInteractionSource()
+                },
+                indication = LocalIndication.current,
                 onClick = onClick
             ),
         shape = RoundedCornerShape(8.dp),
@@ -334,11 +334,10 @@ private fun GridListItemView(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .clickable(
-                    interactionSource = MutableInteractionSource(),
-                    indication = rememberRipple(
-                        bounded = true,
-                        color = Color.Black
-                    ),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
+                    indication = LocalIndication.current,
                     onClick = {
                         onItemClick(data)
                     }

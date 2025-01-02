@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -390,8 +391,8 @@ private fun ContentView(
                     modifier = Modifier
                         .fillMaxSize()
                         .clickable(
-                            indication = null,
-                            interactionSource = MutableInteractionSource(),
+                            interactionSource = null,
+                            indication = LocalIndication.current,
                             onClick = { }
                         ),
                     color = Color.Black.copy(alpha = 0.7f),

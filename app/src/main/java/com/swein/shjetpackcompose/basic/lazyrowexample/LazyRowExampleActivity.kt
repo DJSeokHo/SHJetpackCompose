@@ -14,6 +14,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -152,8 +153,10 @@ class LazyRowExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = MutableInteractionSource(),
-                    indication = rememberRipple(bounded = true, color = Color.Black),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
+                    indication = LocalIndication.current,
                     onClick = onItemClick
                 ),
             backgroundColor = Color.DarkGray,

@@ -4,19 +4,33 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -24,7 +38,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.R
 import com.swein.shjetpackcompose.application.ui.theme.ColorEEEEEE
 
@@ -66,6 +79,9 @@ class CardExampleActivity : ComponentActivity() {
     private fun CardExample1() {
 
         val context = LocalContext.current
+        val interactionSource = remember {
+            MutableInteractionSource()
+        }
 
         Card(
             modifier = Modifier
@@ -75,8 +91,8 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                    indication = RippleWrapper.CreateIndication(color = Color.Red),
+                    interactionSource = interactionSource,
+                    indication = LocalIndication.current,
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 1", Toast.LENGTH_SHORT)
@@ -99,6 +115,9 @@ class CardExampleActivity : ComponentActivity() {
     private fun CardExample2() {
 
         val context = LocalContext.current
+        val interactionSource = remember {
+            MutableInteractionSource()
+        }
 
         Card(
             modifier = Modifier
@@ -108,8 +127,8 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                    indication = RippleWrapper.CreateIndication(color = Color.Red),
+                    interactionSource = interactionSource,
+                    indication = LocalIndication.current,
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 2", Toast.LENGTH_SHORT)
@@ -153,8 +172,10 @@ class CardExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                    indication = RippleWrapper.CreateIndication(color = Color.Red),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
+                    indication = LocalIndication.current,
                     onClick = {
                         Toast
                             .makeText(context, "Card Example 3", Toast.LENGTH_SHORT)

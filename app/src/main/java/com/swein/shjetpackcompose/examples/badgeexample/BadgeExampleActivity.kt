@@ -5,13 +5,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,7 +34,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.swein.shjetpackcompose.R
 
 class BadgeExampleActivity : ComponentActivity() {
@@ -46,7 +61,7 @@ private fun ContentView() {
     }
 
     val badgeNumber = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
     Surface(
@@ -102,7 +117,7 @@ private fun ContentView() {
 //            }
 
             BadgeNumberWrapperView(
-                badgeNumber = badgeNumber.value,
+                badgeNumber = badgeNumber.intValue,
                 contentView = {
 
                     Image(
@@ -123,7 +138,7 @@ private fun ContentView() {
             Spacer(modifier = Modifier.padding(vertical = 20.dp))
 
             BadgeNumberWrapperView(
-                badgeNumber = badgeNumber.value,
+                badgeNumber = badgeNumber.intValue,
                 contentView = {
 
                     IconButton(
@@ -156,7 +171,7 @@ private fun ContentView() {
 
             Button(
                 onClick = {
-                    badgeNumber.value++
+                    badgeNumber.intValue++
                 },
                 colors = ButtonDefaults.buttonColors(contentColor = Color.White, backgroundColor = Color.Black)
             ) {

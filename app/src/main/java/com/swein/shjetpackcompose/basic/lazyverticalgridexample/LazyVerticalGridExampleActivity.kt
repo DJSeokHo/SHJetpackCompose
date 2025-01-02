@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -16,6 +17,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -82,8 +84,10 @@ class LazyVerticalGridExampleActivity : ComponentActivity() {
                     /*
                     this is custom ripple effect
                      */
-                    interactionSource = MutableInteractionSource(),
-                    indication = rememberRipple(bounded = true, color = Color.Black),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
+                    indication = LocalIndication.current,
                     onClick = {
                         onItemClick(testData)
                     }

@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +26,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.application.ui.theme.Color666666
 
 class TopAppBarExampleActivity : ComponentActivity() {
@@ -74,8 +76,10 @@ class TopAppBarExampleActivity : ComponentActivity() {
                             .padding(vertical = 10.dp)
                             .clip(CircleShape)
                             .clickable(
-                                interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                                indication = RippleWrapper.CreateIndication(true, Color.Black),
+                                interactionSource = remember {
+                                    MutableInteractionSource()
+                                },
+                                indication = LocalIndication.current,
                                 onClick = onImageClick
                             )
                     )

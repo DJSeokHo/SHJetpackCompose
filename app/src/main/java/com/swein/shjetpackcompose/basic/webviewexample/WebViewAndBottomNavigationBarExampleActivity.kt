@@ -3,8 +3,10 @@ package com.swein.shjetpackcompose.basic.webviewexample
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.swein.framework.compose.ripple.RippleWrapper
 
 class WebViewAndBottomNavigationBarExampleActivity : AppCompatActivity() {
 
@@ -195,8 +196,10 @@ private fun BottomNavigationBarItemView(
         modifier = modifier
             .wrapContentHeight()
             .clickable(
-                interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                indication = RippleWrapper.CreateIndication(),
+                interactionSource = remember {
+                    MutableInteractionSource()
+                },
+                indication = LocalIndication.current,
                 onClick = {
                     onSelect()
                 }

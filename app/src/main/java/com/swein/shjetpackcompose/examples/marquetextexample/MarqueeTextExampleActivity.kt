@@ -4,10 +4,30 @@ import android.graphics.Typeface
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.MarqueeAnimationMode
+import androidx.compose.foundation.MarqueeSpacing
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
@@ -61,7 +81,7 @@ private fun ContentView() {
                 modifier = Modifier.basicMarquee(
                     iterations = Int.MAX_VALUE,
                     animationMode = MarqueeAnimationMode.Immediately,
-                    delayMillis = 0,
+                    initialDelayMillis = 0,
                     spacing = MarqueeSpacing(10.dp),
                     velocity = 50.dp
                 ),
@@ -77,7 +97,7 @@ private fun ContentView() {
                     .basicMarquee(
                         iterations = Int.MAX_VALUE,
                         animationMode = MarqueeAnimationMode.Immediately,
-                        delayMillis = 0,
+                        initialDelayMillis = 0,
                         spacing = MarqueeSpacing(30.dp),
                         velocity = 50.dp
                     ),

@@ -1,7 +1,12 @@
 package com.swein.shjetpackcompose.examples.viewholderexample
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -21,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
-import com.swein.framework.compose.ripple.RippleWrapper
 
 object ToolBarView {
 
@@ -50,25 +54,21 @@ object ToolBarView {
 
                 if (startImageResource != -1) {
 
-                    RippleWrapper.Ripple {
+                    IconButton(
+                        onClick = {
+                            onStartClick?.let {
+                                it()
+                            }
+                        },
+                        modifier = modifier.layoutId("startImage").clip(CircleShape).background(Color.Transparent),
 
-                        IconButton(
-                            onClick = {
-                                onStartClick?.let {
-                                    it()
-                                }
-                            },
-                            modifier = modifier.layoutId("startImage").clip(CircleShape).background(Color.Transparent),
-
-                            ) {
-                            Icon(
-                                painter = painterResource(id = startImageResource),
-                                contentDescription = "print",
-                                modifier = modifier.fillMaxSize().padding(8.dp),
-                                tint = Color.White
-                            )
-                        }
-
+                        ) {
+                        Icon(
+                            painter = painterResource(id = startImageResource),
+                            contentDescription = "print",
+                            modifier = modifier.fillMaxSize().padding(8.dp),
+                            tint = Color.White
+                        )
                     }
                 }
 
@@ -86,27 +86,22 @@ object ToolBarView {
 
                 if (endImageResource != -1) {
 
-                    RippleWrapper.Ripple {
+                    IconButton(
+                        onClick = {
+                            onEndClick?.let {
+                                it()
+                            }
+                        },
+                        modifier = modifier.layoutId("endImage").clip(CircleShape).background(Color.Transparent),
 
-                        IconButton(
-                            onClick = {
-                                onEndClick?.let {
-                                    it()
-                                }
-                            },
-                            modifier = modifier.layoutId("endImage").clip(CircleShape).background(Color.Transparent),
-
-                            ) {
-                            Icon(
-                                painter = painterResource(id = endImageResource),
-                                contentDescription = "print",
-                                modifier = modifier.fillMaxSize().padding(8.dp),
-                                tint = Color.White
-                            )
-                        }
-
+                        ) {
+                        Icon(
+                            painter = painterResource(id = endImageResource),
+                            contentDescription = "print",
+                            modifier = modifier.fillMaxSize().padding(8.dp),
+                            tint = Color.White
+                        )
                     }
-
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -119,7 +120,9 @@ class TabRowExampleActivity : ComponentActivity() {
                             }
                         )
                     },
-                    interactionSource = MutableInteractionSource(),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
                     selectedContentColor = Color.White,
                     unselectedContentColor = Color.LightGray
                 )
@@ -159,7 +162,9 @@ class TabRowExampleActivity : ComponentActivity() {
                     icon = {
                         Icon(imageVector = icon, contentDescription = null)
                     },
-                    interactionSource = MutableInteractionSource(),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
                     selectedContentColor = Color.White,
                     unselectedContentColor = Color.LightGray
                 )
@@ -211,7 +216,9 @@ class TabRowExampleActivity : ComponentActivity() {
                     icon = {
                         Icon(imageVector = pair.second, contentDescription = null)
                     },
-                    interactionSource = MutableInteractionSource(),
+                    interactionSource = remember {
+                        MutableInteractionSource()
+                    },
                     selectedContentColor = Color.White,
                     unselectedContentColor = Color.LightGray
                 )

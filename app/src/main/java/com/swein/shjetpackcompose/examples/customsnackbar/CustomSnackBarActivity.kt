@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -190,7 +191,9 @@ fun CustomSnackBar(
                     modifier = modifier
                         .size(30.dp)
                         .clickable(
-                            interactionSource = MutableInteractionSource(),
+                            interactionSource = remember {
+                                MutableInteractionSource()
+                            },
                             indication = null,
                             onClick = onAction
                         )

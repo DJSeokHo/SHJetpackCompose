@@ -15,13 +15,30 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,17 +59,7 @@ import coil.size.Size
 import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.swein.framework.utility.debug.ILog
-import com.swein.shjetpackcompose.basic.boxwithconstraintsexample.BoxWithConstraintsActivity
-import com.swein.shjetpackcompose.basic.cameraandphoto.CameraAndPhotoActivity
-import com.swein.shjetpackcompose.basic.locationexample2023.LocationExample2023Activity
-import com.swein.shjetpackcompose.basic.pagerexample.PagerExampleActivity
 import com.swein.shjetpackcompose.basic.webviewexample.WebViewAndBottomNavigationBarExampleActivity
-import com.swein.shjetpackcompose.examples.infinitescrollviewpagerexample.InfiniteScrollViewPagerExampleActivity
-import com.swein.shjetpackcompose.examples.makethreadpool.MakeThreadPoolExampleActivity
-import com.swein.shjetpackcompose.examples.mviexampletest.MVIExampleActivity
-import com.swein.shjetpackcompose.examples.tagviewexample.TagViewExampleActivity
-import com.swein.shjetpackcompose.examples.viewpagergalleryexample.ViewPagerGalleryExampleActivity
-import com.swein.shjetpackcompose.importantexamples.animation.ComposeAnimationActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -642,6 +649,7 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun ColorPicker(onColorSelected: (Color) -> Unit) {
+
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val screenWidthInPx = with(LocalDensity.current) { screenWidth.toPx() }
     var activeColor by remember { mutableStateOf(Red) }

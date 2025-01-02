@@ -5,13 +5,16 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,7 +27,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.swein.framework.compose.ripple.RippleWrapper
 import com.swein.shjetpackcompose.R
 
 class SurfaceExampleActivity : ComponentActivity() {
@@ -82,8 +84,10 @@ class SurfaceExampleActivity : ComponentActivity() {
             Column(
                 modifier = Modifier
                     .clickable(
-                        interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                        indication = RippleWrapper.CreateIndication(true, Color.Red),
+                        interactionSource = remember {
+                            MutableInteractionSource()
+                        },
+                        indication = LocalIndication.current,
                         onClick = {
                             Toast
                                 .makeText(context, "surface example 1", Toast.LENGTH_SHORT)
@@ -136,8 +140,10 @@ class SurfaceExampleActivity : ComponentActivity() {
             Row(
                 modifier = Modifier
                     .clickable(
-                        interactionSource = RippleWrapper.CreateMutableInteractionSource(),
-                        indication = RippleWrapper.CreateIndication(true, Color.Cyan),
+                        interactionSource = remember {
+                            MutableInteractionSource()
+                        },
+                        indication = LocalIndication.current,
                         onClick = {
                             Toast
                                 .makeText(context, "surface example 2", Toast.LENGTH_SHORT)
